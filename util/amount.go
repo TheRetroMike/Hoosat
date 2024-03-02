@@ -31,7 +31,7 @@ const (
 
 // String returns the unit as a string. For recognized units, the SI
 // prefix is used, or "Sompi" for the base unit. For all unrecognized
-// units, "1eN HSAT" is returned, where N is the AmountUnit.
+// units, "1eN HST" is returned, where N is the AmountUnit.
 func (u AmountUnit) String() string {
 	switch u {
 	case AmountMegaHSAT:
@@ -39,7 +39,7 @@ func (u AmountUnit) String() string {
 	case AmountKiloHSAT:
 		return "kHSAT"
 	case AmountHSAT:
-		return "HSAT"
+		return "HST"
 	case AmountMilliHSAT:
 		return "mHSAT"
 	case AmountMicroHSAT:
@@ -47,7 +47,7 @@ func (u AmountUnit) String() string {
 	case AmountSompi:
 		return "Sompi"
 	default:
-		return "1e" + strconv.FormatInt(int64(u), 10) + " HSAT"
+		return "1e" + strconv.FormatInt(int64(u), 10) + " HST"
 	}
 }
 
@@ -71,10 +71,10 @@ func round(f float64) Amount {
 // does not check that the amount is within the total amount of hoosat
 // producible as f may not refer to an amount at a single moment in time.
 //
-// NewAmount is for specifically for converting HSAT to Sompi.
+// NewAmount is for specifically for converting HST to Sompi.
 // For creating a new Amount with an int64 value which denotes a quantity of Sompi,
 // do a simple type conversion from type int64 to Amount.
-// TODO: Refactor NewAmount. When amounts are more than 1e9 HSAT, the precision
+// TODO: Refactor NewAmount. When amounts are more than 1e9 HST, the precision
 // can be higher than one sompi (1e9 and 1e9+1e-8 will result as the same number)
 func NewAmount(f float64) (Amount, error) {
 	// The amount is only considered invalid if it cannot be represented

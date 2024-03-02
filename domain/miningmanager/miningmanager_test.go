@@ -930,7 +930,7 @@ func createTransactionWithUTXOEntry(t *testing.T, i int, daaScore uint64) *exter
 		SignatureScript:  signatureScript,
 		Sequence:         constants.MaxTxInSequenceNum,
 		UTXOEntry: utxo.NewUTXOEntry(
-			100000000, // 1 HSAT
+			100000000, // 1 HST
 			scriptPublicKey,
 			true,
 			daaScore),
