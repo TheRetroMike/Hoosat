@@ -3,13 +3,13 @@ package transactionvalidator
 import (
 	"math"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/ruleerrors"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/transactionhelper"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
 	"github.com/pkg/errors"
 )
 

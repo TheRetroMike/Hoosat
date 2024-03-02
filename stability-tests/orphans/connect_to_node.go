@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/standalone"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/standalone"
 )
 
 func connectToNode() *standalone.Routes {

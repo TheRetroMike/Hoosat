@@ -4,14 +4,14 @@ import (
 	"math/big"
 	"sync"
 
-	"github.com/kaspanet/kaspad/util/mstime"
+	"github.com/Hoosat-Oy/hoosatd/util/mstime"
 
-	"github.com/kaspanet/kaspad/domain/consensus/database"
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/ruleerrors"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/util/staging"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/database"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/hoosatd/util/staging"
 	"github.com/pkg/errors"
 )
 

@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
-	"github.com/kaspanet/kaspad/domain/consensus"
 	"os/exec"
 	"strings"
 	"sync/atomic"
 	"syscall"
 	"time"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/stability-tests/common/mine"
-	"github.com/kaspanet/kaspad/stability-tests/common/rpc"
-	"github.com/kaspanet/kaspad/util"
-	"github.com/kaspanet/kaspad/util/panics"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
+
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/mine"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/rpc"
+	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
 	"github.com/pkg/errors"
 )
 

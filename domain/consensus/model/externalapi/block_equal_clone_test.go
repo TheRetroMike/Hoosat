@@ -1,11 +1,12 @@
 package externalapi_test
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/blockheader"
 	"math/big"
 	"reflect"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/blockheader"
 )
 
 type blockToCompare struct {

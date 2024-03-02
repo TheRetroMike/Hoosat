@@ -5,10 +5,11 @@
 package util
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/pkg/errors"
 	"math"
 	"strconv"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/pkg/errors"
 )
 
 // AmountUnit describes a method of converting an Amount to something

@@ -3,21 +3,21 @@ package server
 import (
 	"testing"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/serialization"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/libkaspawallet/serialization"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/keys"
-	"github.com/kaspanet/kaspad/util/txmass"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/keys"
+	"github.com/Hoosat-Oy/hoosatd/util/txmass"
 
-	"github.com/kaspanet/kaspad/domain/dagconfig"
+	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet"
-	"github.com/kaspanet/kaspad/domain/consensus"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/libkaspawallet"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
 )
 
 func TestEstimateMassAfterSignatures(t *testing.T) {

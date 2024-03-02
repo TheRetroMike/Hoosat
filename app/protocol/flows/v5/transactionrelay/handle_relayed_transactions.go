@@ -1,16 +1,16 @@
 package transactionrelay
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	"github.com/kaspanet/kaspad/app/protocol/flowcontext"
-	"github.com/kaspanet/kaspad/app/protocol/protocolerrors"
-	"github.com/kaspanet/kaspad/domain"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/miningmanager/mempool"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flowcontext"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/hoosatd/domain"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/hoosatd/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

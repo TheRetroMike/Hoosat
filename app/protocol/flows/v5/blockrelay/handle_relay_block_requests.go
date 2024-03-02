@@ -1,11 +1,11 @@
 package blockrelay
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	"github.com/kaspanet/kaspad/app/protocol/protocolerrors"
-	"github.com/kaspanet/kaspad/domain"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	peerpkg "github.com/Hoosat-Oy/hoosatd/app/protocol/peer"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/hoosatd/domain"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

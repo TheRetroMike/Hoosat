@@ -1,12 +1,13 @@
 package mempoollimits
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/network/rpcclient"
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/kaspanet/kaspad/util/profiling"
 	"os"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/Hoosat-Oy/hoosatd/util/profiling"
 )
 
 const (

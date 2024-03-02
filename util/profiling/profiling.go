@@ -2,19 +2,21 @@ package profiling
 
 import (
 	"fmt"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
 	"net"
 	"net/http"
 	"os"
 	"path/filepath"
 	"time"
 
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+
 	// Required for profiling
 	_ "net/http/pprof"
 
-	"github.com/kaspanet/kaspad/util/panics"
 	"runtime"
 	"runtime/pprof"
+
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
 )
 
 // heapDumpFileName is the name of the heap dump file. We want every run to have its own

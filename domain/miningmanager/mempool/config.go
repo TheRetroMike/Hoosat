@@ -3,11 +3,11 @@ package mempool
 import (
 	"time"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
 
-	"github.com/kaspanet/kaspad/util"
+	"github.com/Hoosat-Oy/hoosatd/util"
 
-	"github.com/kaspanet/kaspad/domain/dagconfig"
+	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
 )
 
 const (

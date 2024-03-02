@@ -1,8 +1,9 @@
 package utxo
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
 )
 
 func TestUTXOEntry_Equal(t *testing.T) {

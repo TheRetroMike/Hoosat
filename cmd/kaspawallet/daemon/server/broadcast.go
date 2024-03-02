@@ -2,14 +2,15 @@ package server
 
 import (
 	"context"
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/daemon/pb"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/serialization"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/infrastructure/network/rpcclient"
-	"github.com/pkg/errors"
 	"time"
+
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/daemon/pb"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/libkaspawallet"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/libkaspawallet/serialization"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient"
+	"github.com/pkg/errors"
 )
 
 func (s *server) Broadcast(_ context.Context, request *pb.BroadcastRequest) (*pb.BroadcastResponse, error) {

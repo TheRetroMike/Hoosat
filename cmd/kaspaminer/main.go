@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kaspanet/kaspad/util"
+	"github.com/Hoosat-Oy/hoosatd/util"
 
-	"github.com/kaspanet/kaspad/version"
+	"github.com/Hoosat-Oy/hoosatd/version"
 
 	"github.com/pkg/errors"
 
 	_ "net/http/pprof"
 
-	"github.com/kaspanet/kaspad/infrastructure/os/signal"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/kaspanet/kaspad/util/profiling"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/signal"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/Hoosat-Oy/hoosatd/util/profiling"
 )
 
 func main() {

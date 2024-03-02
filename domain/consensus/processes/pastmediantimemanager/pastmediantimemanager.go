@@ -3,10 +3,10 @@ package pastmediantimemanager
 import (
 	"sort"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/sorters"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/sorters"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 

@@ -1,12 +1,13 @@
 package integration
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/config"
 	"runtime"
 	"testing"
 	"time"
 
-	"github.com/kaspanet/kaspad/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient"
 )
 
 const rpcTimeout = 10 * time.Second

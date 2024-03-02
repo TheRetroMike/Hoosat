@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
 
-	"github.com/kaspanet/kaspad/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/hoosatd/domain/miningmanager/mempool"
 
-	"github.com/kaspanet/kaspad/app/protocol"
-	"github.com/kaspanet/kaspad/app/rpc"
-	"github.com/kaspanet/kaspad/domain"
-	"github.com/kaspanet/kaspad/domain/consensus"
-	"github.com/kaspanet/kaspad/domain/utxoindex"
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	infrastructuredatabase "github.com/kaspanet/kaspad/infrastructure/db/database"
-	"github.com/kaspanet/kaspad/infrastructure/network/addressmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/connmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/id"
-	"github.com/kaspanet/kaspad/util/panics"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol"
+	"github.com/Hoosat-Oy/hoosatd/app/rpc"
+	"github.com/Hoosat-Oy/hoosatd/domain"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
+	"github.com/Hoosat-Oy/hoosatd/domain/utxoindex"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	infrastructuredatabase "github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/id"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
 )
 
 // ComponentManager is a wrapper for all the kaspad services

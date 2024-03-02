@@ -7,17 +7,17 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	"github.com/kaspanet/kaspad/infrastructure/db/database"
-	"github.com/kaspanet/kaspad/infrastructure/db/database/ldb"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/infrastructure/os/execenv"
-	"github.com/kaspanet/kaspad/infrastructure/os/limits"
-	"github.com/kaspanet/kaspad/infrastructure/os/signal"
-	"github.com/kaspanet/kaspad/infrastructure/os/winservice"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/kaspanet/kaspad/util/profiling"
-	"github.com/kaspanet/kaspad/version"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/execenv"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/limits"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/signal"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/winservice"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/Hoosat-Oy/hoosatd/util/profiling"
+	"github.com/Hoosat-Oy/hoosatd/version"
 )
 
 const (

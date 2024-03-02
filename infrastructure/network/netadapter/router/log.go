@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/logger"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
 )
 
 var log = logger.RegisterSubSystem("ROUT")

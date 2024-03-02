@@ -2,11 +2,12 @@ package util_test
 
 import (
 	"fmt"
-	"github.com/kaspanet/kaspad/util/difficulty"
 	"math"
 	"math/big"
 
-	"github.com/kaspanet/kaspad/util"
+	"github.com/Hoosat-Oy/hoosatd/util/difficulty"
+
+	"github.com/Hoosat-Oy/hoosatd/util"
 )
 
 func ExampleAmount() {

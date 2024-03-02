@@ -3,10 +3,10 @@ package rpc
 import (
 	"time"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient"
 
-	"github.com/kaspanet/kaspad/domain/dagconfig"
+	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
 )
 
 const defaultRPCServer = "localhost"

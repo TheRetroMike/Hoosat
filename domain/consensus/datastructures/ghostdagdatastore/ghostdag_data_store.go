@@ -1,12 +1,12 @@
 package ghostdagdatastore
 
 import (
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/database/serialization"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/lrucacheghostdagdata"
+	"github.com/Hoosat-Oy/hoosatd/util/staging"
 	"github.com/golang/protobuf/proto"
-	"github.com/kaspanet/kaspad/domain/consensus/database/serialization"
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/lrucacheghostdagdata"
-	"github.com/kaspanet/kaspad/util/staging"
 )
 
 var ghostdagDataBucketName = []byte("block-ghostdag-data")

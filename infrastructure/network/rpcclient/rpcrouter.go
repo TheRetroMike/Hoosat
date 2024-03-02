@@ -1,8 +1,8 @@
 package rpcclient
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	routerpkg "github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	routerpkg "github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
 )
 
 type rpcRouter struct {

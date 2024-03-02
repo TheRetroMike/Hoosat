@@ -5,11 +5,12 @@
 package util_test
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
 	"math"
 	"testing"
 
-	. "github.com/kaspanet/kaspad/util"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+
+	. "github.com/Hoosat-Oy/hoosatd/util"
 )
 
 func TestAmountCreation(t *testing.T) {

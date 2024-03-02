@@ -1,11 +1,12 @@
 package coinbasemanager
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/dagconfig"
 	"strconv"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
 )
 
 func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {

@@ -1,11 +1,12 @@
 package utxoindex
 
 import (
-	"github.com/kaspanet/kaspad/domain"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/infrastructure/db/database"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
 	"sync"
+
+	"github.com/Hoosat-Oy/hoosatd/domain"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
 )
 
 // UTXOIndex maintains an index between transaction scriptPublicKeys

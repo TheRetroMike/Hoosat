@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
 	"github.com/pkg/errors"
 )
 

@@ -4,11 +4,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/stability-tests/common"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
 
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
 	"github.com/jessevdk/go-flags"
-	"github.com/kaspanet/kaspad/infrastructure/config"
 )
 
 const (

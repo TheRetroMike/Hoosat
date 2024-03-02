@@ -1,11 +1,11 @@
 package flowcontext
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	"github.com/kaspanet/kaspad/infrastructure/network/connmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
+	peerpkg "github.com/Hoosat-Oy/hoosatd/app/protocol/peer"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
 	"github.com/pkg/errors"
 )
 

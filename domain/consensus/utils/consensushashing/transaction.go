@@ -3,12 +3,12 @@ package consensushashing
 import (
 	"io"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/serialization"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/serialization"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/hashes"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/transactionhelper"
-	"github.com/kaspanet/kaspad/util/binaryserializer"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/hashes"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/hoosatd/util/binaryserializer"
 	"github.com/pkg/errors"
 )
 

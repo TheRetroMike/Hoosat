@@ -3,16 +3,16 @@ package standalone
 import (
 	"sync"
 
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	"github.com/kaspanet/kaspad/util/mstime"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
+	"github.com/Hoosat-Oy/hoosatd/util/mstime"
 
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/id"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/id"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
 
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
 
 	"github.com/pkg/errors"
 )

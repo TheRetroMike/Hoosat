@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
 
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
 )
 
 // routerInitializerForTest returns new RouterInitializer which simply sets

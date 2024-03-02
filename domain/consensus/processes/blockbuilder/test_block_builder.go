@@ -2,17 +2,18 @@ package blockbuilder
 
 import (
 	"encoding/binary"
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/model/testapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/blockheader"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/transactionhelper"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/pkg/errors"
 	"math/big"
 	"sort"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/testapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/blockheader"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/pkg/errors"
 )
 
 type testBlockBuilder struct {

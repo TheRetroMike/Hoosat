@@ -1,10 +1,10 @@
 package consensusstatestore
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/utxolrucache"
-	"github.com/kaspanet/kaspad/util/staging"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxolrucache"
+	"github.com/Hoosat-Oy/hoosatd/util/staging"
 )
 
 var importingPruningPointUTXOSetKeyName = []byte("importing-pruning-point-utxo-set")

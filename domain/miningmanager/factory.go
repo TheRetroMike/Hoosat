@@ -1,12 +1,13 @@
 package miningmanager
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensusreference"
-	"github.com/kaspanet/kaspad/domain/dagconfig"
-	"github.com/kaspanet/kaspad/domain/miningmanager/blocktemplatebuilder"
-	mempoolpkg "github.com/kaspanet/kaspad/domain/miningmanager/mempool"
 	"sync"
 	"time"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/consensusreference"
+	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/hoosatd/domain/miningmanager/blocktemplatebuilder"
+	mempoolpkg "github.com/Hoosat-Oy/hoosatd/domain/miningmanager/mempool"
 )
 
 // Factory instantiates new mining managers

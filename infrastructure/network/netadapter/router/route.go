@@ -4,9 +4,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/kaspanet/kaspad/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
 	"github.com/pkg/errors"
 )
 

@@ -5,13 +5,14 @@
 package addressmanager
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/db/database"
-	"github.com/kaspanet/kaspad/util/mstime"
 	"net"
 	"sync"
 	"time"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/hoosatd/util/mstime"
+
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
 	"github.com/pkg/errors"
 )
 

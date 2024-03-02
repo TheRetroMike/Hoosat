@@ -1,8 +1,9 @@
 package integration
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
 )
 
 func TestVirtualSelectedParentBlueScoreAndVirtualDAAScore(t *testing.T) {

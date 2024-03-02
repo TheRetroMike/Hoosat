@@ -1,8 +1,8 @@
 package standalone
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/util/panics"
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
 )
 
 var log = logger.RegisterSubSystem("NTAR")

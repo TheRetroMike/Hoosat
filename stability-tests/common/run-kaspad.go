@@ -2,11 +2,12 @@ package common
 
 import (
 	"fmt"
-	"github.com/kaspanet/kaspad/domain/dagconfig"
 	"os"
 	"sync/atomic"
 	"syscall"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
 )
 
 // RunKaspadForTesting runs kaspad for testing purposes

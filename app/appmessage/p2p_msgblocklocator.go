@@ -1,7 +1,7 @@
 package appmessage
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
 )
 
 // MaxBlockLocatorsPerMsg is the maximum number of block locator hashes allowed

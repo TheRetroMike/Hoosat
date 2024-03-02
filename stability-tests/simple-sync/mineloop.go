@@ -3,11 +3,11 @@ package main
 import (
 	"time"
 
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
+	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/rpc"
+	"github.com/Hoosat-Oy/hoosatd/util"
 	"github.com/kaspanet/go-secp256k1"
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/stability-tests/common/rpc"
-	"github.com/kaspanet/kaspad/util"
 	"github.com/pkg/errors"
 )
 

@@ -1,9 +1,10 @@
 package integration
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/logger"
 	"os"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
 )
 
 func TestMain(m *testing.M) {

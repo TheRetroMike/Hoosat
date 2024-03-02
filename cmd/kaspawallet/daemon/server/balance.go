@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/daemon/pb"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/daemon/pb"
+	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/libkaspawallet"
 )
 
 type balancesType struct{ available, pending uint64 }

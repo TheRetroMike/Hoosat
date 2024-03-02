@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/serialization"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/transactionid"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/serialization"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionid"
 	"github.com/pkg/errors"
 )
 

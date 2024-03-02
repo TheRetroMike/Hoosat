@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/util/panics"
 	"os"
+
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
 )
 
 var (

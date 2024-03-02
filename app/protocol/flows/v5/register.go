@@ -1,16 +1,16 @@
 package v5
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	"github.com/kaspanet/kaspad/app/protocol/flowcontext"
-	"github.com/kaspanet/kaspad/app/protocol/flows/v5/addressexchange"
-	"github.com/kaspanet/kaspad/app/protocol/flows/v5/blockrelay"
-	"github.com/kaspanet/kaspad/app/protocol/flows/v5/ping"
-	"github.com/kaspanet/kaspad/app/protocol/flows/v5/rejects"
-	"github.com/kaspanet/kaspad/app/protocol/flows/v5/transactionrelay"
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	routerpkg "github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flowcontext"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flows/v5/addressexchange"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flows/v5/blockrelay"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flows/v5/ping"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flows/v5/rejects"
+	"github.com/Hoosat-Oy/hoosatd/app/protocol/flows/v5/transactionrelay"
+	peerpkg "github.com/Hoosat-Oy/hoosatd/app/protocol/peer"
+	routerpkg "github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
 )
 
 type protocolManager interface {

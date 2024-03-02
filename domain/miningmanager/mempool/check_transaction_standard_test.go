@@ -9,17 +9,17 @@ import (
 	"math"
 	"testing"
 
-	"github.com/kaspanet/kaspad/domain/consensusreference"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensusreference"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
 
-	"github.com/kaspanet/kaspad/domain/consensus"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
-	"github.com/kaspanet/kaspad/util"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/hoosatd/util"
 	"github.com/pkg/errors"
 )
 

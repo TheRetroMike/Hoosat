@@ -3,14 +3,15 @@ package grpcserver
 import (
 	"context"
 	"fmt"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/server"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/peer"
 	"net"
 	"sync"
 	"time"
+
+	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/server"
+	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/pkg/errors"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/peer"
 )
 
 type gRPCServer struct {

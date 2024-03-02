@@ -1,11 +1,12 @@
 package addressmanager
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/util/mstime"
 	"net"
 	"reflect"
 	"testing"
+
+	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/hoosatd/util/mstime"
 )
 
 func TestAddressKeySerialization(t *testing.T) {
