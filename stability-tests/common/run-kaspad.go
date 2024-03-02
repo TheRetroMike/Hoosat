@@ -17,7 +17,7 @@ func RunHoosatdForTesting(t *testing.T, testName string, rpcAddress string) func
 		t.Fatalf("TempDir: %s", err)
 	}
 
-	hoosatdRunCommand, err := StartCmd("HOOSATD",
+	hoosatdRunCommand, err := StartCmd("HSATD",
 		"hoosatd",
 		NetworkCliArgumentFromNetParams(&dagconfig.DevnetParams),
 		"--appdir", appDir,
