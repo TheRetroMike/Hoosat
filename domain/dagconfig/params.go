@@ -58,7 +58,7 @@ type Params struct {
 	Name string
 
 	// Net defines the magic bytes used to identify the network.
-	Net appmessage.KaspaNet
+	Net appmessage.HoosatNet
 
 	// RPCPort defines the rpc server port
 	RPCPort string
@@ -491,7 +491,7 @@ var DevnetParams = Params{
 // network or previously-registered into this package.
 var ErrDuplicateNet = errors.New("duplicate Kaspa network")
 
-var registeredNets = make(map[appmessage.KaspaNet]struct{})
+var registeredNets = make(map[appmessage.HoosatNet]struct{})
 
 // Register registers the network parameters for a Kaspa network. This may
 // error with ErrDuplicateNet if the network is already registered (either

@@ -6,9 +6,9 @@ FROM ${KASPAMINER_IMAGE} as kaspaminer
 
 FROM golang:1.19-alpine
 
-RUN mkdir -p /go/src/github.com/kaspanet/kaspad
+RUN mkdir -p /go/src/github.com/Hoosat-Oy/hoosatd
 
-WORKDIR /go/src/github.com/kaspanet/kaspad
+WORKDIR /go/src/github.com/Hoosat-Oy/hoosatd
 
 RUN apk add bash build-base git
 

@@ -66,7 +66,7 @@ var (
 	defaultRPCCertFile = filepath.Join(DefaultAppDir, "rpc.cert")
 )
 
-//go:embed sample-kaspad.conf
+//go:embed sample-hoosatd.conf
 var sampleConfig string
 
 // RunServiceCommand is only set to a real function on Windows. It is used
