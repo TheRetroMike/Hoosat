@@ -79,10 +79,8 @@ const (
 	// defaultDeflationaryPhaseDaaScore is the DAA score after which the pre-deflationary period
 	// switches to the deflationary period. This number is calculated as follows:
 	// We define a year as 365.25 days
-	// Half a year in seconds = 365.25 / 2 * 24 * 60 * 60 = 15778800
-	// The network was down for three days shortly after launch
-	// Three days in seconds = 3 * 24 * 60 * 60 = 259200
-	defaultDeflationaryPhaseDaaScore = 15778800 - 259200
+	// Year in seconds = 365.25 * 24 * 60 * 60 = 31557600
+	defaultDeflationaryPhaseDaaScore = 31557600
 
 	defaultMergeDepth = 3600
 )
