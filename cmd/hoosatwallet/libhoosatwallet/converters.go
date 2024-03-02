@@ -10,8 +10,8 @@ import (
 	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
 )
 
-// KaspawalletdUTXOsTolibhoosatwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libhoosatwallet.UTXO
-func KaspawalletdUTXOsTolibhoosatwalletUTXOs(hoosatwalletdUtxoEntires []*pb.UtxosByAddressesEntry) ([]*UTXO, error) {
+// HoosatwalletdUTXOsTolibhoosatwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libhoosatwallet.UTXO
+func HoosatwalletdUTXOsTolibhoosatwalletUTXOs(hoosatwalletdUtxoEntires []*pb.UtxosByAddressesEntry) ([]*UTXO, error) {
 	UTXOs := make([]*UTXO, len(hoosatwalletdUtxoEntires))
 	for i, entry := range hoosatwalletdUtxoEntires {
 		script, err := hex.DecodeString(entry.UtxoEntry.ScriptPublicKey.ScriptPublicKey)
@@ -41,8 +41,8 @@ func KaspawalletdUTXOsTolibhoosatwalletUTXOs(hoosatwalletdUtxoEntires []*pb.Utxo
 	return UTXOs, nil
 }
 
-// AppMessageUTXOToKaspawalletdUTXO converts an appmessage.UTXOsByAddressesEntry to a  pb.UtxosByAddressesEntry
-func AppMessageUTXOToKaspawalletdUTXO(appUTXOsByAddressesEntry *appmessage.UTXOsByAddressesEntry) *pb.UtxosByAddressesEntry {
+// AppMessageUTXOToHoosatwalletdUTXO converts an appmessage.UTXOsByAddressesEntry to a  pb.UtxosByAddressesEntry
+func AppMessageUTXOToHoosatwalletdUTXO(appUTXOsByAddressesEntry *appmessage.UTXOsByAddressesEntry) *pb.UtxosByAddressesEntry {
 	return &pb.UtxosByAddressesEntry{
 		Outpoint: &pb.Outpoint{
 			TransactionId: appUTXOsByAddressesEntry.Outpoint.TransactionID,

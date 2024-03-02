@@ -3,30 +3,30 @@ rm -rf /tmp/hoosatd-temp
 
 NUM_CLIENTS=128
 hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
-KASPAD_PID=$!
-KASPAD_KILLED=0
-function killKaspadIfNotKilled() {
-  if [ $KASPAD_KILLED -eq 0 ]; then
-    kill $KASPAD_PID
+HOOSATD_PID=$!
+HOOSATD_KILLED=0
+function killHoosatdIfNotKilled() {
+  if [ $HOOSATD_KILLED -eq 0 ]; then
+    kill $HOOSATD_PID
   fi
 }
-trap "killKaspadIfNotKilled" EXIT
+trap "killHoosatdIfNotKilled" EXIT
 
 sleep 1
 
 rpc-idle-clients --devnet --profile=7000 -n=$NUM_CLIENTS
 TEST_EXIT_CODE=$?
 
-kill $KASPAD_PID
+kill $HOOSATD_PID
 
-wait $KASPAD_PID
-KASPAD_EXIT_CODE=$?
-KASPAD_KILLED=1
+wait $HOOSATD_PID
+HOOSATD_EXIT_CODE=$?
+HOOSATD_KILLED=1
 
 echo "Exit code: $TEST_EXIT_CODE"
-echo "Kaspad exit code: $KASPAD_EXIT_CODE"
+echo "Hoosatd exit code: $HOOSATD_EXIT_CODE"
 
-if [ $TEST_EXIT_CODE -eq 0 ] && [ $KASPAD_EXIT_CODE -eq 0 ]; then
+if [ $TEST_EXIT_CODE -eq 0 ] && [ $HOOSATD_EXIT_CODE -eq 0 ]; then
   echo "rpc-idle-clients test: PASSED"
   exit 0
 fi

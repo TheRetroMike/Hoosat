@@ -37,7 +37,7 @@ func TestAmountCreation(t *testing.T) {
 			name:     "one hundred",
 			amount:   100,
 			valid:    true,
-			expected: 100 * constants.SompiPerKaspa,
+			expected: 100 * constants.SompiPerHoosat,
 		},
 		{
 			name:     "fraction",
@@ -49,13 +49,13 @@ func TestAmountCreation(t *testing.T) {
 			name:     "rounding up",
 			amount:   54.999999999999943157,
 			valid:    true,
-			expected: 55 * constants.SompiPerKaspa,
+			expected: 55 * constants.SompiPerHoosat,
 		},
 		{
 			name:     "rounding down",
 			amount:   55.000000000000056843,
 			valid:    true,
-			expected: 55 * constants.SompiPerKaspa,
+			expected: 55 * constants.SompiPerHoosat,
 		},
 
 		// Negative tests.
@@ -103,40 +103,40 @@ func TestAmountUnitConversions(t *testing.T) {
 		s         string
 	}{
 		{
-			name:      "MKAS",
+			name:      "MHSAT",
 			amount:    Amount(constants.MaxSompi),
-			unit:      AmountMegaKAS,
+			unit:      AmountMegaHSAT,
 			converted: 29000,
-			s:         "29000 MKAS",
+			s:         "29000 MHSAT",
 		},
 		{
-			name:      "kKAS",
+			name:      "kHSAT",
 			amount:    44433322211100,
-			unit:      AmountKiloKAS,
+			unit:      AmountKiloHSAT,
 			converted: 444.33322211100,
-			s:         "444.333222111 kKAS",
+			s:         "444.333222111 kHSAT",
 		},
 		{
-			name:      "KAS",
+			name:      "HSAT",
 			amount:    44433322211100,
-			unit:      AmountKAS,
+			unit:      AmountHSAT,
 			converted: 444333.22211100,
-			s:         "444333.222111 KAS",
+			s:         "444333.222111 HSAT",
 		},
 		{
-			name:      "mKAS",
+			name:      "mHSAT",
 			amount:    44433322211100,
-			unit:      AmountMilliKAS,
+			unit:      AmountMilliHSAT,
 			converted: 444333222.11100,
-			s:         "444333222.111 mKAS",
+			s:         "444333222.111 mHSAT",
 		},
 		{
 
-			name:      "μKAS",
+			name:      "μHSAT",
 			amount:    44433322211100,
-			unit:      AmountMicroKAS,
+			unit:      AmountMicroHSAT,
 			converted: 444333222111.00,
-			s:         "444333222111 μKAS",
+			s:         "444333222111 μHSAT",
 		},
 		{
 
@@ -152,7 +152,7 @@ func TestAmountUnitConversions(t *testing.T) {
 			amount:    44433322211100,
 			unit:      AmountUnit(-1),
 			converted: 4443332.2211100,
-			s:         "4443332.22111 1e-1 KAS",
+			s:         "4443332.22111 1e-1 HSAT",
 		},
 	}
 
@@ -169,18 +169,18 @@ func TestAmountUnitConversions(t *testing.T) {
 			continue
 		}
 
-		// Verify that Amount.ToKAS works as advertised.
-		f1 := test.amount.ToUnit(AmountKAS)
-		f2 := test.amount.ToKAS()
+		// Verify that Amount.ToHSAT works as advertised.
+		f1 := test.amount.ToUnit(AmountHSAT)
+		f2 := test.amount.ToHSAT()
 		if f1 != f2 {
-			t.Errorf("%v: ToKAS does not match ToUnit(AmountKAS): %v != %v", test.name, f1, f2)
+			t.Errorf("%v: ToHSAT does not match ToUnit(AmountHSAT): %v != %v", test.name, f1, f2)
 		}
 
 		// Verify that Amount.String works as advertised.
-		s1 := test.amount.Format(AmountKAS)
+		s1 := test.amount.Format(AmountHSAT)
 		s2 := test.amount.String()
 		if s1 != s2 {
-			t.Errorf("%v: String does not match Format(AmountKAS): %v != %v", test.name, s1, s2)
+			t.Errorf("%v: String does not match Format(AmountHSAT): %v != %v", test.name, s1, s2)
 		}
 	}
 }
@@ -193,16 +193,16 @@ func TestAmountMulF64(t *testing.T) {
 		res  Amount
 	}{
 		{
-			name: "Multiply 0.1 KAS by 2",
-			amt:  100e5, // 0.1 KAS
+			name: "Multiply 0.1 HSAT by 2",
+			amt:  100e5, // 0.1 HSAT
 			mul:  2,
-			res:  200e5, // 0.2 KAS
+			res:  200e5, // 0.2 HSAT
 		},
 		{
-			name: "Multiply 0.2 KAS by 0.02",
-			amt:  200e5, // 0.2 KAS
+			name: "Multiply 0.2 HSAT by 0.02",
+			amt:  200e5, // 0.2 HSAT
 			mul:  1.02,
-			res:  204e5, // 0.204 KAS
+			res:  204e5, // 0.204 HSAT
 		},
 		{
 			name: "Round down",
@@ -218,9 +218,9 @@ func TestAmountMulF64(t *testing.T) {
 		},
 		{
 			name: "Multiply by 0.",
-			amt:  1e8, // 1 KAS
+			amt:  1e8, // 1 HSAT
 			mul:  0,
-			res:  0, // 0 KAS
+			res:  0, // 0 HSAT
 		},
 		{
 			name: "Multiply 1 by 0.5.",

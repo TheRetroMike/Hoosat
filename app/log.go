@@ -9,4 +9,4 @@ import (
 	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
 )
 
-var log = logger.RegisterSubSystem("KASD")
+var log = logger.RegisterSubSystem("HOOSATD")

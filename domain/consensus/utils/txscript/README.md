@@ -7,9 +7,9 @@ txscript
 Package txscript implements the hoosat transaction script language. There is
 a comprehensive test suite.
 
-## Kaspa Scripts
+## Hoosat Scripts
 
-Kaspa provides a stack-based, FORTH-like language for the scripts in
+Hoosat provides a stack-based, FORTH-like language for the scripts in
 the hoosat transactions. This language is not turing complete
 although it is still fairly powerful. 
 

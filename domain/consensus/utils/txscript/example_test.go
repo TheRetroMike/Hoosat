@@ -23,8 +23,8 @@ func ExamplePayToAddrScript() {
 	// which is useful to ensure the accuracy of the address and determine
 	// the address type. It is also required for the upcoming call to
 	// PayToAddrScript.
-	addressStr := "hoosat:qqj9fg59mptxkr9j0y53j5mwurcmda5mtza9n6v9pm9uj8h0wgk6uma5pvumr"
-	address, err := util.DecodeAddress(addressStr, util.Bech32PrefixKaspa)
+	addressStr := "hoosat:qz5wslcq847pdf7v9muc6zyf4uurkqfehmhuc0mklr9gq764vy2sjl483gpnj"
+	address, err := util.DecodeAddress(addressStr, util.Bech32PrefixHoosat)
 	if err != nil {
 		fmt.Println(err)
 		return

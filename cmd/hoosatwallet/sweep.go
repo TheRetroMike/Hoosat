@@ -64,7 +64,7 @@ func sweep(conf *sweepConfig) error {
 		return err
 	}
 
-	UTXOs, err := libhoosatwallet.KaspawalletdUTXOsTolibhoosatwalletUTXOs(getExternalSpendableUTXOsResponse.Entries)
+	UTXOs, err := libhoosatwallet.HoosatwalletdUTXOsTolibhoosatwalletUTXOs(getExternalSpendableUTXOsResponse.Entries)
 	if err != nil {
 		return err
 	}
@@ -116,12 +116,12 @@ func sweep(conf *sweepConfig) error {
 	fmt.Println("\nTransaction ID(s):")
 	for i, txID := range response.TxIDs {
 		fmt.Printf("\t%s\n", txID)
-		fmt.Println("\tSwept:\t", utils.FormatKas(splitTransactions[i].Outputs[0].Value), " KAS")
+		fmt.Println("\tSwept:\t", utils.FomatHSAT(splitTransactions[i].Outputs[0].Value), " HSAT")
 		totalExtracted = totalExtracted + splitTransactions[i].Outputs[0].Value
 	}
 
 	fmt.Println("\nTotal Funds swept (including transaction fees):")
-	fmt.Println("\t", utils.FormatKas(totalExtracted), " KAS")
+	fmt.Println("\t", utils.FomatHSAT(totalExtracted), " HSAT")
 
 	return nil
 }

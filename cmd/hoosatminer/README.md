@@ -1,6 +1,6 @@
 # hoosatminer
 
-Kaspaminer is a CPU-based miner for hoosatd
+Hoosatminer is a CPU-based miner for hoosatd
 
 ## Requirements
 

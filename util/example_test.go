@@ -21,9 +21,9 @@ func ExampleAmount() {
 	a = util.Amount(1e5)
 	fmt.Println("100,000 Sompi:", a)
 	// Output:
-	// Zero Sompi: 0 KAS
-	// 100,000,000 Sompi: 1 KAS
-	// 100,000 Sompi: 0.001 KAS
+	// Zero Sompi: 0 HSAT
+	// 100,000,000 Sompi: 1 HSAT
+	// 100,000 Sompi: 0.001 HSAT
 }
 
 func ExampleNewAmount() {
@@ -55,26 +55,26 @@ func ExampleNewAmount() {
 	}
 	fmt.Println(amountNaN) //Output 4
 
-	// Output: 1 KAS
-	// 0.01234567 KAS
-	// 0 KAS
+	// Output: 1 HSAT
+	// 0.01234567 HSAT
+	// 0 HSAT
 	// invalid hoosat amount
 }
 
 func ExampleAmount_unitConversions() {
 	amount := util.Amount(44433322211100)
 
-	fmt.Println("Sompi to kKAS:", amount.Format(util.AmountKiloKAS))
-	fmt.Println("Sompi to KAS:", amount)
-	fmt.Println("Sompi to MilliKAS:", amount.Format(util.AmountMilliKAS))
-	fmt.Println("Sompi to MicroKAS:", amount.Format(util.AmountMicroKAS))
+	fmt.Println("Sompi to kHSAT:", amount.Format(util.AmountKiloHSAT))
+	fmt.Println("Sompi to HSAT:", amount)
+	fmt.Println("Sompi to MilliHSAT:", amount.Format(util.AmountMilliHSAT))
+	fmt.Println("Sompi to MicroHSAT:", amount.Format(util.AmountMicroHSAT))
 	fmt.Println("Sompi to Sompi:", amount.Format(util.AmountSompi))
 
 	// Output:
-	// Sompi to kKAS: 444.333222111 kKAS
-	// Sompi to KAS: 444333.222111 KAS
-	// Sompi to MilliKAS: 444333222.111 mKAS
-	// Sompi to MicroKAS: 444333222111 μKAS
+	// Sompi to kHSAT: 444.333222111 kHSAT
+	// Sompi to HSAT: 444333.222111 HSAT
+	// Sompi to MilliHSAT: 444333222.111 mHSAT
+	// Sompi to MicroHSAT: 444333222111 μHSAT
 	// Sompi to Sompi: 44433322211100 Sompi
 }
 

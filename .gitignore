@@ -22,7 +22,7 @@ hoosatd.db
 hoosatd
 cmd/gencerts/gencerts
 cmd/hoosatctl/hoosatctl
-cmd/kasminer/hoosatminer
+cmd/hoosatminer/hoosatminer
 *.exe
 *.exe~
 

@@ -27,15 +27,15 @@ $ cd hoosatd/cmd/hoosatctl
 $ go install .
 ```
 
-- Kaspactl should now be installed in `$(go env GOPATH)/bin`. If you did not already add the bin directory to your
+- Hoosatctl should now be installed in `$(go env GOPATH)/bin`. If you did not already add the bin directory to your
   system path during Go installation, you are encouraged to do so now.
 
 ## Usage
 
-The full kaspctl configuration options can be seen with:
+The full hoosatpctl configuration options can be seen with:
 
 ```bash
-$ kaspctl --help
+$ hoosatpctl --help
 ```
 
 But the minimum configuration needed to run it is:

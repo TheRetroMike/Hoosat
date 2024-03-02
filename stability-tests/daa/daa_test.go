@@ -181,8 +181,8 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 	t.Logf("DAA TEST STARTED: %s", testName)
 	defer t.Logf("DAA TEST FINISHED: %s", testName)
 
-	tearDownKaspad := common.RunKaspadForTesting(t, "hoosatd-daa-test", rpcAddress)
-	defer tearDownKaspad()
+	tearDownHoosatd := common.RunHoosatdForTesting(t, "hoosatd-daa-test", rpcAddress)
+	defer tearDownHoosatd()
 
 	rpcClient, err := rpcclient.NewRPCClient(rpcAddress)
 	if err != nil {
