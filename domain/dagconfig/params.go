@@ -214,26 +214,8 @@ var MainnetParams = Params{
 	RPCPort:     "16110",
 	DefaultPort: "16111",
 	DNSSeeds: []string{
-		// This DNS seeder is run by Wolfie
-		"mainnet-dnsseed.kas.pa",
-		// This DNS seeder is run by Denis Mashkevich
-		"mainnet-dnsseed-1.hoosatnet.org",
-		// This DNS seeder is run by Denis Mashkevich
-		"mainnet-dnsseed-2.hoosatnet.org",
-		// This DNS seeder is run by Constantine Bytensky
-		"dnsseed.cbytensky.org",
-		// This DNS seeder is run by Georges Künzli
-		"seeder1.hoosatd.net",
-		// This DNS seeder is run by Georges Künzli
-		"seeder2.hoosatd.net",
-		// This DNS seeder is run by Georges Künzli
-		"seeder3.hoosatd.net",
-		// This DNS seeder is run by Georges Künzli
-		"seeder4.hoosatd.net",
-		// This DNS seeder is run by Tim
-		"hoosatdns.hoosatcalc.net",
-		// This DNS seeder is run by supertypo
-		"n-mainnet.hoosat.ws",
+		// This DNS seeder is run by Toni Lukkaroinen
+		"mainnet-dnsseed-1.hoosat.fi",
 	},
 
 	// DAG parameters
@@ -300,9 +282,8 @@ var TestnetParams = Params{
 	RPCPort:     "16210",
 	DefaultPort: "16211",
 	DNSSeeds: []string{
-		"testnet-10-dnsseed.kas.pa",
-		// This DNS seeder is run by Tiram
-		"seeder1-testnet.hoosatd.net",
+		// This DNS seeder is run by Toni Lukkaroinen
+		"testnet-dnsseed-1.hoosat.fi",
 	},
 
 	// DAG parameters
