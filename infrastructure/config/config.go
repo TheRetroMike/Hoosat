@@ -33,7 +33,7 @@ const (
 	defaultLogDirname          = "logs"
 	defaultLogFilename         = "hoosatd.log"
 	defaultErrLogFilename      = "hoosatd_err.log"
-	defaultTargetOutboundPeers = 8
+	defaultTargetOutboundPeers = 0
 	defaultMaxInboundPeers     = 117
 	defaultBanDuration         = time.Hour * 24
 	defaultBanThreshold        = 100
