@@ -1,7 +1,7 @@
 #!/bin/bash
-rm -rf /tmp/kaspad-temp
+rm -rf /tmp/hoosatd-temp
 
-kaspad --devnet --appdir=/tmp/kaspad-temp --profile=6061 --loglevel=debug &
+hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 --loglevel=debug &
 KASPAD_PID=$!
 KASPAD_KILLED=0
 function killKaspadIfNotKilled() {

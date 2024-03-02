@@ -1,7 +1,7 @@
 #!/bin/bash
-rm -rf /tmp/kaspad-temp
+rm -rf /tmp/hoosatd-temp
 
-kaspad --devnet --appdir=/tmp/kaspad-temp --profile=6061 &
+hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 &
 KASPAD_PID=$!
 
 sleep 1

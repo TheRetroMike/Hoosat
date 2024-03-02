@@ -24,20 +24,20 @@ func startNodes() (teardown func(), err error) {
 	)
 
 	log.Infof("Starting nodes")
-	syncerDataDir, err := common.TempDir("kaspad-datadir-syncer")
+	syncerDataDir, err := common.TempDir("hoosatd-datadir-syncer")
 	if err != nil {
 		panic(errors.Wrapf(err, "error in Tempdir"))
 	}
 	log.Infof("SYNCER datadir: %s", syncerDataDir)
 
-	syncedDataDir, err := common.TempDir("kaspad-datadir-synced")
+	syncedDataDir, err := common.TempDir("hoosatd-datadir-synced")
 	if err != nil {
 		panic(errors.Wrapf(err, "error in Tempdir"))
 	}
 	log.Infof("SYNCED datadir: %s", syncedDataDir)
 
 	syncerCmd, err := common.StartCmd("KASPAD-SYNCER",
-		"kaspad",
+		"hoosatd",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", syncerDataDir,
 		"--logdir", syncerDataDir,
@@ -51,7 +51,7 @@ func startNodes() (teardown func(), err error) {
 	}
 
 	syncedCmd, err := common.StartCmd("KASPAD-SYNCED",
-		"kaspad",
+		"hoosatd",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", syncedDataDir,
 		"--logdir", syncedDataDir,

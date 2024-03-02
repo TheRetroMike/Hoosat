@@ -6,7 +6,7 @@ import (
 	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
 )
 
-// MsgBlockWithTrustedData represents a kaspa BlockWithTrustedData message
+// MsgBlockWithTrustedData represents a hoosat BlockWithTrustedData message
 type MsgBlockWithTrustedData struct {
 	baseMessage
 

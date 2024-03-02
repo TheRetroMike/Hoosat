@@ -10,15 +10,15 @@ import (
 	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
 )
 
-// RunKaspadForTesting runs kaspad for testing purposes
+// RunKaspadForTesting runs hoosatd for testing purposes
 func RunKaspadForTesting(t *testing.T, testName string, rpcAddress string) func() {
 	appDir, err := TempDir(testName)
 	if err != nil {
 		t.Fatalf("TempDir: %s", err)
 	}
 
-	kaspadRunCommand, err := StartCmd("KASPAD",
-		"kaspad",
+	hoosatdRunCommand, err := StartCmd("KASPAD",
+		"hoosatd",
 		NetworkCliArgumentFromNetParams(&dagconfig.DevnetParams),
 		"--appdir", appDir,
 		"--rpclisten", rpcAddress,
@@ -31,7 +31,7 @@ func RunKaspadForTesting(t *testing.T, testName string, rpcAddress string) func(
 
 	isShutdown := uint64(0)
 	go func() {
-		err := kaspadRunCommand.Wait()
+		err := hoosatdRunCommand.Wait()
 		if err != nil {
 			if atomic.LoadUint64(&isShutdown) == 0 {
 				panic(fmt.Sprintf("Kaspad closed unexpectedly: %s. See logs at: %s", err, appDir))
@@ -40,7 +40,7 @@ func RunKaspadForTesting(t *testing.T, testName string, rpcAddress string) func(
 	}()
 
 	return func() {
-		err := kaspadRunCommand.Process.Signal(syscall.SIGTERM)
+		err := hoosatdRunCommand.Process.Signal(syscall.SIGTERM)
 		if err != nil {
 			t.Fatalf("Signal: %s", err)
 		}

@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	defer panics.HandlePanic(log, "kaspadsanity-main", nil)
+	defer panics.HandlePanic(log, "hoosatdsanity-main", nil)
 	err := parseConfig()
 	if err != nil {
 		panic(errors.Wrap(err, "error in parseConfig"))

@@ -9,10 +9,10 @@ type converter interface {
 	toAppMessage() (appmessage.Message, error)
 }
 
-// ToAppMessage converts a KaspadMessage to its appmessage.Message representation
-func (x *KaspadMessage) ToAppMessage() (appmessage.Message, error) {
+// ToAppMessage converts a HoosatdMessage to its appmessage.Message representation
+func (x *HoosatdMessage) ToAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage is nil")
+		return nil, errors.Wrapf(errorNil, "HoosatdMessage is nil")
 	}
 	converter, ok := x.Payload.(converter)
 	if !ok {
@@ -25,18 +25,18 @@ func (x *KaspadMessage) ToAppMessage() (appmessage.Message, error) {
 	return appMessage, nil
 }
 
-// FromAppMessage creates a KaspadMessage from a appmessage.Message
-func FromAppMessage(message appmessage.Message) (*KaspadMessage, error) {
+// FromAppMessage creates a HoosatdMessage from a appmessage.Message
+func FromAppMessage(message appmessage.Message) (*HoosatdMessage, error) {
 	payload, err := toPayload(message)
 	if err != nil {
 		return nil, err
 	}
-	return &KaspadMessage{
+	return &HoosatdMessage{
 		Payload: payload,
 	}, nil
 }
 
-func toPayload(message appmessage.Message) (isKaspadMessage_Payload, error) {
+func toPayload(message appmessage.Message) (isHoosatdMessage_Payload, error) {
 	p2pPayload, err := toP2PPayload(message)
 	if err != nil {
 		return nil, err
@@ -56,304 +56,304 @@ func toPayload(message appmessage.Message) (isKaspadMessage_Payload, error) {
 	return nil, errors.Errorf("unknown message type %T", message)
 }
 
-func toP2PPayload(message appmessage.Message) (isKaspadMessage_Payload, error) {
+func toP2PPayload(message appmessage.Message) (isHoosatdMessage_Payload, error) {
 	switch message := message.(type) {
 	case *appmessage.MsgAddresses:
-		payload := new(KaspadMessage_Addresses)
+		payload := new(HoosatdMessage_Addresses)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgBlock:
-		payload := new(KaspadMessage_Block)
+		payload := new(HoosatdMessage_Block)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestBlockLocator:
-		payload := new(KaspadMessage_RequestBlockLocator)
+		payload := new(HoosatdMessage_RequestBlockLocator)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgBlockLocator:
-		payload := new(KaspadMessage_BlockLocator)
+		payload := new(HoosatdMessage_BlockLocator)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestAddresses:
-		payload := new(KaspadMessage_RequestAddresses)
+		payload := new(HoosatdMessage_RequestAddresses)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestIBDBlocks:
-		payload := new(KaspadMessage_RequestIBDBlocks)
+		payload := new(HoosatdMessage_RequestIBDBlocks)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestNextHeaders:
-		payload := new(KaspadMessage_RequestNextHeaders)
+		payload := new(HoosatdMessage_RequestNextHeaders)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgDoneHeaders:
-		payload := new(KaspadMessage_DoneHeaders)
+		payload := new(HoosatdMessage_DoneHeaders)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestRelayBlocks:
-		payload := new(KaspadMessage_RequestRelayBlocks)
+		payload := new(HoosatdMessage_RequestRelayBlocks)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestTransactions:
-		payload := new(KaspadMessage_RequestTransactions)
+		payload := new(HoosatdMessage_RequestTransactions)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgTransactionNotFound:
-		payload := new(KaspadMessage_TransactionNotFound)
+		payload := new(HoosatdMessage_TransactionNotFound)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgInvRelayBlock:
-		payload := new(KaspadMessage_InvRelayBlock)
+		payload := new(HoosatdMessage_InvRelayBlock)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgInvTransaction:
-		payload := new(KaspadMessage_InvTransactions)
+		payload := new(HoosatdMessage_InvTransactions)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgPing:
-		payload := new(KaspadMessage_Ping)
+		payload := new(HoosatdMessage_Ping)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgPong:
-		payload := new(KaspadMessage_Pong)
+		payload := new(HoosatdMessage_Pong)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgTx:
-		payload := new(KaspadMessage_Transaction)
+		payload := new(HoosatdMessage_Transaction)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgVerAck:
-		payload := new(KaspadMessage_Verack)
+		payload := new(HoosatdMessage_Verack)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgVersion:
-		payload := new(KaspadMessage_Version)
+		payload := new(HoosatdMessage_Version)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgReject:
-		payload := new(KaspadMessage_Reject)
+		payload := new(HoosatdMessage_Reject)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestPruningPointUTXOSet:
-		payload := new(KaspadMessage_RequestPruningPointUTXOSet)
+		payload := new(HoosatdMessage_RequestPruningPointUTXOSet)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgPruningPointUTXOSetChunk:
-		payload := new(KaspadMessage_PruningPointUtxoSetChunk)
+		payload := new(HoosatdMessage_PruningPointUtxoSetChunk)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgUnexpectedPruningPoint:
-		payload := new(KaspadMessage_UnexpectedPruningPoint)
+		payload := new(HoosatdMessage_UnexpectedPruningPoint)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgIBDBlockLocator:
-		payload := new(KaspadMessage_IbdBlockLocator)
+		payload := new(HoosatdMessage_IbdBlockLocator)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgIBDBlockLocatorHighestHash:
-		payload := new(KaspadMessage_IbdBlockLocatorHighestHash)
+		payload := new(HoosatdMessage_IbdBlockLocatorHighestHash)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgIBDBlockLocatorHighestHashNotFound:
-		payload := new(KaspadMessage_IbdBlockLocatorHighestHashNotFound)
+		payload := new(HoosatdMessage_IbdBlockLocatorHighestHashNotFound)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.BlockHeadersMessage:
-		payload := new(KaspadMessage_BlockHeaders)
+		payload := new(HoosatdMessage_BlockHeaders)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestNextPruningPointUTXOSetChunk:
-		payload := new(KaspadMessage_RequestNextPruningPointUtxoSetChunk)
+		payload := new(HoosatdMessage_RequestNextPruningPointUtxoSetChunk)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgDonePruningPointUTXOSetChunks:
-		payload := new(KaspadMessage_DonePruningPointUtxoSetChunks)
+		payload := new(HoosatdMessage_DonePruningPointUtxoSetChunks)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgBlockWithTrustedData:
-		payload := new(KaspadMessage_BlockWithTrustedData)
+		payload := new(HoosatdMessage_BlockWithTrustedData)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestPruningPointAndItsAnticone:
-		payload := new(KaspadMessage_RequestPruningPointAndItsAnticone)
+		payload := new(HoosatdMessage_RequestPruningPointAndItsAnticone)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgDoneBlocksWithTrustedData:
-		payload := new(KaspadMessage_DoneBlocksWithTrustedData)
+		payload := new(HoosatdMessage_DoneBlocksWithTrustedData)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgIBDBlock:
-		payload := new(KaspadMessage_IbdBlock)
+		payload := new(HoosatdMessage_IbdBlock)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestHeaders:
-		payload := new(KaspadMessage_RequestHeaders)
+		payload := new(HoosatdMessage_RequestHeaders)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgPruningPoints:
-		payload := new(KaspadMessage_PruningPoints)
+		payload := new(HoosatdMessage_PruningPoints)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestPruningPointProof:
-		payload := new(KaspadMessage_RequestPruningPointProof)
+		payload := new(HoosatdMessage_RequestPruningPointProof)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgPruningPointProof:
-		payload := new(KaspadMessage_PruningPointProof)
+		payload := new(HoosatdMessage_PruningPointProof)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgReady:
-		payload := new(KaspadMessage_Ready)
+		payload := new(HoosatdMessage_Ready)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgTrustedData:
-		payload := new(KaspadMessage_TrustedData)
+		payload := new(HoosatdMessage_TrustedData)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgBlockWithTrustedDataV4:
-		payload := new(KaspadMessage_BlockWithTrustedDataV4)
+		payload := new(HoosatdMessage_BlockWithTrustedDataV4)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestNextPruningPointAndItsAnticoneBlocks:
-		payload := new(KaspadMessage_RequestNextPruningPointAndItsAnticoneBlocks)
+		payload := new(HoosatdMessage_RequestNextPruningPointAndItsAnticoneBlocks)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestIBDChainBlockLocator:
-		payload := new(KaspadMessage_RequestIBDChainBlockLocator)
+		payload := new(HoosatdMessage_RequestIBDChainBlockLocator)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgIBDChainBlockLocator:
-		payload := new(KaspadMessage_IbdChainBlockLocator)
+		payload := new(HoosatdMessage_IbdChainBlockLocator)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.MsgRequestAnticone:
-		payload := new(KaspadMessage_RequestAnticone)
+		payload := new(HoosatdMessage_RequestAnticone)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
@@ -364,605 +364,605 @@ func toP2PPayload(message appmessage.Message) (isKaspadMessage_Payload, error) {
 	}
 }
 
-func toRPCPayload(message appmessage.Message) (isKaspadMessage_Payload, error) {
+func toRPCPayload(message appmessage.Message) (isHoosatdMessage_Payload, error) {
 	switch message := message.(type) {
 	case *appmessage.GetCurrentNetworkRequestMessage:
-		payload := new(KaspadMessage_GetCurrentNetworkRequest)
+		payload := new(HoosatdMessage_GetCurrentNetworkRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetCurrentNetworkResponseMessage:
-		payload := new(KaspadMessage_GetCurrentNetworkResponse)
+		payload := new(HoosatdMessage_GetCurrentNetworkResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.SubmitBlockRequestMessage:
-		payload := new(KaspadMessage_SubmitBlockRequest)
+		payload := new(HoosatdMessage_SubmitBlockRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.SubmitBlockResponseMessage:
-		payload := new(KaspadMessage_SubmitBlockResponse)
+		payload := new(HoosatdMessage_SubmitBlockResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockTemplateRequestMessage:
-		payload := new(KaspadMessage_GetBlockTemplateRequest)
+		payload := new(HoosatdMessage_GetBlockTemplateRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockTemplateResponseMessage:
-		payload := new(KaspadMessage_GetBlockTemplateResponse)
+		payload := new(HoosatdMessage_GetBlockTemplateResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyBlockAddedRequestMessage:
-		payload := new(KaspadMessage_NotifyBlockAddedRequest)
+		payload := new(HoosatdMessage_NotifyBlockAddedRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyBlockAddedResponseMessage:
-		payload := new(KaspadMessage_NotifyBlockAddedResponse)
+		payload := new(HoosatdMessage_NotifyBlockAddedResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.BlockAddedNotificationMessage:
-		payload := new(KaspadMessage_BlockAddedNotification)
+		payload := new(HoosatdMessage_BlockAddedNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetPeerAddressesRequestMessage:
-		payload := new(KaspadMessage_GetPeerAddressesRequest)
+		payload := new(HoosatdMessage_GetPeerAddressesRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetPeerAddressesResponseMessage:
-		payload := new(KaspadMessage_GetPeerAddressesResponse)
+		payload := new(HoosatdMessage_GetPeerAddressesResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetSelectedTipHashRequestMessage:
-		payload := new(KaspadMessage_GetSelectedTipHashRequest)
+		payload := new(HoosatdMessage_GetSelectedTipHashRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetSelectedTipHashResponseMessage:
-		payload := new(KaspadMessage_GetSelectedTipHashResponse)
+		payload := new(HoosatdMessage_GetSelectedTipHashResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetMempoolEntryRequestMessage:
-		payload := new(KaspadMessage_GetMempoolEntryRequest)
+		payload := new(HoosatdMessage_GetMempoolEntryRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetMempoolEntryResponseMessage:
-		payload := new(KaspadMessage_GetMempoolEntryResponse)
+		payload := new(HoosatdMessage_GetMempoolEntryResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetConnectedPeerInfoRequestMessage:
-		payload := new(KaspadMessage_GetConnectedPeerInfoRequest)
+		payload := new(HoosatdMessage_GetConnectedPeerInfoRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetConnectedPeerInfoResponseMessage:
-		payload := new(KaspadMessage_GetConnectedPeerInfoResponse)
+		payload := new(HoosatdMessage_GetConnectedPeerInfoResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.AddPeerRequestMessage:
-		payload := new(KaspadMessage_AddPeerRequest)
+		payload := new(HoosatdMessage_AddPeerRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.AddPeerResponseMessage:
-		payload := new(KaspadMessage_AddPeerResponse)
+		payload := new(HoosatdMessage_AddPeerResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.SubmitTransactionRequestMessage:
-		payload := new(KaspadMessage_SubmitTransactionRequest)
+		payload := new(HoosatdMessage_SubmitTransactionRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.SubmitTransactionResponseMessage:
-		payload := new(KaspadMessage_SubmitTransactionResponse)
+		payload := new(HoosatdMessage_SubmitTransactionResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyVirtualSelectedParentChainChangedRequestMessage:
-		payload := new(KaspadMessage_NotifyVirtualSelectedParentChainChangedRequest)
+		payload := new(HoosatdMessage_NotifyVirtualSelectedParentChainChangedRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyVirtualSelectedParentChainChangedResponseMessage:
-		payload := new(KaspadMessage_NotifyVirtualSelectedParentChainChangedResponse)
+		payload := new(HoosatdMessage_NotifyVirtualSelectedParentChainChangedResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.VirtualSelectedParentChainChangedNotificationMessage:
-		payload := new(KaspadMessage_VirtualSelectedParentChainChangedNotification)
+		payload := new(HoosatdMessage_VirtualSelectedParentChainChangedNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockRequestMessage:
-		payload := new(KaspadMessage_GetBlockRequest)
+		payload := new(HoosatdMessage_GetBlockRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockResponseMessage:
-		payload := new(KaspadMessage_GetBlockResponse)
+		payload := new(HoosatdMessage_GetBlockResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetSubnetworkRequestMessage:
-		payload := new(KaspadMessage_GetSubnetworkRequest)
+		payload := new(HoosatdMessage_GetSubnetworkRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetSubnetworkResponseMessage:
-		payload := new(KaspadMessage_GetSubnetworkResponse)
+		payload := new(HoosatdMessage_GetSubnetworkResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetVirtualSelectedParentChainFromBlockRequestMessage:
-		payload := new(KaspadMessage_GetVirtualSelectedParentChainFromBlockRequest)
+		payload := new(HoosatdMessage_GetVirtualSelectedParentChainFromBlockRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetVirtualSelectedParentChainFromBlockResponseMessage:
-		payload := new(KaspadMessage_GetVirtualSelectedParentChainFromBlockResponse)
+		payload := new(HoosatdMessage_GetVirtualSelectedParentChainFromBlockResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlocksRequestMessage:
-		payload := new(KaspadMessage_GetBlocksRequest)
+		payload := new(HoosatdMessage_GetBlocksRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlocksResponseMessage:
-		payload := new(KaspadMessage_GetBlocksResponse)
+		payload := new(HoosatdMessage_GetBlocksResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockCountRequestMessage:
-		payload := new(KaspadMessage_GetBlockCountRequest)
+		payload := new(HoosatdMessage_GetBlockCountRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockCountResponseMessage:
-		payload := new(KaspadMessage_GetBlockCountResponse)
+		payload := new(HoosatdMessage_GetBlockCountResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockDAGInfoRequestMessage:
-		payload := new(KaspadMessage_GetBlockDagInfoRequest)
+		payload := new(HoosatdMessage_GetBlockDagInfoRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBlockDAGInfoResponseMessage:
-		payload := new(KaspadMessage_GetBlockDagInfoResponse)
+		payload := new(HoosatdMessage_GetBlockDagInfoResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.ResolveFinalityConflictRequestMessage:
-		payload := new(KaspadMessage_ResolveFinalityConflictRequest)
+		payload := new(HoosatdMessage_ResolveFinalityConflictRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.ResolveFinalityConflictResponseMessage:
-		payload := new(KaspadMessage_ResolveFinalityConflictResponse)
+		payload := new(HoosatdMessage_ResolveFinalityConflictResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyFinalityConflictsRequestMessage:
-		payload := new(KaspadMessage_NotifyFinalityConflictsRequest)
+		payload := new(HoosatdMessage_NotifyFinalityConflictsRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyFinalityConflictsResponseMessage:
-		payload := new(KaspadMessage_NotifyFinalityConflictsResponse)
+		payload := new(HoosatdMessage_NotifyFinalityConflictsResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.FinalityConflictNotificationMessage:
-		payload := new(KaspadMessage_FinalityConflictNotification)
+		payload := new(HoosatdMessage_FinalityConflictNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.FinalityConflictResolvedNotificationMessage:
-		payload := new(KaspadMessage_FinalityConflictResolvedNotification)
+		payload := new(HoosatdMessage_FinalityConflictResolvedNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetMempoolEntriesRequestMessage:
-		payload := new(KaspadMessage_GetMempoolEntriesRequest)
+		payload := new(HoosatdMessage_GetMempoolEntriesRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetMempoolEntriesResponseMessage:
-		payload := new(KaspadMessage_GetMempoolEntriesResponse)
+		payload := new(HoosatdMessage_GetMempoolEntriesResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.ShutDownRequestMessage:
-		payload := new(KaspadMessage_ShutDownRequest)
+		payload := new(HoosatdMessage_ShutDownRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.ShutDownResponseMessage:
-		payload := new(KaspadMessage_ShutDownResponse)
+		payload := new(HoosatdMessage_ShutDownResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetHeadersRequestMessage:
-		payload := new(KaspadMessage_GetHeadersRequest)
+		payload := new(HoosatdMessage_GetHeadersRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetHeadersResponseMessage:
-		payload := new(KaspadMessage_GetHeadersResponse)
+		payload := new(HoosatdMessage_GetHeadersResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyUTXOsChangedRequestMessage:
-		payload := new(KaspadMessage_NotifyUtxosChangedRequest)
+		payload := new(HoosatdMessage_NotifyUtxosChangedRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyUTXOsChangedResponseMessage:
-		payload := new(KaspadMessage_NotifyUtxosChangedResponse)
+		payload := new(HoosatdMessage_NotifyUtxosChangedResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.UTXOsChangedNotificationMessage:
-		payload := new(KaspadMessage_UtxosChangedNotification)
+		payload := new(HoosatdMessage_UtxosChangedNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.StopNotifyingUTXOsChangedRequestMessage:
-		payload := new(KaspadMessage_StopNotifyingUtxosChangedRequest)
+		payload := new(HoosatdMessage_StopNotifyingUtxosChangedRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.StopNotifyingUTXOsChangedResponseMessage:
-		payload := new(KaspadMessage_StopNotifyingUtxosChangedResponse)
+		payload := new(HoosatdMessage_StopNotifyingUtxosChangedResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetUTXOsByAddressesRequestMessage:
-		payload := new(KaspadMessage_GetUtxosByAddressesRequest)
+		payload := new(HoosatdMessage_GetUtxosByAddressesRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetUTXOsByAddressesResponseMessage:
-		payload := new(KaspadMessage_GetUtxosByAddressesResponse)
+		payload := new(HoosatdMessage_GetUtxosByAddressesResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBalanceByAddressRequestMessage:
-		payload := new(KaspadMessage_GetBalanceByAddressRequest)
+		payload := new(HoosatdMessage_GetBalanceByAddressRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBalanceByAddressResponseMessage:
-		payload := new(KaspadMessage_GetBalanceByAddressResponse)
+		payload := new(HoosatdMessage_GetBalanceByAddressResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetVirtualSelectedParentBlueScoreRequestMessage:
-		payload := new(KaspadMessage_GetVirtualSelectedParentBlueScoreRequest)
+		payload := new(HoosatdMessage_GetVirtualSelectedParentBlueScoreRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetVirtualSelectedParentBlueScoreResponseMessage:
-		payload := new(KaspadMessage_GetVirtualSelectedParentBlueScoreResponse)
+		payload := new(HoosatdMessage_GetVirtualSelectedParentBlueScoreResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyVirtualSelectedParentBlueScoreChangedRequestMessage:
-		payload := new(KaspadMessage_NotifyVirtualSelectedParentBlueScoreChangedRequest)
+		payload := new(HoosatdMessage_NotifyVirtualSelectedParentBlueScoreChangedRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyVirtualSelectedParentBlueScoreChangedResponseMessage:
-		payload := new(KaspadMessage_NotifyVirtualSelectedParentBlueScoreChangedResponse)
+		payload := new(HoosatdMessage_NotifyVirtualSelectedParentBlueScoreChangedResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.VirtualSelectedParentBlueScoreChangedNotificationMessage:
-		payload := new(KaspadMessage_VirtualSelectedParentBlueScoreChangedNotification)
+		payload := new(HoosatdMessage_VirtualSelectedParentBlueScoreChangedNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.BanRequestMessage:
-		payload := new(KaspadMessage_BanRequest)
+		payload := new(HoosatdMessage_BanRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.BanResponseMessage:
-		payload := new(KaspadMessage_BanResponse)
+		payload := new(HoosatdMessage_BanResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.UnbanRequestMessage:
-		payload := new(KaspadMessage_UnbanRequest)
+		payload := new(HoosatdMessage_UnbanRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.UnbanResponseMessage:
-		payload := new(KaspadMessage_UnbanResponse)
+		payload := new(HoosatdMessage_UnbanResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetInfoRequestMessage:
-		payload := new(KaspadMessage_GetInfoRequest)
+		payload := new(HoosatdMessage_GetInfoRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetInfoResponseMessage:
-		payload := new(KaspadMessage_GetInfoResponse)
+		payload := new(HoosatdMessage_GetInfoResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyPruningPointUTXOSetOverrideRequestMessage:
-		payload := new(KaspadMessage_NotifyPruningPointUTXOSetOverrideRequest)
+		payload := new(HoosatdMessage_NotifyPruningPointUTXOSetOverrideRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyPruningPointUTXOSetOverrideResponseMessage:
-		payload := new(KaspadMessage_NotifyPruningPointUTXOSetOverrideResponse)
+		payload := new(HoosatdMessage_NotifyPruningPointUTXOSetOverrideResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.PruningPointUTXOSetOverrideNotificationMessage:
-		payload := new(KaspadMessage_PruningPointUTXOSetOverrideNotification)
+		payload := new(HoosatdMessage_PruningPointUTXOSetOverrideNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.StopNotifyingPruningPointUTXOSetOverrideRequestMessage:
-		payload := new(KaspadMessage_StopNotifyingPruningPointUTXOSetOverrideRequest)
+		payload := new(HoosatdMessage_StopNotifyingPruningPointUTXOSetOverrideRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.EstimateNetworkHashesPerSecondRequestMessage:
-		payload := new(KaspadMessage_EstimateNetworkHashesPerSecondRequest)
+		payload := new(HoosatdMessage_EstimateNetworkHashesPerSecondRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.EstimateNetworkHashesPerSecondResponseMessage:
-		payload := new(KaspadMessage_EstimateNetworkHashesPerSecondResponse)
+		payload := new(HoosatdMessage_EstimateNetworkHashesPerSecondResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyVirtualDaaScoreChangedRequestMessage:
-		payload := new(KaspadMessage_NotifyVirtualDaaScoreChangedRequest)
+		payload := new(HoosatdMessage_NotifyVirtualDaaScoreChangedRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyVirtualDaaScoreChangedResponseMessage:
-		payload := new(KaspadMessage_NotifyVirtualDaaScoreChangedResponse)
+		payload := new(HoosatdMessage_NotifyVirtualDaaScoreChangedResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.VirtualDaaScoreChangedNotificationMessage:
-		payload := new(KaspadMessage_VirtualDaaScoreChangedNotification)
+		payload := new(HoosatdMessage_VirtualDaaScoreChangedNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBalancesByAddressesRequestMessage:
-		payload := new(KaspadMessage_GetBalancesByAddressesRequest)
+		payload := new(HoosatdMessage_GetBalancesByAddressesRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetBalancesByAddressesResponseMessage:
-		payload := new(KaspadMessage_GetBalancesByAddressesResponse)
+		payload := new(HoosatdMessage_GetBalancesByAddressesResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyNewBlockTemplateRequestMessage:
-		payload := new(KaspadMessage_NotifyNewBlockTemplateRequest)
+		payload := new(HoosatdMessage_NotifyNewBlockTemplateRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NotifyNewBlockTemplateResponseMessage:
-		payload := new(KaspadMessage_NotifyNewBlockTemplateResponse)
+		payload := new(HoosatdMessage_NotifyNewBlockTemplateResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.NewBlockTemplateNotificationMessage:
-		payload := new(KaspadMessage_NewBlockTemplateNotification)
+		payload := new(HoosatdMessage_NewBlockTemplateNotification)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetMempoolEntriesByAddressesRequestMessage:
-		payload := new(KaspadMessage_GetMempoolEntriesByAddressesRequest)
+		payload := new(HoosatdMessage_GetMempoolEntriesByAddressesRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetMempoolEntriesByAddressesResponseMessage:
-		payload := new(KaspadMessage_GetMempoolEntriesByAddressesResponse)
+		payload := new(HoosatdMessage_GetMempoolEntriesByAddressesResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetCoinSupplyRequestMessage:
-		payload := new(KaspadMessage_GetCoinSupplyRequest)
+		payload := new(HoosatdMessage_GetCoinSupplyRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
 		}
 		return payload, nil
 	case *appmessage.GetCoinSupplyResponseMessage:
-		payload := new(KaspadMessage_GetCoinSupplyResponse)
+		payload := new(HoosatdMessage_GetCoinSupplyResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err

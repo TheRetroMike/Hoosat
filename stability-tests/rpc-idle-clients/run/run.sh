@@ -1,8 +1,8 @@
 #!/bin/bash
-rm -rf /tmp/kaspad-temp
+rm -rf /tmp/hoosatd-temp
 
 NUM_CLIENTS=128
-kaspad --devnet --appdir=/tmp/kaspad-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
+hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
 KASPAD_PID=$!
 KASPAD_KILLED=0
 function killKaspadIfNotKilled() {

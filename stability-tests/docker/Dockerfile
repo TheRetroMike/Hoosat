@@ -1,8 +1,8 @@
 ARG KASPAD_IMAGE
 ARG KASPAMINER_IMAGE
 
-FROM ${KASPAD_IMAGE} as kaspad
-FROM ${KASPAMINER_IMAGE} as kaspaminer
+FROM ${KASPAD_IMAGE} as hoosatd
+FROM ${KASPAMINER_IMAGE} as hoosatminer
 
 FROM golang:1.19-alpine
 
@@ -19,8 +19,8 @@ RUN go mod download
 
 COPY . .
 
-COPY --from=kaspad /app/ /app/
-COPY --from=kaspaminer /app/ /app/
+COPY --from=hoosatd /app/ /app/
+COPY --from=hoosatminer /app/ /app/
 ENV PATH="/app:${PATH}"
 
 WORKDIR /go/src/github.com/Hoosat-Oy/hoosatd/stability-tests

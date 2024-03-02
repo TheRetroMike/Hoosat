@@ -8,7 +8,7 @@ import (
 	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/limits"
 )
 
-// Initialize initializes the execution environment required to run kaspad
+// Initialize initializes the execution environment required to run hoosatd
 func Initialize(desiredLimits *limits.DesiredLimits) {
 	// Use all processor cores.
 	runtime.GOMAXPROCS(runtime.NumCPU())

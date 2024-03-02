@@ -4,7 +4,7 @@ import (
 	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
 )
 
-// MsgIBDBlockLocator represents a kaspa ibdBlockLocator message
+// MsgIBDBlockLocator represents a hoosat ibdBlockLocator message
 type MsgIBDBlockLocator struct {
 	baseMessage
 	TargetHash         *externalapi.DomainHash
@@ -16,7 +16,7 @@ func (msg *MsgIBDBlockLocator) Command() MessageCommand {
 	return CmdIBDBlockLocator
 }
 
-// NewMsgIBDBlockLocator returns a new kaspa ibdBlockLocator message
+// NewMsgIBDBlockLocator returns a new hoosat ibdBlockLocator message
 func NewMsgIBDBlockLocator(targetHash *externalapi.DomainHash,
 	blockLocatorHashes []*externalapi.DomainHash) *MsgIBDBlockLocator {
 

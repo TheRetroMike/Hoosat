@@ -33,7 +33,7 @@ func TestServiceFlagStringer(t *testing.T) {
 	}
 }
 
-// TestHoosatNetStringer tests the stringized output for kaspa net types.
+// TestHoosatNetStringer tests the stringized output for hoosat net types.
 func TestHoosatNetStringer(t *testing.T) {
 	tests := []struct {
 		in   HoosatNet

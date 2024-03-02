@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/kaspawallet/libkaspawallet"
+	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
 	"github.com/Hoosat-Oy/hoosatd/util"
 )
 
@@ -13,7 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	privateKey, publicKey, err := libkaspawallet.CreateKeyPair(false)
+	privateKey, publicKey, err := libhoosatwallet.CreateKeyPair(false)
 	if err != nil {
 		panic(err)
 	}

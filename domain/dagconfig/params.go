@@ -90,7 +90,7 @@ type Params struct {
 
 	// SubsidyGenesisReward SubsidyMergeSetRewardMultiplier, and
 	// SubsidyPastRewardMultiplier are part of the block subsidy equation.
-	// Further details: https://hashdag.medium.com/kaspa-launch-plan-9a63f4d754a6
+	// Further details: https://hashdag.medium.com/hoosat-launch-plan-9a63f4d754a6
 	SubsidyGenesisReward            uint64
 	PreDeflationaryPhaseBaseSubsidy uint64
 	DeflationaryPhaseBaseSubsidy    uint64
@@ -175,7 +175,7 @@ type Params struct {
 	// CoinbasePayloadScriptPublicKeyMaxLength is the maximum allowed script public key in the coinbase's payload
 	CoinbasePayloadScriptPublicKeyMaxLength uint8
 
-	// PruningProofM is the 'm' constant in the pruning proof. For more details see: https://github.com/kaspanet/research/issues/3
+	// PruningProofM is the 'm' constant in the pruning proof. For more details see: https://github.com/hoosatnet/research/issues/3
 	PruningProofM uint64
 
 	// DeflationaryPhaseDaaScore is the DAA score after which the monetary policy switches
@@ -209,7 +209,7 @@ func (p *Params) PruningDepth() uint64 {
 // MainnetParams defines the network parameters for the main Kaspa network.
 var MainnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "kaspa-mainnet",
+	Name:        "hoosat-mainnet",
 	Net:         appmessage.Mainnet,
 	RPCPort:     "16110",
 	DefaultPort: "16111",
@@ -217,23 +217,23 @@ var MainnetParams = Params{
 		// This DNS seeder is run by Wolfie
 		"mainnet-dnsseed.kas.pa",
 		// This DNS seeder is run by Denis Mashkevich
-		"mainnet-dnsseed-1.kaspanet.org",
+		"mainnet-dnsseed-1.hoosatnet.org",
 		// This DNS seeder is run by Denis Mashkevich
-		"mainnet-dnsseed-2.kaspanet.org",
+		"mainnet-dnsseed-2.hoosatnet.org",
 		// This DNS seeder is run by Constantine Bytensky
 		"dnsseed.cbytensky.org",
 		// This DNS seeder is run by Georges Künzli
-		"seeder1.kaspad.net",
+		"seeder1.hoosatd.net",
 		// This DNS seeder is run by Georges Künzli
-		"seeder2.kaspad.net",
+		"seeder2.hoosatd.net",
 		// This DNS seeder is run by Georges Künzli
-		"seeder3.kaspad.net",
+		"seeder3.hoosatd.net",
 		// This DNS seeder is run by Georges Künzli
-		"seeder4.kaspad.net",
+		"seeder4.hoosatd.net",
 		// This DNS seeder is run by Tim
-		"kaspadns.kaspacalc.net",
+		"hoosatdns.hoosatcalc.net",
 		// This DNS seeder is run by supertypo
-		"n-mainnet.kaspa.ws",
+		"n-mainnet.hoosat.ws",
 	},
 
 	// DAG parameters
@@ -295,14 +295,14 @@ var MainnetParams = Params{
 // TestnetParams defines the network parameters for the test Kaspa network.
 var TestnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "kaspa-testnet-10",
+	Name:        "hoosat-testnet-10",
 	Net:         appmessage.Testnet,
 	RPCPort:     "16210",
 	DefaultPort: "16211",
 	DNSSeeds: []string{
 		"testnet-10-dnsseed.kas.pa",
 		// This DNS seeder is run by Tiram
-		"seeder1-testnet.kaspad.net",
+		"seeder1-testnet.hoosatd.net",
 	},
 
 	// DAG parameters
@@ -367,7 +367,7 @@ var TestnetParams = Params{
 // just turn into another public testnet.
 var SimnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "kaspa-simnet",
+	Name:        "hoosat-simnet",
 	Net:         appmessage.Simnet,
 	RPCPort:     "16510",
 	DefaultPort: "16511",
@@ -427,7 +427,7 @@ var SimnetParams = Params{
 // DevnetParams defines the network parameters for the development Kaspa network.
 var DevnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "kaspa-devnet",
+	Name:        "hoosat-devnet",
 	Net:         appmessage.Devnet,
 	RPCPort:     "16610",
 	DefaultPort: "16611",
