@@ -13,7 +13,7 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 	const secondsPerMonth = 2629800
 	const secondsPerHalving = secondsPerMonth * 12
 	const deflationaryPhaseDaaScore = secondsPerMonth * 6
-	const deflationaryPhaseBaseSubsidy = 440 * constants.SompiPerHoosat
+	const deflationaryPhaseBaseSubsidy = 100 * constants.SompiPerHoosat
 	coinbaseManagerInterface := New(
 		nil,
 		0,

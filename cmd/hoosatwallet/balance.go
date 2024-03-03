@@ -37,7 +37,7 @@ func balance(conf *balanceConfig) error {
 		println("-----------------------------------------------------------------------------------------------------------")
 		print("                                                 ")
 	}
-	fmt.Printf("Total balance, HST %s %s%s\n", utils.FomatHSAT(response.Available), utils.FomatHSAT(response.Pending), pendingSuffix)
+	fmt.Printf("Total balance, HTN %s %s%s\n", utils.FomatHSAT(response.Available), utils.FomatHSAT(response.Pending), pendingSuffix)
 
 	return nil
 }

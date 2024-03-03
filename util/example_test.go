@@ -21,9 +21,9 @@ func ExampleAmount() {
 	a = util.Amount(1e5)
 	fmt.Println("100,000 Sompi:", a)
 	// Output:
-	// Zero Sompi: 0 HST
-	// 100,000,000 Sompi: 1 HST
-	// 100,000 Sompi: 0.001 HST
+	// Zero Sompi: 0 HTN
+	// 100,000,000 Sompi: 1 HTN
+	// 100,000 Sompi: 0.001 HTN
 }
 
 func ExampleNewAmount() {
@@ -55,9 +55,9 @@ func ExampleNewAmount() {
 	}
 	fmt.Println(amountNaN) //Output 4
 
-	// Output: 1 HST
-	// 0.01234567 HST
-	// 0 HST
+	// Output: 1 HTN
+	// 0.01234567 HTN
+	// 0 HTN
 	// invalid hoosat amount
 }
 
@@ -65,14 +65,14 @@ func ExampleAmount_unitConversions() {
 	amount := util.Amount(44433322211100)
 
 	fmt.Println("Sompi to kHSAT:", amount.Format(util.AmountKiloHSAT))
-	fmt.Println("Sompi to HST:", amount)
+	fmt.Println("Sompi to HTN:", amount)
 	fmt.Println("Sompi to MilliHSAT:", amount.Format(util.AmountMilliHSAT))
 	fmt.Println("Sompi to MicroHSAT:", amount.Format(util.AmountMicroHSAT))
 	fmt.Println("Sompi to Sompi:", amount.Format(util.AmountSompi))
 
 	// Output:
 	// Sompi to kHSAT: 444.333222111 kHSAT
-	// Sompi to HST: 444333.222111 HST
+	// Sompi to HTN: 444333.222111 HTN
 	// Sompi to MilliHSAT: 444333222.111 mHSAT
 	// Sompi to MicroHSAT: 444333222111 μHSAT
 	// Sompi to Sompi: 44433322211100 Sompi

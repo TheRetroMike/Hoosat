@@ -11,7 +11,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// FomatHSAT takes the amount of sompis as uint64, and returns amount of HST with 8  decimal places
+// FomatHSAT takes the amount of sompis as uint64, and returns amount of HTN with 8  decimal places
 func FomatHSAT(amount uint64) string {
 	res := "                   "
 	if amount > 0 {

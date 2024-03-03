@@ -117,11 +117,11 @@ func TestAmountUnitConversions(t *testing.T) {
 			s:         "444.333222111 kHSAT",
 		},
 		{
-			name:      "HST",
+			name:      "HTN",
 			amount:    44433322211100,
 			unit:      AmountHSAT,
 			converted: 444333.22211100,
-			s:         "444333.222111 HST",
+			s:         "444333.222111 HTN",
 		},
 		{
 			name:      "mHSAT",
@@ -152,7 +152,7 @@ func TestAmountUnitConversions(t *testing.T) {
 			amount:    44433322211100,
 			unit:      AmountUnit(-1),
 			converted: 4443332.2211100,
-			s:         "4443332.22111 1e-1 HST",
+			s:         "4443332.22111 1e-1 HTN",
 		},
 	}
 
@@ -193,16 +193,16 @@ func TestAmountMulF64(t *testing.T) {
 		res  Amount
 	}{
 		{
-			name: "Multiply 0.1 HST by 2",
-			amt:  100e5, // 0.1 HST
+			name: "Multiply 0.1 HTN by 2",
+			amt:  100e5, // 0.1 HTN
 			mul:  2,
-			res:  200e5, // 0.2 HST
+			res:  200e5, // 0.2 HTN
 		},
 		{
-			name: "Multiply 0.2 HST by 0.02",
-			amt:  200e5, // 0.2 HST
+			name: "Multiply 0.2 HTN by 0.02",
+			amt:  200e5, // 0.2 HTN
 			mul:  1.02,
-			res:  204e5, // 0.204 HST
+			res:  204e5, // 0.204 HTN
 		},
 		{
 			name: "Round down",
@@ -218,9 +218,9 @@ func TestAmountMulF64(t *testing.T) {
 		},
 		{
 			name: "Multiply by 0.",
-			amt:  1e8, // 1 HST
+			amt:  1e8, // 1 HTN
 			mul:  0,
-			res:  0, // 0 HST
+			res:  0, // 0 HTN
 		},
 		{
 			name: "Multiply 1 by 0.5.",
