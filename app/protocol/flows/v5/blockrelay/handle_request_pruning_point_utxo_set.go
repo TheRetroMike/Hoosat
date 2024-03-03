@@ -3,14 +3,14 @@ package blockrelay
 import (
 	"errors"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
-	"github.com/Hoosat-Oy/hoosatd/domain"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/ruleerrors"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/protocol/common"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 )
 
 // HandleRequestPruningPointUTXOSetContext is the interface for the context needed for the HandleRequestPruningPointUTXOSet flow.

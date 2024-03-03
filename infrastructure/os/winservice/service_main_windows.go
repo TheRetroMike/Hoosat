@@ -1,7 +1,7 @@
 package winservice
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
 	"github.com/btcsuite/winsvc/svc"
 )
 

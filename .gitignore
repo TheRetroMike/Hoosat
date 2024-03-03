@@ -2,7 +2,7 @@
 *~
 
 # Databases
-hoosatd.db
+htnd.db
 *-shm
 *-wal
 
@@ -19,7 +19,7 @@ hoosatd.db
 *.test
 
 # Real binaries, build with `go build .`
-hoosatd
+htnd
 cmd/gencerts/gencerts
 cmd/hoosatctl/hoosatctl
 cmd/hoosatminer/hoosatminer

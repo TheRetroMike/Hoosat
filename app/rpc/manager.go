@@ -1,17 +1,17 @@
 package rpc
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol"
-	"github.com/Hoosat-Oy/hoosatd/app/rpc/rpccontext"
-	"github.com/Hoosat-Oy/hoosatd/domain"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/utxoindex"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/addressmanager"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/connmanager"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/protocol"
+	"github.com/Hoosat-Oy/HTND/app/rpc/rpccontext"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/utxoindex"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 	"github.com/pkg/errors"
 )
 

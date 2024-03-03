@@ -5,16 +5,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 func forSchnorrAndECDSA(t *testing.T, testFunc func(t *testing.T, ecdsa bool)) {

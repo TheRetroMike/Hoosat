@@ -3,7 +3,7 @@ package subnetworks
 import (
 	"encoding/hex"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 // FromString creates a DomainSubnetworkID from the given byte slice

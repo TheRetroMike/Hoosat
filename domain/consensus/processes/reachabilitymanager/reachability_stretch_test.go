@@ -8,12 +8,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/testapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/testapi"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 	"github.com/pkg/errors"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 )
 
 // OnConnectedHandler is a function that is to be called

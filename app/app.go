@@ -7,17 +7,17 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database/ldb"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/execenv"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/limits"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/signal"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/winservice"
-	"github.com/Hoosat-Oy/hoosatd/util/panics"
-	"github.com/Hoosat-Oy/hoosatd/util/profiling"
-	"github.com/Hoosat-Oy/hoosatd/version"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/execenv"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/limits"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/signal"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/winservice"
+	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/HTND/util/profiling"
+	"github.com/Hoosat-Oy/HTND/version"
 )
 
 const (
@@ -31,17 +31,17 @@ var desiredLimits = &limits.DesiredLimits{
 }
 
 var serviceDescription = &winservice.ServiceDescription{
-	Name:        "hoosatdsvc",
-	DisplayName: "hoosatd Service",
+	Name:        "htndsvc",
+	DisplayName: "htnd Service",
 	Description: "Downloads and stays synchronized with the Hoosat blockDAG and " +
 		"provides DAG services to applications.",
 }
 
-type hoosatdApp struct {
+type htndApp struct {
 	cfg *config.Config
 }
 
-// StartApp starts the hoosatd app, and blocks until it finishes running
+// StartApp starts the htnd app, and blocks until it finishes running
 func StartApp() error {
 	execenv.Initialize(desiredLimits)
 
@@ -55,7 +55,7 @@ func StartApp() error {
 	defer logger.BackendLog.Close()
 	defer panics.HandlePanic(log, "MAIN", nil)
 
-	app := &hoosatdApp{cfg: cfg}
+	app := &htndApp{cfg: cfg}
 
 	// Call serviceMain on Windows to handle running as a service. When
 	// the return isService flag is true, exit now since we ran as a
@@ -73,7 +73,7 @@ func StartApp() error {
 	return app.main(nil)
 }
 
-func (app *hoosatdApp) main(startedChan chan<- struct{}) error {
+func (app *htndApp) main(startedChan chan<- struct{}) error {
 	// Get a channel that will be closed when a shutdown signal has been
 	// triggered either from an OS signal such as SIGINT (Ctrl+C) or from
 	// another subsystem such as the RPC server.
@@ -125,12 +125,12 @@ func (app *hoosatdApp) main(startedChan chan<- struct{}) error {
 	// Create componentManager and start it.
 	componentManager, err := NewComponentManager(app.cfg, databaseContext, interrupt)
 	if err != nil {
-		log.Errorf("Unable to start hoosatd: %+v", err)
+		log.Errorf("Unable to start htnd: %+v", err)
 		return err
 	}
 
 	defer func() {
-		log.Infof("Gracefully shutting down hoosatd...")
+		log.Infof("Gracefully shutting down htnd...")
 
 		shutdownDone := make(chan struct{})
 		go func() {
@@ -145,7 +145,7 @@ func (app *hoosatdApp) main(startedChan chan<- struct{}) error {
 		case <-time.After(shutdownTimeout):
 			log.Criticalf("Graceful shutdown timed out %s. Terminating...", shutdownTimeout)
 		}
-		log.Infof("hoosatd shutdown complete")
+		log.Infof("htnd shutdown complete")
 	}()
 
 	componentManager.Start()

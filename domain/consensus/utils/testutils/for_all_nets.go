@@ -3,8 +3,8 @@ package testutils
 import (
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 )
 
 // ForAllNets runs the passed testFunc with all available networks

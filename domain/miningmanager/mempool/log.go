@@ -5,7 +5,7 @@
 package mempool
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 )
 
 var log = logger.RegisterSubSystem("TXMP")

@@ -1,8 +1,8 @@
 package consensusstatestore
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/database/serialization"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/database/serialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/golang/protobuf/proto"
 )
 

@@ -8,9 +8,9 @@ import (
 	"math"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 
-	. "github.com/Hoosat-Oy/hoosatd/util"
+	. "github.com/Hoosat-Oy/HTND/util"
 )
 
 func TestAmountCreation(t *testing.T) {

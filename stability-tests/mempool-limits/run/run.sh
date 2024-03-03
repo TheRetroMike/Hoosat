@@ -1,11 +1,11 @@
 #!/bin/bash
 
-APPDIR=/tmp/hoosatd-temp
+APPDIR=/tmp/htnd-temp
 HOOSATD_RPC_PORT=29587
 
 rm -rf "${APPDIR}"
 
-hoosatd --simnet --appdir="${APPDIR}" --rpclisten=0.0.0.0:"${HOOSATD_RPC_PORT}" --profile=6061 &
+htnd --simnet --appdir="${APPDIR}" --rpclisten=0.0.0.0:"${HOOSATD_RPC_PORT}" --profile=6061 &
 HOOSATD_PID=$!
 
 sleep 1

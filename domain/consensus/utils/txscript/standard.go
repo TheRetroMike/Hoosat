@@ -7,12 +7,12 @@ package txscript
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 // ScriptClass is an enumeration for the list of standard types of script.

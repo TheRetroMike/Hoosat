@@ -7,9 +7,9 @@ package winservice
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/signal"
-	"github.com/Hoosat-Oy/hoosatd/version"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/signal"
+	"github.com/Hoosat-Oy/HTND/version"
 	"github.com/btcsuite/winsvc/eventlog"
 	"github.com/btcsuite/winsvc/svc"
 )
@@ -51,20 +51,20 @@ func (s *Service) Start() error {
 
 // Execute is the main entry point the winsvc package calls when receiving
 // information from the Windows service control manager. It launches the
-// long-running hoosatdMain (which is the real meat of hoosatd), handles service
+// long-running htndMain (which is the real meat of htnd), handles service
 // change requests, and notifies the service control manager of changes.
 func (s *Service) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (bool, uint32) {
 	// Service start is pending.
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown
 	changes <- svc.Status{State: svc.StartPending}
 
-	// Start hoosatdMain in a separate goroutine so the service can start
+	// Start htndMain in a separate goroutine so the service can start
 	// quickly. Shutdown (along with a potential error) is reported via
-	// doneChan. startedChan is notified once hoosatd is started so this can
+	// doneChan. startedChan is notified once htnd is started so this can
 	// be properly logged
 	doneChan := make(chan error)
 	startedChan := make(chan struct{})
-	spawn("hoosatdMain-windows", func() {
+	spawn("htndMain-windows", func() {
 		err := s.main(startedChan)
 		doneChan <- err
 	})
@@ -108,7 +108,7 @@ loop:
 	return false, 0
 }
 
-// logServiceStart logs information about hoosatd when the main server has
+// logServiceStart logs information about htnd when the main server has
 // been started to the Windows event log.
 func (s *Service) logServiceStart() {
 	var message string

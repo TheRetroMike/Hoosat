@@ -1,8 +1,8 @@
 package serialization
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/multiset"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/multiset"
 )
 
 // MultisetToDBMultiset converts Multiset to DbMultiset

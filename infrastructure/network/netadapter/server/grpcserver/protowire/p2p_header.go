@@ -4,9 +4,9 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 	"github.com/pkg/errors"
 )
 

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
 	"github.com/pkg/errors"
 )
 

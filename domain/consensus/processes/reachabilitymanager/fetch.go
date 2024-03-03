@@ -1,10 +1,10 @@
 package reachabilitymanager
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/database"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/reachabilitydata"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/database"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/reachabilitydata"
 	"github.com/pkg/errors"
 )
 

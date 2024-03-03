@@ -1,9 +1,9 @@
 # -- multistage docker build: stage #1: build stage
 FROM golang:1.18-alpine AS build
 
-RUN mkdir -p /go/src/github.com/Hoosat-Oy/hoosatd
+RUN mkdir -p /go/src/github.com/Hoosat-Oy/HTND
 
-WORKDIR /go/src/github.com/Hoosat-Oy/hoosatd
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND
 
 RUN apk add --no-cache curl git openssh binutils gcc musl-dev
 
@@ -14,7 +14,7 @@ RUN go mod download
 
 COPY . .
 
-WORKDIR /go/src/github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND/cmd/hoosatwallet
 RUN GOOS=linux go build -a -installsuffix cgo -o hoosatwallet .
 
 # --- multistage docker build: stage #2: runtime image
@@ -23,7 +23,7 @@ WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tini
 
-COPY --from=build /go/src/github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/hoosatwallet /app/
+COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/hoosatwallet /app/
 
 USER nobody
 ENTRYPOINT [ "/sbin/tini", "--" ]

@@ -3,7 +3,7 @@ package reachabilitymanager
 import (
 	"math"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 	"github.com/pkg/errors"
 )
 

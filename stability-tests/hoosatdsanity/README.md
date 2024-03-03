@@ -6,7 +6,7 @@ argument so it will be able to clean it between runs, so it's forbidden to use
 --appdir as part of the arguments set.
 
 ## Running
- 1. `go install` hoosatd and hoosatdsanity.
+ 1. `go install` htnd and htndsanity.
  2. `cd run`
  3. `./run.sh`
 

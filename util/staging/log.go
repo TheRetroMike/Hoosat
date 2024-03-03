@@ -1,7 +1,7 @@
 package staging
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 )
 
 var utilLog = logger.RegisterSubSystem("UTIL")

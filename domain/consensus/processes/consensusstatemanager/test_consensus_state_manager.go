@@ -1,9 +1,9 @@
 package consensusstatemanager
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/testapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/testapi"
 )
 
 type testConsensusStateManager struct {

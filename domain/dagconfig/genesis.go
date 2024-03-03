@@ -7,10 +7,10 @@ package dagconfig
 import (
 	"math/big"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/blockheader"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/subnetworks"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/blockheader"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionhelper"
 	"github.com/kaspanet/go-muhash"
 )
 

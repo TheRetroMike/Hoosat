@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/testapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/testapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
 )
 
 func TestAddBlockBetweenResolveVirtualCalls(t *testing.T) {

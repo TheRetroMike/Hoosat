@@ -8,14 +8,14 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/util/network"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/util/network"
 
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 // These variables are the DAG proof-of-work limit parameters for each default

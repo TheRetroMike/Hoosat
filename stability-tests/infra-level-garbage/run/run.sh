@@ -1,7 +1,7 @@
 #!/bin/bash
-rm -rf /tmp/hoosatd-temp
+rm -rf /tmp/htnd-temp
 
-hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 &
+htnd --devnet --appdir=/tmp/htnd-temp --profile=6061 &
 HOOSATD_PID=$!
 
 sleep 1

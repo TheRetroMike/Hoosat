@@ -1,14 +1,14 @@
 ARG HOOSATD_IMAGE
 ARG HOOSATMINER_IMAGE
 
-FROM ${HOOSATD_IMAGE} as hoosatd
+FROM ${HOOSATD_IMAGE} as htnd
 FROM ${HOOSATMINER_IMAGE} as hoosatminer
 
 FROM golang:1.19-alpine
 
-RUN mkdir -p /go/src/github.com/Hoosat-Oy/hoosatd
+RUN mkdir -p /go/src/github.com/Hoosat-Oy/HTND
 
-WORKDIR /go/src/github.com/Hoosat-Oy/hoosatd
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND
 
 RUN apk add bash build-base git
 
@@ -19,11 +19,11 @@ RUN go mod download
 
 COPY . .
 
-COPY --from=hoosatd /app/ /app/
+COPY --from=htnd /app/ /app/
 COPY --from=hoosatminer /app/ /app/
 ENV PATH="/app:${PATH}"
 
-WORKDIR /go/src/github.com/Hoosat-Oy/hoosatd/stability-tests
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND/stability-tests
 
 RUN go install ./...
 

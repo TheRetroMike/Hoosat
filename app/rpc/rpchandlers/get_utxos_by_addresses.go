@@ -1,18 +1,18 @@
 package rpchandlers
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/app/rpc/rpccontext"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/rpc/rpccontext"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 // HandleGetUTXOsByAddresses handles the respectively named RPC command
 func HandleGetUTXOsByAddresses(context *rpccontext.Context, _ *router.Router, request appmessage.Message) (appmessage.Message, error) {
 	if !context.Config.UTXOIndex {
 		errorMessage := &appmessage.GetUTXOsByAddressesResponseMessage{}
-		errorMessage.Error = appmessage.RPCErrorf("Method unavailable when hoosatd is run without --utxoindex")
+		errorMessage.Error = appmessage.RPCErrorf("Method unavailable when htnd is run without --utxoindex")
 		return errorMessage, nil
 	}
 

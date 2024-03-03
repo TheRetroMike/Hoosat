@@ -3,8 +3,8 @@ package coinbasemanager
 import (
 	"encoding/binary"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/pkg/errors"
 )
 

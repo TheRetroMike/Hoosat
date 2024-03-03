@@ -3,9 +3,9 @@ package ghostdagmanager
 import (
 	"math/big"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/util/difficulty"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/util/difficulty"
 	"github.com/pkg/errors"
 )
 

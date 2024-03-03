@@ -5,9 +5,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/bip32"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 )

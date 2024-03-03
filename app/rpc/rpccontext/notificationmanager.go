@@ -3,14 +3,14 @@ package rpccontext
 import (
 	"sync"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain/utxoindex"
-	routerpkg "github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/utxoindex"
+	routerpkg "github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 
@@ -21,7 +21,7 @@ type NotificationManager struct {
 	params    *dagconfig.Params
 }
 
-// UTXOsChangedNotificationAddress represents a hoosatd address.
+// UTXOsChangedNotificationAddress represents a htnd address.
 // This type is meant to be used in UTXOsChanged notifications
 type UTXOsChangedNotificationAddress struct {
 	Address               string

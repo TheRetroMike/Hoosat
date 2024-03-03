@@ -3,15 +3,15 @@ package consensusstatemanager
 import (
 	"sort"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionhelper"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/merkle"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/merkle"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/pkg/errors"
 )
 

@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/keys"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/keys"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
 	"github.com/pkg/errors"
 )
 

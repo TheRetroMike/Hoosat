@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 )
 
 func dbKeyToDatabaseKey(key model.DBKey) *database.Key {

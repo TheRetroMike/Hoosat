@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/standalone"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/standalone"
 )
 
 func connectToNode() *standalone.Routes {
 	cfg := activeConfig()
 
-	hoosatdConfig := config.DefaultConfig()
-	hoosatdConfig.NetworkFlags = cfg.NetworkFlags
+	htndConfig := config.DefaultConfig()
+	htndConfig.NetworkFlags = cfg.NetworkFlags
 
-	minimalNetAdapter, err := standalone.NewMinimalNetAdapter(hoosatdConfig)
+	minimalNetAdapter, err := standalone.NewMinimalNetAdapter(htndConfig)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error creating minimalNetAdapter: %+v", err)
 		os.Exit(1)

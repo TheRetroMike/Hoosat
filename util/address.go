@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/blake2b"
 
-	"github.com/Hoosat-Oy/hoosatd/util/bech32"
+	"github.com/Hoosat-Oy/HTND/util/bech32"
 )
 
 var (
@@ -55,7 +55,7 @@ const (
 // Map from strings to Bech32 address prefix constants for parsing purposes.
 var stringsToBech32Prefixes = map[string]Bech32Prefix{
 	"hoosat":     Bech32PrefixHoosat,
-	"hoosatdev":  Bech32PrefixHoosatDev,
+	"htndev":     Bech32PrefixHoosatDev,
 	"hoosattest": Bech32PrefixHoosatTest,
 	"hoosatsim":  Bech32PrefixHoosatSim,
 }

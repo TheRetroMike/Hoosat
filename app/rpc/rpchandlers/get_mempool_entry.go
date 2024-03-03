@@ -1,11 +1,11 @@
 package rpchandlers
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/app/rpc/rpccontext"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionid"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/rpc/rpccontext"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionid"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 )
 
 // HandleGetMempoolEntry handles the respectively named RPC command

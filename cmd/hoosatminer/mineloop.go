@@ -6,15 +6,15 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/version"
+	"github.com/Hoosat-Oy/HTND/version"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatminer/templatemanager"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/pow"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatminer/templatemanager"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/pow"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/pkg/errors"
 )
 

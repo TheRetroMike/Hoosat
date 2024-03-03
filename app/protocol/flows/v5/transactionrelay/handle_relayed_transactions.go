@@ -1,16 +1,16 @@
 package transactionrelay
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/flowcontext"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
-	"github.com/Hoosat-Oy/hoosatd/domain"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/miningmanager/mempool"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/protocol/common"
+	"github.com/Hoosat-Oy/HTND/app/protocol/flowcontext"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

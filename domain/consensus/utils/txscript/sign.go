@@ -5,13 +5,13 @@
 package txscript
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 // RawTxInSignature returns the serialized Schnorr signature for the input idx of

@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 )
 
 // ErrNotFound denotes that the requested item was not

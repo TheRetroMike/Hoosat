@@ -1,11 +1,11 @@
 package multisetstore
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/database/serialization"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/lrucache"
-	"github.com/Hoosat-Oy/hoosatd/util/staging"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/database/serialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/lrucache"
+	"github.com/Hoosat-Oy/HTND/util/staging"
 	"github.com/golang/protobuf/proto"
 )
 

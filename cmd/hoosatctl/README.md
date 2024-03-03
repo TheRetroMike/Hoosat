@@ -1,6 +1,6 @@
 # hoosatctl
 
-hoosatctl is an RPC client for hoosatd
+hoosatctl is an RPC client for htnd
 
 ## Requirements
 
@@ -19,11 +19,11 @@ Go 1.19 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install hoosatd including all dependencies:
+- Run the following commands to obtain and install htnd including all dependencies:
 
 ```bash
-$ git clone https://github.com/Hoosat-Oy/hoosatd
-$ cd hoosatd/cmd/hoosatctl
+$ git clone https://github.com/Hoosat-Oy/HTND
+$ cd htnd/cmd/hoosatctl
 $ go install .
 ```
 

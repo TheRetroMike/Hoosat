@@ -1,10 +1,10 @@
 package consensusstatemanager
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/util/staging"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util/staging"
 )
 
 func (csm *consensusStateManager) ReverseUTXODiffs(tipHash *externalapi.DomainHash,

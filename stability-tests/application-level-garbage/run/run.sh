@@ -1,7 +1,7 @@
 #!/bin/bash
-rm -rf /tmp/hoosatd-temp
+rm -rf /tmp/htnd-temp
 
-hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 --loglevel=debug &
+htnd --devnet --appdir=/tmp/htnd-temp --profile=6061 --loglevel=debug &
 HOOSATD_PID=$!
 HOOSATD_KILLED=0
 function killHoosatdIfNotKilled() {

@@ -7,18 +7,18 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 )
 
-// RunHoosatdForTesting runs hoosatd for testing purposes
+// RunHoosatdForTesting runs htnd for testing purposes
 func RunHoosatdForTesting(t *testing.T, testName string, rpcAddress string) func() {
 	appDir, err := TempDir(testName)
 	if err != nil {
 		t.Fatalf("TempDir: %s", err)
 	}
 
-	hoosatdRunCommand, err := StartCmd("HSATD",
-		"hoosatd",
+	htndRunCommand, err := StartCmd("HSATD",
+		"htnd",
 		NetworkCliArgumentFromNetParams(&dagconfig.DevnetParams),
 		"--appdir", appDir,
 		"--rpclisten", rpcAddress,
@@ -31,7 +31,7 @@ func RunHoosatdForTesting(t *testing.T, testName string, rpcAddress string) func
 
 	isShutdown := uint64(0)
 	go func() {
-		err := hoosatdRunCommand.Wait()
+		err := htndRunCommand.Wait()
 		if err != nil {
 			if atomic.LoadUint64(&isShutdown) == 0 {
 				panic(fmt.Sprintf("Hoosatd closed unexpectedly: %s. See logs at: %s", err, appDir))
@@ -40,7 +40,7 @@ func RunHoosatdForTesting(t *testing.T, testName string, rpcAddress string) func
 	}()
 
 	return func() {
-		err := hoosatdRunCommand.Process.Signal(syscall.SIGTERM)
+		err := htndRunCommand.Process.Signal(syscall.SIGTERM)
 		if err != nil {
 			t.Fatalf("Signal: %s", err)
 		}

@@ -1,8 +1,8 @@
 #!/bin/bash
-rm -rf /tmp/hoosatd-temp
+rm -rf /tmp/htnd-temp
 
 NUM_CLIENTS=128
-hoosatd --devnet --appdir=/tmp/hoosatd-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
+htnd --devnet --appdir=/tmp/htnd-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
 HOOSATD_PID=$!
 HOOSATD_KILLED=0
 function killHoosatdIfNotKilled() {

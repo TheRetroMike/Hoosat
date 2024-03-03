@@ -1,11 +1,11 @@
-# Contributing to hoosatd
+# Contributing to htnd
 
-Any contribution to hoosatd is very welcome.
+Any contribution to htnd is very welcome.
 
 ## Getting started
 
-If you want to start contributing to hoosatd and don't know where to start, you can pick an issue from
-the [list](https://github.com/Hoosat-Oy/hoosatd/issues).
+If you want to start contributing to htnd and don't know where to start, you can pick an issue from
+the [list](https://github.com/Hoosat-Oy/HTND/issues).
 
 If you want to make a big change it's better to discuss it first by opening an issue or talk about it in
 [Discord](https://discord.gg/WmGhhzk) to avoid duplicate work.

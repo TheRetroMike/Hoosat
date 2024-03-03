@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/standalone"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
-	"github.com/Hoosat-Oy/hoosatd/util/panics"
-	"github.com/Hoosat-Oy/hoosatd/util/profiling"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/standalone"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/HTND/util/profiling"
 )
 
 func main() {
@@ -25,10 +25,10 @@ func main() {
 		profiling.Start(cfg.Profile, log)
 	}
 
-	hoosatdConfig := config.DefaultConfig()
-	hoosatdConfig.NetworkFlags = cfg.NetworkFlags
+	htndConfig := config.DefaultConfig()
+	htndConfig.NetworkFlags = cfg.NetworkFlags
 
-	minimalNetAdapter, err := standalone.NewMinimalNetAdapter(hoosatdConfig)
+	minimalNetAdapter, err := standalone.NewMinimalNetAdapter(htndConfig)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error creating minimalNetAdapter: %+v", err)
 		backendLog.Close()

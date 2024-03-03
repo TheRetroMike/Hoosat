@@ -1,7 +1,7 @@
 package serialization
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 // DbBlockLevelParentsToDomainBlockLevelParents converts a DbBlockLevelParents to a BlockLevelParents

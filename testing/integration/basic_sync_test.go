@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
 )
 
 func TestIntegrationBasicSync(t *testing.T) {

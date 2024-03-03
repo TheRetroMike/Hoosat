@@ -4,14 +4,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database/ldb"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 
-	"github.com/Hoosat-Oy/hoosatd/app"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/app"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
 )
 
 type appHarness struct {

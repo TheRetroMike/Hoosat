@@ -4,25 +4,25 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/HTND/domain/miningmanager/mempool"
 
-	"github.com/Hoosat-Oy/hoosatd/app/protocol"
-	"github.com/Hoosat-Oy/hoosatd/app/rpc"
-	"github.com/Hoosat-Oy/hoosatd/domain"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/utxoindex"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	infrastructuredatabase "github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/addressmanager"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/connmanager"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/id"
-	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/Hoosat-Oy/HTND/app/protocol"
+	"github.com/Hoosat-Oy/HTND/app/rpc"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/utxoindex"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	infrastructuredatabase "github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/id"
+	"github.com/Hoosat-Oy/HTND/util/panics"
 )
 
-// ComponentManager is a wrapper for all the hoosatd services
+// ComponentManager is a wrapper for all the htnd services
 type ComponentManager struct {
 	cfg               *config.Config
 	addressManager    *addressmanager.AddressManager
@@ -34,14 +34,14 @@ type ComponentManager struct {
 	started, shutdown int32
 }
 
-// Start launches all the hoosatd services.
+// Start launches all the htnd services.
 func (a *ComponentManager) Start() {
 	// Already started?
 	if atomic.AddInt32(&a.started, 1) != 1 {
 		return
 	}
 
-	log.Trace("Starting hoosatd")
+	log.Trace("Starting htnd")
 
 	err := a.netAdapter.Start()
 	if err != nil {
@@ -51,15 +51,15 @@ func (a *ComponentManager) Start() {
 	a.connectionManager.Start()
 }
 
-// Stop gracefully shuts down all the hoosatd services.
+// Stop gracefully shuts down all the htnd services.
 func (a *ComponentManager) Stop() {
 	// Make sure this only happens once.
 	if atomic.AddInt32(&a.shutdown, 1) != 1 {
-		log.Infof("hoosatd is already in the process of shutting down")
+		log.Infof("htnd is already in the process of shutting down")
 		return
 	}
 
-	log.Warnf("hoosatd shutting down")
+	log.Warnf("htnd shutting down")
 
 	a.connectionManager.Stop()
 

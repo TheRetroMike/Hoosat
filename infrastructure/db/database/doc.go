@@ -1,5 +1,5 @@
 /*
-Package database provides a database for hoosatd.
+Package database provides a database for htnd.
 
 # Overview
 
@@ -13,7 +13,7 @@ Implementors of additional backends are required to implement the following inte
 
 # DataAccessor
 
-This defines the common interface by which data gets accessed in a generic hoosatd
+This defines the common interface by which data gets accessed in a generic htnd
 database. Both the Database and the Transaction interfaces (see below) implement it.
 
 # Database
@@ -22,7 +22,7 @@ This defines the interface of a database that can begin transactions and close i
 
 # Transaction
 
-This defines the interface of a generic hoosatd database transaction.
+This defines the interface of a generic htnd database transaction.
 Note: transactions provide data consistency over the state of the database as it was
 when the transaction started. There is NO guarantee that if one puts data into the
 transaction then it will be available to get within the same transaction.

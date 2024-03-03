@@ -9,14 +9,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
-	"github.com/Hoosat-Oy/hoosatd/domain/miningmanager/mempool"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database/ldb"
 )
 
 func TestCreateStagingConsensus(t *testing.T) {

@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database/ldb"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/mine"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common/mine"
 	"github.com/pkg/errors"
 )
 

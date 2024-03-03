@@ -4,20 +4,20 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionid"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionid"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/kaspanet/go-secp256k1"
 )
 
 func TestUTXOIndex(t *testing.T) {
-	// Setup a single hoosatd instance
+	// Setup a single htnd instance
 	harnessParams := &harnessParams{
 		p2pAddress:              p2pAddress1,
 		rpcAddress:              rpcAddress1,
@@ -25,17 +25,17 @@ func TestUTXOIndex(t *testing.T) {
 		miningAddressPrivateKey: miningAddress1PrivateKey,
 		utxoIndex:               true,
 	}
-	hoosatd, teardown := setupHarness(t, harnessParams)
+	htnd, teardown := setupHarness(t, harnessParams)
 	defer teardown()
 
 	// skip the first block because it's paying to genesis script,
 	// which contains no outputs
-	mineNextBlock(t, hoosatd)
+	mineNextBlock(t, htnd)
 
 	// Register for UTXO changes
 	const blockAmountToMine = 100
 	onUTXOsChangedChan := make(chan *appmessage.UTXOsChangedNotificationMessage, blockAmountToMine)
-	err := hoosatd.rpcClient.RegisterForUTXOsChangedNotifications([]string{miningAddress1}, func(
+	err := htnd.rpcClient.RegisterForUTXOsChangedNotifications([]string{miningAddress1}, func(
 		notification *appmessage.UTXOsChangedNotificationMessage) {
 
 		onUTXOsChangedChan <- notification
@@ -46,17 +46,17 @@ func TestUTXOIndex(t *testing.T) {
 
 	// Mine some blocks
 	for i := 0; i < blockAmountToMine; i++ {
-		mineNextBlock(t, hoosatd)
+		mineNextBlock(t, htnd)
 	}
 
 	//check if rewards corrosponds to circulating supply.
-	getCoinSupplyResponse, err := hoosatd.rpcClient.GetCoinSupply()
+	getCoinSupplyResponse, err := htnd.rpcClient.GetCoinSupply()
 	if err != nil {
 		t.Fatalf("Error Retriving Coin supply: %s", err)
 	}
 
 	rewardsMinedSompi := uint64(blockAmountToMine * constants.SompiPerHoosat * 500)
-	getBlockCountResponse, err := hoosatd.rpcClient.GetBlockCount()
+	getBlockCountResponse, err := htnd.rpcClient.GetBlockCount()
 	if err != nil {
 		t.Fatalf("Error Retriving BlockCount: %s", err)
 	}
@@ -89,14 +89,14 @@ func TestUTXOIndex(t *testing.T) {
 	const transactionAmountToSpend = 5
 	for i := 0; i < transactionAmountToSpend; i++ {
 		rpcTransaction := buildTransactionForUTXOIndexTest(t, notificationEntries[i])
-		_, err = hoosatd.rpcClient.SubmitTransaction(rpcTransaction, false)
+		_, err = htnd.rpcClient.SubmitTransaction(rpcTransaction, false)
 		if err != nil {
 			t.Fatalf("Error submitting transaction: %s", err)
 		}
 	}
 
 	// Mine a block to include the above transactions
-	mineNextBlock(t, hoosatd)
+	mineNextBlock(t, htnd)
 
 	// Make sure this block removed the UTXOs we spent
 	notification := <-onUTXOsChangedChan
@@ -128,7 +128,7 @@ func TestUTXOIndex(t *testing.T) {
 
 	// Get all the UTXOs and make sure the response is equivalent
 	// to the data collected via notifications
-	utxosByAddressesResponse, err := hoosatd.rpcClient.GetUTXOsByAddresses([]string{miningAddress1})
+	utxosByAddressesResponse, err := htnd.rpcClient.GetUTXOsByAddresses([]string{miningAddress1})
 	if err != nil {
 		t.Fatalf("Failed to get UTXOs: %s", err)
 	}

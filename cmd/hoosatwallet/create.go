@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/bip32"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/utils"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/utils"
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/keys"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/keys"
 )
 
 func create(conf *createConfig) error {

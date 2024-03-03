@@ -1,7 +1,7 @@
 package ldb
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 	"github.com/pkg/errors"
 	"github.com/syndtr/goleveldb/leveldb"
 )

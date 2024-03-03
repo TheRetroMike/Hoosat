@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/subnetworks"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 func TestCreateDefaultConfigFile(t *testing.T) {
@@ -18,16 +18,16 @@ func TestCreateDefaultConfigFile(t *testing.T) {
 	if !ok {
 		t.Fatalf("Failed finding config file path")
 	}
-	sampleConfigFile := filepath.Join(filepath.Dir(path), "sample-hoosatd.conf")
+	sampleConfigFile := filepath.Join(filepath.Dir(path), "sample-htnd.conf")
 
 	// Setup a temporary directory
-	tmpDir, err := ioutil.TempDir("", "hoosatd")
+	tmpDir, err := ioutil.TempDir("", "htnd")
 	if err != nil {
 		t.Fatalf("Failed creating a temporary directory: %v", err)
 	}
 	testpath := filepath.Join(tmpDir, "test.conf")
 
-	// copy config file to location of hoosatd binary
+	// copy config file to location of htnd binary
 	data, err := ioutil.ReadFile(sampleConfigFile)
 	if err != nil {
 		t.Fatalf("Failed reading sample config file: %v", err)
@@ -36,7 +36,7 @@ func TestCreateDefaultConfigFile(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed obtaining app path: %v", err)
 	}
-	tmpConfigFile := filepath.Join(appPath, "sample-hoosatd.conf")
+	tmpConfigFile := filepath.Join(appPath, "sample-htnd.conf")
 	err = ioutil.WriteFile(tmpConfigFile, data, 0644)
 	if err != nil {
 		t.Fatalf("Failed copying sample config file: %v", err)

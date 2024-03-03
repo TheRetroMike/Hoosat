@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"unicode"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/server/grpcserver/protowire"
 )
 
 // protobuf generates the command types with two types:
@@ -33,9 +33,9 @@ func generateHoosatdMessage(commandValue reflect.Value, commandDesc *commandDesc
 	commandWrapper := reflect.New(commandDesc.typeof)
 	unwrapCommandValue(commandWrapper).Set(commandValue)
 
-	hoosatdMessage := reflect.New(reflect.TypeOf(protowire.HoosatdMessage{}))
-	hoosatdMessage.Elem().FieldByName("Payload").Set(commandWrapper)
-	return hoosatdMessage.Interface().(*protowire.HoosatdMessage), nil
+	htndMessage := reflect.New(reflect.TypeOf(protowire.HoosatdMessage{}))
+	htndMessage.Elem().FieldByName("Payload").Set(commandWrapper)
+	return htndMessage.Interface().(*protowire.HoosatdMessage), nil
 }
 
 // pointerToValue returns a reflect.Value that represents a pointer to the given value

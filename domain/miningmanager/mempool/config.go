@@ -3,11 +3,11 @@ package mempool
 import (
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/util"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 )
 
 const (

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
 )
 
 var (

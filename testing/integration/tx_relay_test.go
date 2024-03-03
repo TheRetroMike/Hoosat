@@ -6,17 +6,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/flowcontext"
+	"github.com/Hoosat-Oy/HTND/app/protocol/flowcontext"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/constants"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionhelper"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/kaspanet/go-secp256k1"
 )
 

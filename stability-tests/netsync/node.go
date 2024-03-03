@@ -8,14 +8,14 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/mine"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/rpc"
-	"github.com/Hoosat-Oy/hoosatd/util"
-	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common/mine"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common/rpc"
+	"github.com/Hoosat-Oy/HTND/util"
+	"github.com/Hoosat-Oy/HTND/util/panics"
 	"github.com/pkg/errors"
 )
 
@@ -31,7 +31,7 @@ func startNode(name string, rpcAddress, listen, connect, profilePort, dataDir st
 	log.Infof("Data directory for %s is %s", name, dataDir)
 
 	args := []string{
-		"hoosatd",
+		"htnd",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", dataDir,
 		"--logdir", dataDir,
@@ -120,7 +120,7 @@ func setupNodeWithRPC(name, listen, rpcListen, connect, profilePort, dataDir str
 func setupSyncee() (*rpc.Client, func(), error) {
 	const syncedProfilePort = "6061"
 
-	synceeDataDir, err := useDirOrCreateTemp(activeConfig().SynceeDataDirectory, "syncee-hoosatd-data-dir")
+	synceeDataDir, err := useDirOrCreateTemp(activeConfig().SynceeDataDirectory, "syncee-htnd-data-dir")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -132,7 +132,7 @@ func setupSyncee() (*rpc.Client, func(), error) {
 func setupSyncer() (*rpc.Client, func(), error) {
 	const syncerProfilePort = "6062"
 
-	syncerDataDir, err := useDirOrCreateTemp(activeConfig().SyncerDataDirectory, "syncer-hoosatd-data-dir")
+	syncerDataDir, err := useDirOrCreateTemp(activeConfig().SyncerDataDirectory, "syncer-htnd-data-dir")
 	if err != nil {
 		return nil, nil, err
 	}

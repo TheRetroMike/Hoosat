@@ -1,13 +1,13 @@
 package blockrelay
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/peer"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/protocolerrors"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/app/protocol/peer"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 )
 
 // This constant must be equal at both syncer and syncee. Therefore, never (!!) change this constant unless a new p2p

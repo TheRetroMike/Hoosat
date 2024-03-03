@@ -1,7 +1,7 @@
 package utxolrucache
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 // LRUCache is a least-recently-used cache for UTXO entries

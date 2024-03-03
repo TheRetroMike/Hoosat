@@ -3,15 +3,15 @@ package pruningmanager
 import (
 	"sort"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/multiset"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/virtual"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/util/staging"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/multiset"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/virtual"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util/staging"
 	"github.com/pkg/errors"
 )
 
@@ -694,7 +694,7 @@ func (pm *pruningManager) pruningPointCandidate(stagingArea *model.StagingArea) 
 }
 
 // validateUTXOSetFitsCommitment makes sure that the calculated UTXOSet of the new pruning point fits the commitment.
-// This is a sanity test, to make sure that hoosatd doesn't store, and subsequently sends syncing peers the wrong UTXOSet.
+// This is a sanity test, to make sure that htnd doesn't store, and subsequently sends syncing peers the wrong UTXOSet.
 func (pm *pruningManager) validateUTXOSetFitsCommitment(stagingArea *model.StagingArea, pruningPointHash *externalapi.DomainHash) error {
 	onEnd := logger.LogAndMeasureExecutionTime(log, "pruningManager.validateUTXOSetFitsCommitment")
 	defer onEnd()

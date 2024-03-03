@@ -4,9 +4,9 @@ import (
 	"encoding/binary"
 	"net"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/hoosatd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 	"github.com/pkg/errors"
 )
 

@@ -7,16 +7,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/pow"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/pow"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
 )
 
 const rpcAddress = "localhost:9000"
-const miningAddress = "hoosatdev:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfkuhy0zmax"
+const miningAddress = "htndev:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfkuhy0zmax"
 const blockRateDeviationThreshold = 0.5
 const averageBlockRateSampleSize = 60
 const averageHashRateSampleSize = 100_000
@@ -181,7 +181,7 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 	t.Logf("DAA TEST STARTED: %s", testName)
 	defer t.Logf("DAA TEST FINISHED: %s", testName)
 
-	tearDownHoosatd := common.RunHoosatdForTesting(t, "hoosatd-daa-test", rpcAddress)
+	tearDownHoosatd := common.RunHoosatdForTesting(t, "htnd-daa-test", rpcAddress)
 	defer tearDownHoosatd()
 
 	rpcClient, err := rpcclient.NewRPCClient(rpcAddress)

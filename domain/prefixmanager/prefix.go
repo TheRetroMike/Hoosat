@@ -1,8 +1,8 @@
 package prefixmanager
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/prefixmanager/prefix"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/domain/prefixmanager/prefix"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 )
 
 var activePrefixKey = database.MakeBucket(nil).Key([]byte("active-prefix"))

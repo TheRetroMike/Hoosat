@@ -1,11 +1,11 @@
 package pow
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/hashes"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/serialization"
-	"github.com/Hoosat-Oy/hoosatd/util/difficulty"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/serialization"
+	"github.com/Hoosat-Oy/HTND/util/difficulty"
 
 	"math/big"
 

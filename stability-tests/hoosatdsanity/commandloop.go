@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
 	"github.com/pkg/errors"
 )
 
@@ -23,7 +23,7 @@ func (cf commandFailure) String() string {
 
 func commandLoop(argsChan <-chan []string) ([]commandFailure, error) {
 	failures := make([]commandFailure, 0)
-	dataDirectoryPath, err := common.TempDir("hoosatdsanity-hoosatd-datadir")
+	dataDirectoryPath, err := common.TempDir("htndsanity-htnd-datadir")
 	if err != nil {
 		return nil, errors.Wrapf(err, "error creating temp dir")
 	}
@@ -40,7 +40,7 @@ func commandLoop(argsChan <-chan []string) ([]commandFailure, error) {
 			return nil, err
 		}
 
-		cmd := exec.Command("hoosatd", args...)
+		cmd := exec.Command("htnd", args...)
 		cmd.Stdout = common.NewLogWriter(log, logger.LevelTrace, "HSATD-STDOUT")
 		cmd.Stderr = common.NewLogWriter(log, logger.LevelWarn, "HSATD-STDERR")
 

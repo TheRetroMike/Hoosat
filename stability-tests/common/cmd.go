@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 	"github.com/pkg/errors"
 )
 
@@ -26,7 +26,7 @@ func StartCmd(name string, args ...string) (*exec.Cmd, error) {
 	return cmd, nil
 }
 
-// NetworkCliArgumentFromNetParams returns the hoosatd command line argument that starts the given network.
+// NetworkCliArgumentFromNetParams returns the htnd command line argument that starts the given network.
 func NetworkCliArgumentFromNetParams(params *dagconfig.Params) string {
 	return fmt.Sprintf("--%s", strings.TrimPrefix(params.Name, "hoosat-"))
 }

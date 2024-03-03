@@ -60,7 +60,7 @@ func NewSubmitBlockResponseMessage() *SubmitBlockResponseMessage {
 	return &SubmitBlockResponseMessage{}
 }
 
-// RPCBlock is a hoosatd block representation meant to be
+// RPCBlock is a htnd block representation meant to be
 // used over RPC
 type RPCBlock struct {
 	Header       *RPCBlockHeader
@@ -68,7 +68,7 @@ type RPCBlock struct {
 	VerboseData  *RPCBlockVerboseData
 }
 
-// RPCBlockHeader is a hoosatd block header representation meant to be
+// RPCBlockHeader is a htnd block header representation meant to be
 // used over RPC
 type RPCBlockHeader struct {
 	Version              uint32

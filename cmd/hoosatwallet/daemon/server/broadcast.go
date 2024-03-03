@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/serialization"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/serialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
 )
 

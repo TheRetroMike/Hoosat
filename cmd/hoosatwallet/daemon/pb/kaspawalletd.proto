@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb";
+option go_package = "github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb";
 package hoosatwalletd;
 
 service hoosatwalletd {

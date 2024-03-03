@@ -1,6 +1,6 @@
 package model
 
-import "github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+import "github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
 // AcceptanceDataStore represents a store of AcceptanceData
 type AcceptanceDataStore interface {

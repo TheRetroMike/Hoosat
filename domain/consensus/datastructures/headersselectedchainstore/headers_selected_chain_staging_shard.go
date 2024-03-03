@@ -1,9 +1,9 @@
 package headersselectedchainstore
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/database/binaryserialization"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/database/binaryserialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 type headersSelectedChainStagingShard struct {

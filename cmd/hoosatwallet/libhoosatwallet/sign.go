@@ -1,13 +1,13 @@
 package libhoosatwallet
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/bip32"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/serialization"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/txscript"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/serialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 	"github.com/pkg/errors"
 )
 

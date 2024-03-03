@@ -9,10 +9,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/db/database/ldb"
-	"github.com/Hoosat-Oy/hoosatd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 )
 
 func newAddressManagerForTest(t *testing.T, testName string) (addressManager *AddressManager, teardown func()) {

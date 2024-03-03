@@ -3,11 +3,11 @@ package libhoosatwallet
 import (
 	"encoding/hex"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/transactionid"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionid"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
 )
 
 // HoosatwalletdUTXOsTolibhoosatwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libhoosatwallet.UTXO

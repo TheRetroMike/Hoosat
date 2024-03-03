@@ -5,10 +5,10 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/os/limits"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/limits"
 )
 
-// Initialize initializes the execution environment required to run hoosatd
+// Initialize initializes the execution environment required to run htnd
 func Initialize(desiredLimits *limits.DesiredLimits) {
 	// Use all processor cores.
 	runtime.GOMAXPROCS(runtime.NumCPU())

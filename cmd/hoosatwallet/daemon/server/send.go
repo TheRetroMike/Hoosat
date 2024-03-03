@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb"
 )
 
 func (s *server) Send(_ context.Context, request *pb.SendRequest) (*pb.SendResponse, error) {

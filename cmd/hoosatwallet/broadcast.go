@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/client"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/client"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb"
 	"github.com/pkg/errors"
 )
 

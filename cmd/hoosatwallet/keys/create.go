@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/utils"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/utils"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"
 )

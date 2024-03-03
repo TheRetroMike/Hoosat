@@ -3,16 +3,16 @@ package standalone
 import (
 	"sync"
 
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
-	"github.com/Hoosat-Oy/hoosatd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/app/protocol/common"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/id"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/id"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/config"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 
 	"github.com/pkg/errors"
 )

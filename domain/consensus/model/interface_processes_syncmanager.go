@@ -1,8 +1,8 @@
 package model
 
-import "github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
+import "github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
-// SyncManager exposes functions to support sync between hoosatd nodes
+// SyncManager exposes functions to support sync between htnd nodes
 type SyncManager interface {
 	GetHashesBetween(stagingArea *StagingArea, lowHash, highHash *externalapi.DomainHash, maxBlocks uint64) (
 		hashes []*externalapi.DomainHash, actualHighHash *externalapi.DomainHash, err error)

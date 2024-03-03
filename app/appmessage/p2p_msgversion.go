@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/version"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/version"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/id"
-	"github.com/Hoosat-Oy/hoosatd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/id"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 )
 
 // MaxUserAgentLen is the maximum allowed length for the user agent field in a
@@ -20,7 +20,7 @@ import (
 const MaxUserAgentLen = 256
 
 // DefaultUserAgent for appmessage in the stack
-var DefaultUserAgent = fmt.Sprintf("/hoosatd:%s/", version.Version())
+var DefaultUserAgent = fmt.Sprintf("/htnd:%s/", version.Version())
 
 // MsgVersion implements the Message interface and represents a hoosat version
 // message. It is used for a peer to advertise itself as soon as an outbound

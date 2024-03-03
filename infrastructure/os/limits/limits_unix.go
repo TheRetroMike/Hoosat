@@ -13,7 +13,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// SetLimits raises some process limits to values which allow hoosatd and
+// SetLimits raises some process limits to values which allow htnd and
 // associated utilities to run.
 func SetLimits(desiredLimits *DesiredLimits) error {
 	var rLimit syscall.Rlimit

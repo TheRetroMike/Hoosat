@@ -3,9 +3,9 @@ package consensus_test
 import (
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 )
 
 func TestPruningDepth(t *testing.T) {

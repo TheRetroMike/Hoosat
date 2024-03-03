@@ -1,11 +1,11 @@
 
-hoosatd
+htnd
 ====
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/hoosatnet/hoosatd)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/hoosatnet/htnd)
 
-hoosatd is the reference full node hoosat implementation written in Go (golang).
+htnd is the reference full node hoosat implementation written in Go (golang).
 
 ## What is hoosat
 
@@ -28,26 +28,26 @@ Go 1.18 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install hoosatd including all dependencies:
+- Run the following commands to obtain and install htnd including all dependencies:
 
 ```bash
-$ git clone https://github.com/hoosatnet/hoosatd
-$ cd hoosatd
+$ git clone https://github.com/hoosatnet/htnd
+$ cd htnd
 $ go install . ./cmd/...
 ```
 
-- hoosatd (and utilities) should now be installed in `$(go env GOPATH)/bin`. If you did
+- htnd (and utilities) should now be installed in `$(go env GOPATH)/bin`. If you did
   not already add the bin directory to your system path during Go installation,
   you are encouraged to do so now.
 
 
 ## Getting Started
 
-hoosatd has several configuration options available to tweak how it runs, but all
+htnd has several configuration options available to tweak how it runs, but all
 of the basic operations work with zero configuration.
 
 ```bash
-$ hoosatd
+$ htnd
 ```
 
 ## Discord
@@ -55,7 +55,7 @@ Join our discord server using the following link: https://discord.gg/YNYnNN5Pf2
 
 ## Issue Tracker
 
-The [integrated github issue tracker](https://github.com/Hoosat-Oy/hoosatd/issues)
+The [integrated github issue tracker](https://github.com/Hoosat-Oy/HTND/issues)
 is used for this project.
 
 Issue priorities may be seen at https://github.com/orgs/hoosatnet/projects/4
@@ -66,4 +66,4 @@ The [documentation](https://github.com/hoosatnet/docs) is a work-in-progress
 
 ## License
 
-hoosatd is licensed under the copyfree [ISC License](https://choosealicense.com/licenses/isc/).
+htnd is licensed under the copyfree [ISC License](https://choosealicense.com/licenses/isc/).

@@ -6,11 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/client"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/keys"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/utils"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/client"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/keys"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/utils"
 	"github.com/pkg/errors"
 )
 

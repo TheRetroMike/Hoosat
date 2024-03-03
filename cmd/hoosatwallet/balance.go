@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/client"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/daemon/pb"
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/utils"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/client"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/utils"
 )
 
 func balance(conf *balanceConfig) error {

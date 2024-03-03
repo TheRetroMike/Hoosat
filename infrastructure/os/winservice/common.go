@@ -1,6 +1,6 @@
 package winservice
 
-import "github.com/Hoosat-Oy/hoosatd/infrastructure/config"
+import "github.com/Hoosat-Oy/HTND/infrastructure/config"
 
 // ServiceDescription contains information about a service, needed to administer it
 type ServiceDescription struct {
@@ -12,6 +12,6 @@ type ServiceDescription struct {
 // MainFunc specifies the signature of an application's main function to be able to run as a windows service
 type MainFunc func(startedChan chan<- struct{}) error
 
-// WinServiceMain is only invoked on Windows. It detects when hoosatd is running
+// WinServiceMain is only invoked on Windows. It detects when htnd is running
 // as a service and reacts accordingly.
 var WinServiceMain = func(MainFunc, *ServiceDescription, *config.Config) (bool, error) { return false, nil }

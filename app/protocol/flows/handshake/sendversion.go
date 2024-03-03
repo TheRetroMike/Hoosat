@@ -1,19 +1,19 @@
 package handshake
 
 import (
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/app/protocol/common"
-	peerpkg "github.com/Hoosat-Oy/hoosatd/app/protocol/peer"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/logger"
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/router"
-	"github.com/Hoosat-Oy/hoosatd/version"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/protocol/common"
+	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/version"
 	"github.com/pkg/errors"
 )
 
 var (
 	// userAgentName is the user agent name and is used to help identify
 	// ourselves to other hoosat peers.
-	userAgentName = "hoosatd"
+	userAgentName = "htnd"
 
 	// userAgentVersion is the user agent version and is used to help
 	// identify ourselves to other hoosat peers.

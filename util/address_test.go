@@ -13,7 +13,7 @@ import (
 
 	"golang.org/x/crypto/blake2b"
 
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 func TestAddresses(t *testing.T) {

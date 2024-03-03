@@ -6,11 +6,11 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
 )
 
 func TestSyncManager_GetHashesBetween(t *testing.T) {

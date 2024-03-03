@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
-	"github.com/Hoosat-Oy/hoosatd/util/profiling"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/util/profiling"
 
-	"github.com/Hoosat-Oy/hoosatd/util/panics"
+	"github.com/Hoosat-Oy/HTND/util/panics"
 	"github.com/pkg/errors"
 )
 
 func main() {
-	defer panics.HandlePanic(log, "hoosatdsanity-main", nil)
+	defer panics.HandlePanic(log, "htndsanity-main", nil)
 	err := parseConfig()
 	if err != nil {
 		panic(errors.Wrap(err, "error in parseConfig"))

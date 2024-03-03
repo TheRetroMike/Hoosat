@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/pkg/errors"
 )
 

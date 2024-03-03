@@ -5,14 +5,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/version"
+	"github.com/Hoosat-Oy/HTND/version"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/server/grpcserver/protowire"
 
 	"github.com/pkg/errors"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/Hoosat-Oy/hoosatd/infrastructure/network/rpcclient/grpcclient"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient/grpcclient"
 )
 
 func main() {
@@ -36,13 +36,13 @@ func main() {
 	defer client.Disconnect()
 
 	if !cfg.AllowConnectionToDifferentVersions {
-		hoosatdMessage, err := client.Post(&protowire.HoosatdMessage{Payload: &protowire.HoosatdMessage_GetInfoRequest{GetInfoRequest: &protowire.GetInfoRequestMessage{}}})
+		htndMessage, err := client.Post(&protowire.HoosatdMessage{Payload: &protowire.HoosatdMessage_GetInfoRequest{GetInfoRequest: &protowire.GetInfoRequestMessage{}}})
 		if err != nil {
 			printErrorAndExit(fmt.Sprintf("Cannot post GetInfo message: %s", err))
 		}
 
 		localVersion := version.Version()
-		remoteVersion := hoosatdMessage.GetGetInfoResponse().ServerVersion
+		remoteVersion := htndMessage.GetGetInfoResponse().ServerVersion
 
 		if localVersion != remoteVersion {
 			printErrorAndExit(fmt.Sprintf("Server version mismatch, expect: %s, got: %s", localVersion, remoteVersion))
@@ -101,8 +101,8 @@ func postJSON(cfg *configFlags, client *grpcclient.GRPCClient, doneChan chan str
 }
 
 func prettifyResponse(response string) string {
-	hoosatdMessage := &protowire.HoosatdMessage{}
-	err := protojson.Unmarshal([]byte(response), hoosatdMessage)
+	htndMessage := &protowire.HoosatdMessage{}
+	err := protojson.Unmarshal([]byte(response), htndMessage)
 	if err != nil {
 		printErrorAndExit(fmt.Sprintf("error parsing the response from the RPC server: %s", err))
 	}
@@ -110,7 +110,7 @@ func prettifyResponse(response string) string {
 	marshalOptions := &protojson.MarshalOptions{}
 	marshalOptions.Indent = "    "
 	marshalOptions.EmitUnpopulated = true
-	return marshalOptions.Format(hoosatdMessage)
+	return marshalOptions.Format(htndMessage)
 }
 
 func printErrorAndExit(message string) {

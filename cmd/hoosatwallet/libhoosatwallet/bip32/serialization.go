@@ -3,7 +3,7 @@ package bip32
 import (
 	"encoding/binary"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/bip32/base58"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/bip32/base58"
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 )

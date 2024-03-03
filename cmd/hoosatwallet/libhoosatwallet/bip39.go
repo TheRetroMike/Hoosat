@@ -3,8 +3,8 @@ package libhoosatwallet
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/hoosatd/cmd/hoosatwallet/libhoosatwallet/bip32"
-	"github.com/Hoosat-Oy/hoosatd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"
 )

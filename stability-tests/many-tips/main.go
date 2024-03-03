@@ -11,15 +11,15 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Hoosat-Oy/hoosatd/app/appmessage"
-	"github.com/Hoosat-Oy/hoosatd/domain/consensus/utils/mining"
-	"github.com/Hoosat-Oy/hoosatd/util"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/mining"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/kaspanet/go-secp256k1"
 
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common"
-	"github.com/Hoosat-Oy/hoosatd/stability-tests/common/rpc"
-	"github.com/Hoosat-Oy/hoosatd/util/panics"
-	"github.com/Hoosat-Oy/hoosatd/util/profiling"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common/rpc"
+	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/HTND/util/profiling"
 	"github.com/pkg/errors"
 )
 
@@ -103,14 +103,14 @@ func realMain() error {
 
 func startNode() (teardown func(), err error) {
 	log.Infof("Starting node")
-	dataDir, err := common.TempDir("hoosatd-datadir")
+	dataDir, err := common.TempDir("htnd-datadir")
 	if err != nil {
 		panic(errors.Wrapf(err, "Error in Tempdir"))
 	}
-	log.Infof("hoosatd datadir: %s", dataDir)
+	log.Infof("htnd datadir: %s", dataDir)
 
-	hoosatdCmd, err := common.StartCmd("HSATD",
-		"hoosatd",
+	htndCmd, err := common.StartCmd("HSATD",
+		"htnd",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", dataDir,
 		"--logdir", dataDir,
@@ -125,15 +125,15 @@ func startNode() (teardown func(), err error) {
 
 	processesStoppedWg := sync.WaitGroup{}
 	processesStoppedWg.Add(1)
-	spawn("startNode-hoosatdCmd.Wait", func() {
-		err := hoosatdCmd.Wait()
+	spawn("startNode-htndCmd.Wait", func() {
+		err := htndCmd.Wait()
 		if err != nil {
 			if atomic.LoadUint64(&shutdown) == 0 {
-				panics.Exit(log, fmt.Sprintf("hoosatdCmd closed unexpectedly: %s. See logs at: %s", err, dataDir))
+				panics.Exit(log, fmt.Sprintf("htndCmd closed unexpectedly: %s. See logs at: %s", err, dataDir))
 			}
 			if !strings.Contains(err.Error(), "signal: killed") {
-				// TODO: Panic here and check why sometimes hoosatd closes ungracefully
-				log.Errorf("hoosatdCmd closed with an error: %s. See logs at: %s", err, dataDir)
+				// TODO: Panic here and check why sometimes htnd closes ungracefully
+				log.Errorf("htndCmd closed with an error: %s. See logs at: %s", err, dataDir)
 			}
 		}
 		processesStoppedWg.Done()
@@ -141,7 +141,7 @@ func startNode() (teardown func(), err error) {
 	return func() {
 		log.Infof("defer start-node")
 		atomic.StoreUint64(&shutdown, 1)
-		killWithSigterm(hoosatdCmd, "hoosatdCmd")
+		killWithSigterm(htndCmd, "htndCmd")
 
 		processesStoppedChan := make(chan struct{})
 		spawn("startNode-processStoppedWg.Wait", func() {
