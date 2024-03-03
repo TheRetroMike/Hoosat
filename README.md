@@ -9,7 +9,7 @@ Hoosat Network Daemon is the reference full node Hoosat Network implementation w
 
 ## What is Hoosat Network
 
-Hoosat Network is an attempt at a proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is fork of Kaspa and based on the [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus. 
+Hoosat Network is an attempt at a ASIC resistant proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is fork of Kaspa and based on the [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus. 
 
 ## Requirements
 
