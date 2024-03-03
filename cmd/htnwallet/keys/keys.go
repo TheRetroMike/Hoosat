@@ -23,7 +23,7 @@ import (
 )
 
 var (
-	defaultAppDir = util.AppDir("hoosatwallet", false)
+	defaultAppDir = util.AppDir("htnwallet", false)
 )
 
 // LastVersion is the most up to date file format version

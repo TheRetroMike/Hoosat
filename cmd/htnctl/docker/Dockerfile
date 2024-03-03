@@ -14,9 +14,9 @@ RUN go mod download
 
 COPY . .
 
-WORKDIR /go/src/github.com/Hoosat-Oy/HTND/cmd/hoosatctl
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND/cmd/htnctl
 
-RUN GOOS=linux go build -a -installsuffix cgo -o hoosatctl .
+RUN GOOS=linux go build -a -installsuffix cgo -o htnctl .
 
 # --- multistage docker build: stage #2: runtime image
 FROM alpine
@@ -24,7 +24,7 @@ WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tini
 
-COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/cmd/hoosatctl/hoosatctl /app/
+COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/cmd/htnctl/htnctl /app/
 
 USER nobody
 ENTRYPOINT [ "/sbin/tini", "--" ]

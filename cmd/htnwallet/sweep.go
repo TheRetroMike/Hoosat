@@ -7,8 +7,8 @@ import (
 
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/client"
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/serialization"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/serialization"
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/utils"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
@@ -33,7 +33,7 @@ func sweep(conf *sweepConfig) error {
 		return err
 	}
 
-	publicKeybytes, err := libhoosatwallet.PublicKeyFromPrivateKey(privateKeyBytes)
+	publicKeybytes, err := libhtnwallet.PublicKeyFromPrivateKey(privateKeyBytes)
 	if err != nil {
 		return err
 	}
@@ -64,7 +64,7 @@ func sweep(conf *sweepConfig) error {
 		return err
 	}
 
-	UTXOs, err := libhoosatwallet.HoosatwalletdUTXOsTolibhoosatwalletUTXOs(getExternalSpendableUTXOsResponse.Entries)
+	UTXOs, err := libhtnwallet.HoosatwalletdUTXOsTolibhtnwalletUTXOs(getExternalSpendableUTXOsResponse.Entries)
 	if err != nil {
 		return err
 	}
@@ -140,7 +140,7 @@ func newDummyTransaction() *externalapi.DomainTransaction {
 
 func createSplitTransactionsWithSchnorrPrivteKey(
 	params *dagconfig.Params,
-	selectedUTXOs []*libhoosatwallet.UTXO,
+	selectedUTXOs []*libhtnwallet.UTXO,
 	toAddress util.Address,
 	feePerInput int) ([]*externalapi.DomainTransaction, error) {
 

@@ -16,7 +16,7 @@ var (
 	log        = backendLog.Logger("KSWD")
 	spawn      = panics.GoroutineWrapperFunc(log)
 
-	defaultAppDir     = util.AppDir("hoosatwallet", false)
+	defaultAppDir     = util.AppDir("htnwallet", false)
 	defaultLogFile    = filepath.Join(defaultAppDir, "daemon.log")
 	defaultErrLogFile = filepath.Join(defaultAppDir, "daemon_err.log")
 )

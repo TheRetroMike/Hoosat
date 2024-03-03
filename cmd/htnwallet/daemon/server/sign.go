@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
 )
@@ -26,7 +26,7 @@ func (s *server) signTransactions(unsignedTransactions [][]byte, password string
 	}
 	signedTransactions := make([][]byte, len(unsignedTransactions))
 	for i, unsignedTransaction := range unsignedTransactions {
-		signedTransaction, err := libhoosatwallet.Sign(s.params, mnemonics, unsignedTransaction, s.keysFile.ECDSA)
+		signedTransaction, err := libhtnwallet.Sign(s.params, mnemonics, unsignedTransaction, s.keysFile.ECDSA)
 		if err != nil {
 			return nil, err
 		}

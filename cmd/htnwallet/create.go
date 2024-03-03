@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/bip32"
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/utils"
 	"github.com/pkg/errors"
 
@@ -32,8 +32,8 @@ func create(conf *createConfig) error {
 	}
 
 	fmt.Printf("Notice the above is neither a secret key to your wallet " +
-		"(use \"hoosatwallet dump-unencrypted-data\" to see a secret seed phrase) " +
-		"nor a wallet public address (use \"hoosatwallet new-address\" to create and see one)\n\n")
+		"(use \"htnwallet dump-unencrypted-data\" to see a secret seed phrase) " +
+		"nor a wallet public address (use \"htnwallet new-address\" to create and see one)\n\n")
 
 	extendedPublicKeys := make([]string, conf.NumPrivateKeys, conf.NumPublicKeys)
 	copy(extendedPublicKeys, signerExtendedPublicKeys)
@@ -58,7 +58,7 @@ func create(conf *createConfig) error {
 	// For a read only wallet the cosigner index is 0
 	cosignerIndex := uint32(0)
 	if len(signerExtendedPublicKeys) > 0 {
-		cosignerIndex, err = libhoosatwallet.MinimumCosignerIndex(signerExtendedPublicKeys, extendedPublicKeys)
+		cosignerIndex, err = libhtnwallet.MinimumCosignerIndex(signerExtendedPublicKeys, extendedPublicKeys)
 		if err != nil {
 			return err
 		}

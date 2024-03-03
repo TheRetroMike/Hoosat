@@ -5,7 +5,7 @@ import (
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 	"github.com/Hoosat-Oy/HTND/util"
 )
 
@@ -46,7 +46,7 @@ func (s *server) selectExternalSpendableUTXOs(externalUTXOs *appmessage.GetUTXOs
 		if !isExternalUTXOSpendable(entry, daaScore, maturity) {
 			continue
 		}
-		selectedExternalUtxos = append(selectedExternalUtxos, libhoosatwallet.AppMessageUTXOToHoosatwalletdUTXO(entry))
+		selectedExternalUtxos = append(selectedExternalUtxos, libhtnwallet.AppMessageUTXOToHoosatwalletdUTXO(entry))
 	}
 
 	return selectedExternalUtxos, nil

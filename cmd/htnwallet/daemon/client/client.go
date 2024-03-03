@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Connect connects to the hoosatwalletd server, and returns the client instance
+// Connect connects to the htnwalletd server, and returns the client instance
 func Connect(address string) (pb.HoosatwalletdClient, func(), error) {
 	// Connection is local, so 1 second timeout is sufficient
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
@@ -21,7 +21,7 @@ func Connect(address string) (pb.HoosatwalletdClient, func(), error) {
 	conn, err := grpc.DialContext(ctx, address, grpc.WithInsecure(), grpc.WithBlock(), grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(server.MaxDaemonSendMsgSize)))
 	if err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
-			return nil, nil, errors.New("hoosatwallet daemon is not running, start it with `hoosatwallet start-daemon`")
+			return nil, nil, errors.New("htnwallet daemon is not running, start it with `htnwallet start-daemon`")
 		}
 		return nil, nil, err
 	}

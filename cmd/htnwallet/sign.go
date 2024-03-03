@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/keys"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 	"github.com/pkg/errors"
 )
 
@@ -48,7 +48,7 @@ func sign(conf *signConfig) error {
 	updatedPartiallySignedTransactions := make([][]byte, len(partiallySignedTransactions))
 	for i, partiallySignedTransaction := range partiallySignedTransactions {
 		updatedPartiallySignedTransactions[i], err =
-			libhoosatwallet.Sign(conf.NetParams(), privateKeys, partiallySignedTransaction, keysFile.ECDSA)
+			libhtnwallet.Sign(conf.NetParams(), privateKeys, partiallySignedTransaction, keysFile.ECDSA)
 		if err != nil {
 			return err
 		}
@@ -57,7 +57,7 @@ func sign(conf *signConfig) error {
 	areAllTransactionsFullySigned := true
 	for _, updatedPartiallySignedTransaction := range updatedPartiallySignedTransactions {
 		// This is somewhat redundant to check all transactions, but we do that just-in-case
-		isFullySigned, err := libhoosatwallet.IsTransactionFullySigned(updatedPartiallySignedTransaction)
+		isFullySigned, err := libhtnwallet.IsTransactionFullySigned(updatedPartiallySignedTransaction)
 		if err != nil {
 			return err
 		}

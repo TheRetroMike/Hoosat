@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 // 	protoc        v3.21.12
-// source: hoosatwalletd.proto
+// source: htnwalletd.proto
 
 package pb
 
@@ -29,7 +29,7 @@ type GetBalanceRequest struct {
 func (x *GetBalanceRequest) Reset() {
 	*x = GetBalanceRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[0]
+		mi := &file_htnwalletd_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -42,7 +42,7 @@ func (x *GetBalanceRequest) String() string {
 func (*GetBalanceRequest) ProtoMessage() {}
 
 func (x *GetBalanceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[0]
+	mi := &file_htnwalletd_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +55,7 @@ func (x *GetBalanceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBalanceRequest.ProtoReflect.Descriptor instead.
 func (*GetBalanceRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{0}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{0}
 }
 
 type GetBalanceResponse struct {
@@ -71,7 +71,7 @@ type GetBalanceResponse struct {
 func (x *GetBalanceResponse) Reset() {
 	*x = GetBalanceResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[1]
+		mi := &file_htnwalletd_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -84,7 +84,7 @@ func (x *GetBalanceResponse) String() string {
 func (*GetBalanceResponse) ProtoMessage() {}
 
 func (x *GetBalanceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[1]
+	mi := &file_htnwalletd_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -97,7 +97,7 @@ func (x *GetBalanceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBalanceResponse.ProtoReflect.Descriptor instead.
 func (*GetBalanceResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{1}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *GetBalanceResponse) GetAvailable() uint64 {
@@ -134,7 +134,7 @@ type AddressBalances struct {
 func (x *AddressBalances) Reset() {
 	*x = AddressBalances{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[2]
+		mi := &file_htnwalletd_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -147,7 +147,7 @@ func (x *AddressBalances) String() string {
 func (*AddressBalances) ProtoMessage() {}
 
 func (x *AddressBalances) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[2]
+	mi := &file_htnwalletd_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -160,7 +160,7 @@ func (x *AddressBalances) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddressBalances.ProtoReflect.Descriptor instead.
 func (*AddressBalances) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{2}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AddressBalances) GetAddress() string {
@@ -199,7 +199,7 @@ type CreateUnsignedTransactionsRequest struct {
 func (x *CreateUnsignedTransactionsRequest) Reset() {
 	*x = CreateUnsignedTransactionsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[3]
+		mi := &file_htnwalletd_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -212,7 +212,7 @@ func (x *CreateUnsignedTransactionsRequest) String() string {
 func (*CreateUnsignedTransactionsRequest) ProtoMessage() {}
 
 func (x *CreateUnsignedTransactionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[3]
+	mi := &file_htnwalletd_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -225,7 +225,7 @@ func (x *CreateUnsignedTransactionsRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use CreateUnsignedTransactionsRequest.ProtoReflect.Descriptor instead.
 func (*CreateUnsignedTransactionsRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{3}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateUnsignedTransactionsRequest) GetAddress() string {
@@ -274,7 +274,7 @@ type CreateUnsignedTransactionsResponse struct {
 func (x *CreateUnsignedTransactionsResponse) Reset() {
 	*x = CreateUnsignedTransactionsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[4]
+		mi := &file_htnwalletd_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -287,7 +287,7 @@ func (x *CreateUnsignedTransactionsResponse) String() string {
 func (*CreateUnsignedTransactionsResponse) ProtoMessage() {}
 
 func (x *CreateUnsignedTransactionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[4]
+	mi := &file_htnwalletd_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -300,7 +300,7 @@ func (x *CreateUnsignedTransactionsResponse) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use CreateUnsignedTransactionsResponse.ProtoReflect.Descriptor instead.
 func (*CreateUnsignedTransactionsResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{4}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateUnsignedTransactionsResponse) GetUnsignedTransactions() [][]byte {
@@ -319,7 +319,7 @@ type ShowAddressesRequest struct {
 func (x *ShowAddressesRequest) Reset() {
 	*x = ShowAddressesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[5]
+		mi := &file_htnwalletd_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -332,7 +332,7 @@ func (x *ShowAddressesRequest) String() string {
 func (*ShowAddressesRequest) ProtoMessage() {}
 
 func (x *ShowAddressesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[5]
+	mi := &file_htnwalletd_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -345,7 +345,7 @@ func (x *ShowAddressesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShowAddressesRequest.ProtoReflect.Descriptor instead.
 func (*ShowAddressesRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{5}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{5}
 }
 
 type ShowAddressesResponse struct {
@@ -359,7 +359,7 @@ type ShowAddressesResponse struct {
 func (x *ShowAddressesResponse) Reset() {
 	*x = ShowAddressesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[6]
+		mi := &file_htnwalletd_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -372,7 +372,7 @@ func (x *ShowAddressesResponse) String() string {
 func (*ShowAddressesResponse) ProtoMessage() {}
 
 func (x *ShowAddressesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[6]
+	mi := &file_htnwalletd_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -385,7 +385,7 @@ func (x *ShowAddressesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShowAddressesResponse.ProtoReflect.Descriptor instead.
 func (*ShowAddressesResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{6}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ShowAddressesResponse) GetAddress() []string {
@@ -404,7 +404,7 @@ type NewAddressRequest struct {
 func (x *NewAddressRequest) Reset() {
 	*x = NewAddressRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[7]
+		mi := &file_htnwalletd_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -417,7 +417,7 @@ func (x *NewAddressRequest) String() string {
 func (*NewAddressRequest) ProtoMessage() {}
 
 func (x *NewAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[7]
+	mi := &file_htnwalletd_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -430,7 +430,7 @@ func (x *NewAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewAddressRequest.ProtoReflect.Descriptor instead.
 func (*NewAddressRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{7}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{7}
 }
 
 type NewAddressResponse struct {
@@ -444,7 +444,7 @@ type NewAddressResponse struct {
 func (x *NewAddressResponse) Reset() {
 	*x = NewAddressResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[8]
+		mi := &file_htnwalletd_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -457,7 +457,7 @@ func (x *NewAddressResponse) String() string {
 func (*NewAddressResponse) ProtoMessage() {}
 
 func (x *NewAddressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[8]
+	mi := &file_htnwalletd_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -470,7 +470,7 @@ func (x *NewAddressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewAddressResponse.ProtoReflect.Descriptor instead.
 func (*NewAddressResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{8}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *NewAddressResponse) GetAddress() string {
@@ -492,7 +492,7 @@ type BroadcastRequest struct {
 func (x *BroadcastRequest) Reset() {
 	*x = BroadcastRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[9]
+		mi := &file_htnwalletd_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -505,7 +505,7 @@ func (x *BroadcastRequest) String() string {
 func (*BroadcastRequest) ProtoMessage() {}
 
 func (x *BroadcastRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[9]
+	mi := &file_htnwalletd_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -518,7 +518,7 @@ func (x *BroadcastRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BroadcastRequest.ProtoReflect.Descriptor instead.
 func (*BroadcastRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{9}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *BroadcastRequest) GetIsDomain() bool {
@@ -546,7 +546,7 @@ type BroadcastResponse struct {
 func (x *BroadcastResponse) Reset() {
 	*x = BroadcastResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[10]
+		mi := &file_htnwalletd_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -559,7 +559,7 @@ func (x *BroadcastResponse) String() string {
 func (*BroadcastResponse) ProtoMessage() {}
 
 func (x *BroadcastResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[10]
+	mi := &file_htnwalletd_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -572,7 +572,7 @@ func (x *BroadcastResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BroadcastResponse.ProtoReflect.Descriptor instead.
 func (*BroadcastResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{10}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *BroadcastResponse) GetTxIDs() []string {
@@ -591,7 +591,7 @@ type ShutdownRequest struct {
 func (x *ShutdownRequest) Reset() {
 	*x = ShutdownRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[11]
+		mi := &file_htnwalletd_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -604,7 +604,7 @@ func (x *ShutdownRequest) String() string {
 func (*ShutdownRequest) ProtoMessage() {}
 
 func (x *ShutdownRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[11]
+	mi := &file_htnwalletd_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -617,7 +617,7 @@ func (x *ShutdownRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShutdownRequest.ProtoReflect.Descriptor instead.
 func (*ShutdownRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{11}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{11}
 }
 
 type ShutdownResponse struct {
@@ -629,7 +629,7 @@ type ShutdownResponse struct {
 func (x *ShutdownResponse) Reset() {
 	*x = ShutdownResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[12]
+		mi := &file_htnwalletd_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -642,7 +642,7 @@ func (x *ShutdownResponse) String() string {
 func (*ShutdownResponse) ProtoMessage() {}
 
 func (x *ShutdownResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[12]
+	mi := &file_htnwalletd_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -655,7 +655,7 @@ func (x *ShutdownResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShutdownResponse.ProtoReflect.Descriptor instead.
 func (*ShutdownResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{12}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{12}
 }
 
 type Outpoint struct {
@@ -670,7 +670,7 @@ type Outpoint struct {
 func (x *Outpoint) Reset() {
 	*x = Outpoint{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[13]
+		mi := &file_htnwalletd_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -683,7 +683,7 @@ func (x *Outpoint) String() string {
 func (*Outpoint) ProtoMessage() {}
 
 func (x *Outpoint) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[13]
+	mi := &file_htnwalletd_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -696,7 +696,7 @@ func (x *Outpoint) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Outpoint.ProtoReflect.Descriptor instead.
 func (*Outpoint) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{13}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *Outpoint) GetTransactionId() string {
@@ -726,7 +726,7 @@ type UtxosByAddressesEntry struct {
 func (x *UtxosByAddressesEntry) Reset() {
 	*x = UtxosByAddressesEntry{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[14]
+		mi := &file_htnwalletd_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -739,7 +739,7 @@ func (x *UtxosByAddressesEntry) String() string {
 func (*UtxosByAddressesEntry) ProtoMessage() {}
 
 func (x *UtxosByAddressesEntry) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[14]
+	mi := &file_htnwalletd_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -752,7 +752,7 @@ func (x *UtxosByAddressesEntry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UtxosByAddressesEntry.ProtoReflect.Descriptor instead.
 func (*UtxosByAddressesEntry) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{14}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UtxosByAddressesEntry) GetAddress() string {
@@ -788,7 +788,7 @@ type ScriptPublicKey struct {
 func (x *ScriptPublicKey) Reset() {
 	*x = ScriptPublicKey{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[15]
+		mi := &file_htnwalletd_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -801,7 +801,7 @@ func (x *ScriptPublicKey) String() string {
 func (*ScriptPublicKey) ProtoMessage() {}
 
 func (x *ScriptPublicKey) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[15]
+	mi := &file_htnwalletd_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -814,7 +814,7 @@ func (x *ScriptPublicKey) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScriptPublicKey.ProtoReflect.Descriptor instead.
 func (*ScriptPublicKey) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{15}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ScriptPublicKey) GetVersion() uint32 {
@@ -845,7 +845,7 @@ type UtxoEntry struct {
 func (x *UtxoEntry) Reset() {
 	*x = UtxoEntry{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[16]
+		mi := &file_htnwalletd_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -858,7 +858,7 @@ func (x *UtxoEntry) String() string {
 func (*UtxoEntry) ProtoMessage() {}
 
 func (x *UtxoEntry) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[16]
+	mi := &file_htnwalletd_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -871,7 +871,7 @@ func (x *UtxoEntry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UtxoEntry.ProtoReflect.Descriptor instead.
 func (*UtxoEntry) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{16}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *UtxoEntry) GetAmount() uint64 {
@@ -913,7 +913,7 @@ type GetExternalSpendableUTXOsRequest struct {
 func (x *GetExternalSpendableUTXOsRequest) Reset() {
 	*x = GetExternalSpendableUTXOsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[17]
+		mi := &file_htnwalletd_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -926,7 +926,7 @@ func (x *GetExternalSpendableUTXOsRequest) String() string {
 func (*GetExternalSpendableUTXOsRequest) ProtoMessage() {}
 
 func (x *GetExternalSpendableUTXOsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[17]
+	mi := &file_htnwalletd_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -939,7 +939,7 @@ func (x *GetExternalSpendableUTXOsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetExternalSpendableUTXOsRequest.ProtoReflect.Descriptor instead.
 func (*GetExternalSpendableUTXOsRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{17}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetExternalSpendableUTXOsRequest) GetAddress() string {
@@ -960,7 +960,7 @@ type GetExternalSpendableUTXOsResponse struct {
 func (x *GetExternalSpendableUTXOsResponse) Reset() {
 	*x = GetExternalSpendableUTXOsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[18]
+		mi := &file_htnwalletd_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -973,7 +973,7 @@ func (x *GetExternalSpendableUTXOsResponse) String() string {
 func (*GetExternalSpendableUTXOsResponse) ProtoMessage() {}
 
 func (x *GetExternalSpendableUTXOsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[18]
+	mi := &file_htnwalletd_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -986,7 +986,7 @@ func (x *GetExternalSpendableUTXOsResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use GetExternalSpendableUTXOsResponse.ProtoReflect.Descriptor instead.
 func (*GetExternalSpendableUTXOsResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{18}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetExternalSpendableUTXOsResponse) GetEntries() []*UtxosByAddressesEntry {
@@ -1013,7 +1013,7 @@ type SendRequest struct {
 func (x *SendRequest) Reset() {
 	*x = SendRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[19]
+		mi := &file_htnwalletd_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1026,7 +1026,7 @@ func (x *SendRequest) String() string {
 func (*SendRequest) ProtoMessage() {}
 
 func (x *SendRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[19]
+	mi := &file_htnwalletd_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1039,7 +1039,7 @@ func (x *SendRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendRequest.ProtoReflect.Descriptor instead.
 func (*SendRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{19}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SendRequest) GetToAddress() string {
@@ -1096,7 +1096,7 @@ type SendResponse struct {
 func (x *SendResponse) Reset() {
 	*x = SendResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[20]
+		mi := &file_htnwalletd_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1109,7 +1109,7 @@ func (x *SendResponse) String() string {
 func (*SendResponse) ProtoMessage() {}
 
 func (x *SendResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[20]
+	mi := &file_htnwalletd_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1122,7 +1122,7 @@ func (x *SendResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendResponse.ProtoReflect.Descriptor instead.
 func (*SendResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{20}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *SendResponse) GetTxIDs() []string {
@@ -1152,7 +1152,7 @@ type SignRequest struct {
 func (x *SignRequest) Reset() {
 	*x = SignRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[21]
+		mi := &file_htnwalletd_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1165,7 +1165,7 @@ func (x *SignRequest) String() string {
 func (*SignRequest) ProtoMessage() {}
 
 func (x *SignRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[21]
+	mi := &file_htnwalletd_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1178,7 +1178,7 @@ func (x *SignRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SignRequest.ProtoReflect.Descriptor instead.
 func (*SignRequest) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{21}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *SignRequest) GetUnsignedTransactions() [][]byte {
@@ -1206,7 +1206,7 @@ type SignResponse struct {
 func (x *SignResponse) Reset() {
 	*x = SignResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_hoosatwalletd_proto_msgTypes[22]
+		mi := &file_htnwalletd_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1219,7 +1219,7 @@ func (x *SignResponse) String() string {
 func (*SignResponse) ProtoMessage() {}
 
 func (x *SignResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_hoosatwalletd_proto_msgTypes[22]
+	mi := &file_htnwalletd_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1232,7 +1232,7 @@ func (x *SignResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SignResponse.ProtoReflect.Descriptor instead.
 func (*SignResponse) Descriptor() ([]byte, []int) {
-	return file_hoosatwalletd_proto_rawDescGZIP(), []int{22}
+	return file_htnwalletd_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *SignResponse) GetSignedTransactions() [][]byte {
@@ -1242,9 +1242,9 @@ func (x *SignResponse) GetSignedTransactions() [][]byte {
 	return nil
 }
 
-var File_hoosatwalletd_proto protoreflect.FileDescriptor
+var File_htnwalletd_proto protoreflect.FileDescriptor
 
-var file_hoosatwalletd_proto_rawDesc = []byte{
+var file_htnwalletd_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x6b, 0x61, 0x73, 0x70, 0x61, 0x77, 0x61, 0x6c, 0x6c, 0x65, 0x74, 0x64, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0c, 0x6b, 0x61, 0x73, 0x70, 0x61, 0x77, 0x61, 0x6c, 0x6c, 0x65,
 	0x74, 0x64, 0x22, 0x13, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65,
@@ -1430,67 +1430,67 @@ var file_hoosatwalletd_proto_rawDesc = []byte{
 }
 
 var (
-	file_hoosatwalletd_proto_rawDescOnce sync.Once
-	file_hoosatwalletd_proto_rawDescData = file_hoosatwalletd_proto_rawDesc
+	file_htnwalletd_proto_rawDescOnce sync.Once
+	file_htnwalletd_proto_rawDescData = file_htnwalletd_proto_rawDesc
 )
 
-func file_hoosatwalletd_proto_rawDescGZIP() []byte {
-	file_hoosatwalletd_proto_rawDescOnce.Do(func() {
-		file_hoosatwalletd_proto_rawDescData = protoimpl.X.CompressGZIP(file_hoosatwalletd_proto_rawDescData)
+func file_htnwalletd_proto_rawDescGZIP() []byte {
+	file_htnwalletd_proto_rawDescOnce.Do(func() {
+		file_htnwalletd_proto_rawDescData = protoimpl.X.CompressGZIP(file_htnwalletd_proto_rawDescData)
 	})
-	return file_hoosatwalletd_proto_rawDescData
+	return file_htnwalletd_proto_rawDescData
 }
 
-var file_hoosatwalletd_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
-var file_hoosatwalletd_proto_goTypes = []interface{}{
-	(*GetBalanceRequest)(nil),                  // 0: hoosatwalletd.GetBalanceRequest
-	(*GetBalanceResponse)(nil),                 // 1: hoosatwalletd.GetBalanceResponse
-	(*AddressBalances)(nil),                    // 2: hoosatwalletd.AddressBalances
-	(*CreateUnsignedTransactionsRequest)(nil),  // 3: hoosatwalletd.CreateUnsignedTransactionsRequest
-	(*CreateUnsignedTransactionsResponse)(nil), // 4: hoosatwalletd.CreateUnsignedTransactionsResponse
-	(*ShowAddressesRequest)(nil),               // 5: hoosatwalletd.ShowAddressesRequest
-	(*ShowAddressesResponse)(nil),              // 6: hoosatwalletd.ShowAddressesResponse
-	(*NewAddressRequest)(nil),                  // 7: hoosatwalletd.NewAddressRequest
-	(*NewAddressResponse)(nil),                 // 8: hoosatwalletd.NewAddressResponse
-	(*BroadcastRequest)(nil),                   // 9: hoosatwalletd.BroadcastRequest
-	(*BroadcastResponse)(nil),                  // 10: hoosatwalletd.BroadcastResponse
-	(*ShutdownRequest)(nil),                    // 11: hoosatwalletd.ShutdownRequest
-	(*ShutdownResponse)(nil),                   // 12: hoosatwalletd.ShutdownResponse
-	(*Outpoint)(nil),                           // 13: hoosatwalletd.Outpoint
-	(*UtxosByAddressesEntry)(nil),              // 14: hoosatwalletd.UtxosByAddressesEntry
-	(*ScriptPublicKey)(nil),                    // 15: hoosatwalletd.ScriptPublicKey
-	(*UtxoEntry)(nil),                          // 16: hoosatwalletd.UtxoEntry
-	(*GetExternalSpendableUTXOsRequest)(nil),   // 17: hoosatwalletd.GetExternalSpendableUTXOsRequest
-	(*GetExternalSpendableUTXOsResponse)(nil),  // 18: hoosatwalletd.GetExternalSpendableUTXOsResponse
-	(*SendRequest)(nil),                        // 19: hoosatwalletd.SendRequest
-	(*SendResponse)(nil),                       // 20: hoosatwalletd.SendResponse
-	(*SignRequest)(nil),                        // 21: hoosatwalletd.SignRequest
-	(*SignResponse)(nil),                       // 22: hoosatwalletd.SignResponse
+var file_htnwalletd_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_htnwalletd_proto_goTypes = []interface{}{
+	(*GetBalanceRequest)(nil),                  // 0: htnwalletd.GetBalanceRequest
+	(*GetBalanceResponse)(nil),                 // 1: htnwalletd.GetBalanceResponse
+	(*AddressBalances)(nil),                    // 2: htnwalletd.AddressBalances
+	(*CreateUnsignedTransactionsRequest)(nil),  // 3: htnwalletd.CreateUnsignedTransactionsRequest
+	(*CreateUnsignedTransactionsResponse)(nil), // 4: htnwalletd.CreateUnsignedTransactionsResponse
+	(*ShowAddressesRequest)(nil),               // 5: htnwalletd.ShowAddressesRequest
+	(*ShowAddressesResponse)(nil),              // 6: htnwalletd.ShowAddressesResponse
+	(*NewAddressRequest)(nil),                  // 7: htnwalletd.NewAddressRequest
+	(*NewAddressResponse)(nil),                 // 8: htnwalletd.NewAddressResponse
+	(*BroadcastRequest)(nil),                   // 9: htnwalletd.BroadcastRequest
+	(*BroadcastResponse)(nil),                  // 10: htnwalletd.BroadcastResponse
+	(*ShutdownRequest)(nil),                    // 11: htnwalletd.ShutdownRequest
+	(*ShutdownResponse)(nil),                   // 12: htnwalletd.ShutdownResponse
+	(*Outpoint)(nil),                           // 13: htnwalletd.Outpoint
+	(*UtxosByAddressesEntry)(nil),              // 14: htnwalletd.UtxosByAddressesEntry
+	(*ScriptPublicKey)(nil),                    // 15: htnwalletd.ScriptPublicKey
+	(*UtxoEntry)(nil),                          // 16: htnwalletd.UtxoEntry
+	(*GetExternalSpendableUTXOsRequest)(nil),   // 17: htnwalletd.GetExternalSpendableUTXOsRequest
+	(*GetExternalSpendableUTXOsResponse)(nil),  // 18: htnwalletd.GetExternalSpendableUTXOsResponse
+	(*SendRequest)(nil),                        // 19: htnwalletd.SendRequest
+	(*SendResponse)(nil),                       // 20: htnwalletd.SendResponse
+	(*SignRequest)(nil),                        // 21: htnwalletd.SignRequest
+	(*SignResponse)(nil),                       // 22: htnwalletd.SignResponse
 }
-var file_hoosatwalletd_proto_depIdxs = []int32{
-	2,  // 0: hoosatwalletd.GetBalanceResponse.addressBalances:type_name -> hoosatwalletd.AddressBalances
-	13, // 1: hoosatwalletd.UtxosByAddressesEntry.outpoint:type_name -> hoosatwalletd.Outpoint
-	16, // 2: hoosatwalletd.UtxosByAddressesEntry.utxoEntry:type_name -> hoosatwalletd.UtxoEntry
-	15, // 3: hoosatwalletd.UtxoEntry.scriptPublicKey:type_name -> hoosatwalletd.ScriptPublicKey
-	14, // 4: hoosatwalletd.GetExternalSpendableUTXOsResponse.Entries:type_name -> hoosatwalletd.UtxosByAddressesEntry
-	0,  // 5: hoosatwalletd.hoosatwalletd.GetBalance:input_type -> hoosatwalletd.GetBalanceRequest
-	17, // 6: hoosatwalletd.hoosatwalletd.GetExternalSpendableUTXOs:input_type -> hoosatwalletd.GetExternalSpendableUTXOsRequest
-	3,  // 7: hoosatwalletd.hoosatwalletd.CreateUnsignedTransactions:input_type -> hoosatwalletd.CreateUnsignedTransactionsRequest
-	5,  // 8: hoosatwalletd.hoosatwalletd.ShowAddresses:input_type -> hoosatwalletd.ShowAddressesRequest
-	7,  // 9: hoosatwalletd.hoosatwalletd.NewAddress:input_type -> hoosatwalletd.NewAddressRequest
-	11, // 10: hoosatwalletd.hoosatwalletd.Shutdown:input_type -> hoosatwalletd.ShutdownRequest
-	9,  // 11: hoosatwalletd.hoosatwalletd.Broadcast:input_type -> hoosatwalletd.BroadcastRequest
-	19, // 12: hoosatwalletd.hoosatwalletd.Send:input_type -> hoosatwalletd.SendRequest
-	21, // 13: hoosatwalletd.hoosatwalletd.Sign:input_type -> hoosatwalletd.SignRequest
-	1,  // 14: hoosatwalletd.hoosatwalletd.GetBalance:output_type -> hoosatwalletd.GetBalanceResponse
-	18, // 15: hoosatwalletd.hoosatwalletd.GetExternalSpendableUTXOs:output_type -> hoosatwalletd.GetExternalSpendableUTXOsResponse
-	4,  // 16: hoosatwalletd.hoosatwalletd.CreateUnsignedTransactions:output_type -> hoosatwalletd.CreateUnsignedTransactionsResponse
-	6,  // 17: hoosatwalletd.hoosatwalletd.ShowAddresses:output_type -> hoosatwalletd.ShowAddressesResponse
-	8,  // 18: hoosatwalletd.hoosatwalletd.NewAddress:output_type -> hoosatwalletd.NewAddressResponse
-	12, // 19: hoosatwalletd.hoosatwalletd.Shutdown:output_type -> hoosatwalletd.ShutdownResponse
-	10, // 20: hoosatwalletd.hoosatwalletd.Broadcast:output_type -> hoosatwalletd.BroadcastResponse
-	20, // 21: hoosatwalletd.hoosatwalletd.Send:output_type -> hoosatwalletd.SendResponse
-	22, // 22: hoosatwalletd.hoosatwalletd.Sign:output_type -> hoosatwalletd.SignResponse
+var file_htnwalletd_proto_depIdxs = []int32{
+	2,  // 0: htnwalletd.GetBalanceResponse.addressBalances:type_name -> htnwalletd.AddressBalances
+	13, // 1: htnwalletd.UtxosByAddressesEntry.outpoint:type_name -> htnwalletd.Outpoint
+	16, // 2: htnwalletd.UtxosByAddressesEntry.utxoEntry:type_name -> htnwalletd.UtxoEntry
+	15, // 3: htnwalletd.UtxoEntry.scriptPublicKey:type_name -> htnwalletd.ScriptPublicKey
+	14, // 4: htnwalletd.GetExternalSpendableUTXOsResponse.Entries:type_name -> htnwalletd.UtxosByAddressesEntry
+	0,  // 5: htnwalletd.htnwalletd.GetBalance:input_type -> htnwalletd.GetBalanceRequest
+	17, // 6: htnwalletd.htnwalletd.GetExternalSpendableUTXOs:input_type -> htnwalletd.GetExternalSpendableUTXOsRequest
+	3,  // 7: htnwalletd.htnwalletd.CreateUnsignedTransactions:input_type -> htnwalletd.CreateUnsignedTransactionsRequest
+	5,  // 8: htnwalletd.htnwalletd.ShowAddresses:input_type -> htnwalletd.ShowAddressesRequest
+	7,  // 9: htnwalletd.htnwalletd.NewAddress:input_type -> htnwalletd.NewAddressRequest
+	11, // 10: htnwalletd.htnwalletd.Shutdown:input_type -> htnwalletd.ShutdownRequest
+	9,  // 11: htnwalletd.htnwalletd.Broadcast:input_type -> htnwalletd.BroadcastRequest
+	19, // 12: htnwalletd.htnwalletd.Send:input_type -> htnwalletd.SendRequest
+	21, // 13: htnwalletd.htnwalletd.Sign:input_type -> htnwalletd.SignRequest
+	1,  // 14: htnwalletd.htnwalletd.GetBalance:output_type -> htnwalletd.GetBalanceResponse
+	18, // 15: htnwalletd.htnwalletd.GetExternalSpendableUTXOs:output_type -> htnwalletd.GetExternalSpendableUTXOsResponse
+	4,  // 16: htnwalletd.htnwalletd.CreateUnsignedTransactions:output_type -> htnwalletd.CreateUnsignedTransactionsResponse
+	6,  // 17: htnwalletd.htnwalletd.ShowAddresses:output_type -> htnwalletd.ShowAddressesResponse
+	8,  // 18: htnwalletd.htnwalletd.NewAddress:output_type -> htnwalletd.NewAddressResponse
+	12, // 19: htnwalletd.htnwalletd.Shutdown:output_type -> htnwalletd.ShutdownResponse
+	10, // 20: htnwalletd.htnwalletd.Broadcast:output_type -> htnwalletd.BroadcastResponse
+	20, // 21: htnwalletd.htnwalletd.Send:output_type -> htnwalletd.SendResponse
+	22, // 22: htnwalletd.htnwalletd.Sign:output_type -> htnwalletd.SignResponse
 	14, // [14:23] is the sub-list for method output_type
 	5,  // [5:14] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
@@ -1498,13 +1498,13 @@ var file_hoosatwalletd_proto_depIdxs = []int32{
 	0,  // [0:5] is the sub-list for field type_name
 }
 
-func init() { file_hoosatwalletd_proto_init() }
-func file_hoosatwalletd_proto_init() {
-	if File_hoosatwalletd_proto != nil {
+func init() { file_htnwalletd_proto_init() }
+func file_htnwalletd_proto_init() {
+	if File_htnwalletd_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_hoosatwalletd_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetBalanceRequest); i {
 			case 0:
 				return &v.state
@@ -1516,7 +1516,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetBalanceResponse); i {
 			case 0:
 				return &v.state
@@ -1528,7 +1528,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddressBalances); i {
 			case 0:
 				return &v.state
@@ -1540,7 +1540,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateUnsignedTransactionsRequest); i {
 			case 0:
 				return &v.state
@@ -1552,7 +1552,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateUnsignedTransactionsResponse); i {
 			case 0:
 				return &v.state
@@ -1564,7 +1564,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ShowAddressesRequest); i {
 			case 0:
 				return &v.state
@@ -1576,7 +1576,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ShowAddressesResponse); i {
 			case 0:
 				return &v.state
@@ -1588,7 +1588,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*NewAddressRequest); i {
 			case 0:
 				return &v.state
@@ -1600,7 +1600,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*NewAddressResponse); i {
 			case 0:
 				return &v.state
@@ -1612,7 +1612,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BroadcastRequest); i {
 			case 0:
 				return &v.state
@@ -1624,7 +1624,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BroadcastResponse); i {
 			case 0:
 				return &v.state
@@ -1636,7 +1636,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ShutdownRequest); i {
 			case 0:
 				return &v.state
@@ -1648,7 +1648,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ShutdownResponse); i {
 			case 0:
 				return &v.state
@@ -1660,7 +1660,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Outpoint); i {
 			case 0:
 				return &v.state
@@ -1672,7 +1672,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UtxosByAddressesEntry); i {
 			case 0:
 				return &v.state
@@ -1684,7 +1684,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ScriptPublicKey); i {
 			case 0:
 				return &v.state
@@ -1696,7 +1696,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UtxoEntry); i {
 			case 0:
 				return &v.state
@@ -1708,7 +1708,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetExternalSpendableUTXOsRequest); i {
 			case 0:
 				return &v.state
@@ -1720,7 +1720,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetExternalSpendableUTXOsResponse); i {
 			case 0:
 				return &v.state
@@ -1732,7 +1732,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SendRequest); i {
 			case 0:
 				return &v.state
@@ -1744,7 +1744,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SendResponse); i {
 			case 0:
 				return &v.state
@@ -1756,7 +1756,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SignRequest); i {
 			case 0:
 				return &v.state
@@ -1768,7 +1768,7 @@ func file_hoosatwalletd_proto_init() {
 				return nil
 			}
 		}
-		file_hoosatwalletd_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+		file_htnwalletd_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SignResponse); i {
 			case 0:
 				return &v.state
@@ -1785,18 +1785,18 @@ func file_hoosatwalletd_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_hoosatwalletd_proto_rawDesc,
+			RawDescriptor: file_htnwalletd_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_hoosatwalletd_proto_goTypes,
-		DependencyIndexes: file_hoosatwalletd_proto_depIdxs,
-		MessageInfos:      file_hoosatwalletd_proto_msgTypes,
+		GoTypes:           file_htnwalletd_proto_goTypes,
+		DependencyIndexes: file_htnwalletd_proto_depIdxs,
+		MessageInfos:      file_htnwalletd_proto_msgTypes,
 	}.Build()
-	File_hoosatwalletd_proto = out.File
-	file_hoosatwalletd_proto_rawDesc = nil
-	file_hoosatwalletd_proto_goTypes = nil
-	file_hoosatwalletd_proto_depIdxs = nil
+	File_htnwalletd_proto = out.File
+	file_htnwalletd_proto_rawDesc = nil
+	file_htnwalletd_proto_goTypes = nil
+	file_htnwalletd_proto_depIdxs = nil
 }

@@ -3,7 +3,7 @@ package server
 import (
 	"testing"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/serialization"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/serialization"
 
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/keys"
 	"github.com/Hoosat-Oy/HTND/util/txmass"
@@ -15,7 +15,7 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 	"github.com/Hoosat-Oy/HTND/domain/consensus"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
 )
@@ -43,17 +43,17 @@ func TestEstimateMassAfterSignatures(t *testing.T) {
 			t.Fatalf("Error from estimateMassAfterSignatures: %s", err)
 		}
 
-		signedTxStep1Bytes, err := libhoosatwallet.Sign(params, mnemonics[:1], unsignedTransactionBytes, false)
+		signedTxStep1Bytes, err := libhtnwallet.Sign(params, mnemonics[:1], unsignedTransactionBytes, false)
 		if err != nil {
 			t.Fatalf("Sign: %+v", err)
 		}
 
-		signedTxStep2Bytes, err := libhoosatwallet.Sign(params, mnemonics[1:2], signedTxStep1Bytes, false)
+		signedTxStep2Bytes, err := libhtnwallet.Sign(params, mnemonics[1:2], signedTxStep1Bytes, false)
 		if err != nil {
 			t.Fatalf("Sign: %+v", err)
 		}
 
-		extractedSignedTx, err := libhoosatwallet.ExtractTransaction(signedTxStep2Bytes, false)
+		extractedSignedTx, err := libhtnwallet.ExtractTransaction(signedTxStep2Bytes, false)
 		if err != nil {
 			t.Fatalf("ExtractTransaction: %+v", err)
 		}
@@ -83,12 +83,12 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 	publicKeys := make([]string, numKeys)
 	for i := 0; i < numKeys; i++ {
 		var err error
-		mnemonics[i], err = libhoosatwallet.CreateMnemonic()
+		mnemonics[i], err = libhtnwallet.CreateMnemonic()
 		if err != nil {
 			t.Fatalf("CreateMnemonic: %+v", err)
 		}
 
-		publicKeys[i], err = libhoosatwallet.MasterPublicKeyFromMnemonic(&consensusConfig.Params, mnemonics[i], true)
+		publicKeys[i], err = libhtnwallet.MasterPublicKeyFromMnemonic(&consensusConfig.Params, mnemonics[i], true)
 		if err != nil {
 			t.Fatalf("MasterPublicKeyFromMnemonic: %+v", err)
 		}
@@ -96,7 +96,7 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 
 	const minimumSignatures = 2
 	path := "m/1/2/3"
-	address, err := libhoosatwallet.Address(params, publicKeys, minimumSignatures, path, false)
+	address, err := libhtnwallet.Address(params, publicKeys, minimumSignatures, path, false)
 	if err != nil {
 		t.Fatalf("Address: %+v", err)
 	}
@@ -128,7 +128,7 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 
 	block1Tx := block1.Transactions[0]
 	block1TxOut := block1Tx.Outputs[0]
-	selectedUTXOs := []*libhoosatwallet.UTXO{
+	selectedUTXOs := []*libhtnwallet.UTXO{
 		{
 			Outpoint: &externalapi.DomainOutpoint{
 				TransactionID: *consensushashing.TransactionID(block1.Transactions[0]),
@@ -139,8 +139,8 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 		},
 	}
 
-	unsignedTransaction, err := libhoosatwallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
-		[]*libhoosatwallet.Payment{{
+	unsignedTransaction, err := libhtnwallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
+		[]*libhtnwallet.Payment{{
 			Address: address,
 			Amount:  10,
 		}}, selectedUTXOs)

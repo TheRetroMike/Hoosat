@@ -1,6 +1,6 @@
-# hoosatctl
+# htnctl
 
-hoosatctl is an RPC client for htnd
+htnctl is an RPC client for htnd
 
 ## Requirements
 
@@ -23,7 +23,7 @@ $ go version
 
 ```bash
 $ git clone https://github.com/Hoosat-Oy/HTND
-$ cd htnd/cmd/hoosatctl
+$ cd htnd/cmd/htnctl
 $ go install .
 ```
 
@@ -41,13 +41,13 @@ $ hoosatpctl --help
 But the minimum configuration needed to run it is:
 
 ```bash
-$ hoosatctl <REQUEST_JSON>
+$ htnctl <REQUEST_JSON>
 ```
 
 For example:
 
 ```
-$ hoosatctl '{"getBlockDagInfoRequest":{}}'
+$ htnctl '{"getBlockDagInfoRequest":{}}'
 ```
 
 For a list of all available requests check out the [RPC documentation](infrastructure/network/netadapter/server/grpcserver/protowire/rpc.md)

@@ -31,89 +31,89 @@ type HoosatwalletdClient interface {
 	Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error)
 }
 
-type hoosatwalletdClient struct {
+type htnwalletdClient struct {
 	cc grpc.ClientConnInterface
 }
 
 func NewHoosatwalletdClient(cc grpc.ClientConnInterface) HoosatwalletdClient {
-	return &hoosatwalletdClient{cc}
+	return &htnwalletdClient{cc}
 }
 
-func (c *hoosatwalletdClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error) {
+func (c *htnwalletdClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error) {
 	out := new(GetBalanceResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/GetBalance", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/GetBalance", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) GetExternalSpendableUTXOs(ctx context.Context, in *GetExternalSpendableUTXOsRequest, opts ...grpc.CallOption) (*GetExternalSpendableUTXOsResponse, error) {
+func (c *htnwalletdClient) GetExternalSpendableUTXOs(ctx context.Context, in *GetExternalSpendableUTXOsRequest, opts ...grpc.CallOption) (*GetExternalSpendableUTXOsResponse, error) {
 	out := new(GetExternalSpendableUTXOsResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/GetExternalSpendableUTXOs", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/GetExternalSpendableUTXOs", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) CreateUnsignedTransactions(ctx context.Context, in *CreateUnsignedTransactionsRequest, opts ...grpc.CallOption) (*CreateUnsignedTransactionsResponse, error) {
+func (c *htnwalletdClient) CreateUnsignedTransactions(ctx context.Context, in *CreateUnsignedTransactionsRequest, opts ...grpc.CallOption) (*CreateUnsignedTransactionsResponse, error) {
 	out := new(CreateUnsignedTransactionsResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/CreateUnsignedTransactions", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/CreateUnsignedTransactions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) ShowAddresses(ctx context.Context, in *ShowAddressesRequest, opts ...grpc.CallOption) (*ShowAddressesResponse, error) {
+func (c *htnwalletdClient) ShowAddresses(ctx context.Context, in *ShowAddressesRequest, opts ...grpc.CallOption) (*ShowAddressesResponse, error) {
 	out := new(ShowAddressesResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/ShowAddresses", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/ShowAddresses", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) NewAddress(ctx context.Context, in *NewAddressRequest, opts ...grpc.CallOption) (*NewAddressResponse, error) {
+func (c *htnwalletdClient) NewAddress(ctx context.Context, in *NewAddressRequest, opts ...grpc.CallOption) (*NewAddressResponse, error) {
 	out := new(NewAddressResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/NewAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/NewAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error) {
+func (c *htnwalletdClient) Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error) {
 	out := new(ShutdownResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/Shutdown", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/Shutdown", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) Broadcast(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error) {
+func (c *htnwalletdClient) Broadcast(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error) {
 	out := new(BroadcastResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/Broadcast", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/Broadcast", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error) {
+func (c *htnwalletdClient) Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error) {
 	out := new(SendResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/Send", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/Send", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *hoosatwalletdClient) Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error) {
+func (c *htnwalletdClient) Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error) {
 	out := new(SignResponse)
-	err := c.cc.Invoke(ctx, "/hoosatwalletd.hoosatwalletd/Sign", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/htnwalletd.htnwalletd/Sign", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +192,7 @@ func _Hoosatwalletd_GetBalance_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/GetBalance",
+		FullMethod: "/htnwalletd.htnwalletd/GetBalance",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).GetBalance(ctx, req.(*GetBalanceRequest))
@@ -210,7 +210,7 @@ func _Hoosatwalletd_GetExternalSpendableUTXOs_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/GetExternalSpendableUTXOs",
+		FullMethod: "/htnwalletd.htnwalletd/GetExternalSpendableUTXOs",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).GetExternalSpendableUTXOs(ctx, req.(*GetExternalSpendableUTXOsRequest))
@@ -228,7 +228,7 @@ func _Hoosatwalletd_CreateUnsignedTransactions_Handler(srv interface{}, ctx cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/CreateUnsignedTransactions",
+		FullMethod: "/htnwalletd.htnwalletd/CreateUnsignedTransactions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).CreateUnsignedTransactions(ctx, req.(*CreateUnsignedTransactionsRequest))
@@ -246,7 +246,7 @@ func _Hoosatwalletd_ShowAddresses_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/ShowAddresses",
+		FullMethod: "/htnwalletd.htnwalletd/ShowAddresses",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).ShowAddresses(ctx, req.(*ShowAddressesRequest))
@@ -264,7 +264,7 @@ func _Hoosatwalletd_NewAddress_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/NewAddress",
+		FullMethod: "/htnwalletd.htnwalletd/NewAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).NewAddress(ctx, req.(*NewAddressRequest))
@@ -282,7 +282,7 @@ func _Hoosatwalletd_Shutdown_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/Shutdown",
+		FullMethod: "/htnwalletd.htnwalletd/Shutdown",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).Shutdown(ctx, req.(*ShutdownRequest))
@@ -300,7 +300,7 @@ func _Hoosatwalletd_Broadcast_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/Broadcast",
+		FullMethod: "/htnwalletd.htnwalletd/Broadcast",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).Broadcast(ctx, req.(*BroadcastRequest))
@@ -318,7 +318,7 @@ func _Hoosatwalletd_Send_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/Send",
+		FullMethod: "/htnwalletd.htnwalletd/Send",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).Send(ctx, req.(*SendRequest))
@@ -336,7 +336,7 @@ func _Hoosatwalletd_Sign_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hoosatwalletd.hoosatwalletd/Sign",
+		FullMethod: "/htnwalletd.htnwalletd/Sign",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HoosatwalletdServer).Sign(ctx, req.(*SignRequest))
@@ -348,7 +348,7 @@ func _Hoosatwalletd_Sign_Handler(srv interface{}, ctx context.Context, dec func(
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Hoosatwalletd_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hoosatwalletd.hoosatwalletd",
+	ServiceName: "htnwalletd.htnwalletd",
 	HandlerType: (*HoosatwalletdServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -389,5 +389,5 @@ var Hoosatwalletd_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "hoosatwalletd.proto",
+	Metadata: "htnwalletd.proto",
 }

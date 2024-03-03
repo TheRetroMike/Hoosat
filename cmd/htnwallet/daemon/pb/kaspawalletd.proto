@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 option go_package = "github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb";
-package hoosatwalletd;
+package htnwalletd;
 
-service hoosatwalletd {
+service htnwalletd {
   rpc GetBalance (GetBalanceRequest) returns (GetBalanceResponse) {}
   rpc GetExternalSpendableUTXOs (GetExternalSpendableUTXOsRequest) returns (GetExternalSpendableUTXOsResponse) {}
   rpc CreateUnsignedTransactions (CreateUnsignedTransactionsRequest) returns (CreateUnsignedTransactionsResponse) {}

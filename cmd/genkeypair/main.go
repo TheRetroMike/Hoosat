@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 	"github.com/Hoosat-Oy/HTND/util"
 )
 
@@ -13,7 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	privateKey, publicKey, err := libhoosatwallet.CreateKeyPair(false)
+	privateKey, publicKey, err := libhtnwallet.CreateKeyPair(false)
 	if err != nil {
 		panic(err)
 	}

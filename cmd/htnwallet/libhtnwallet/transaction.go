@@ -1,8 +1,8 @@
-package libhoosatwallet
+package libhtnwallet
 
 import (
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/bip32"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/serialization"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/serialization"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"

@@ -5,13 +5,13 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/pkg/errors"
 )
 
-var keyChains = []uint8{libhoosatwallet.ExternalKeychain, libhoosatwallet.InternalKeychain}
+var keyChains = []uint8{libhtnwallet.ExternalKeychain, libhtnwallet.InternalKeychain}
 
 type walletAddressSet map[string]*walletAddress
 
@@ -188,7 +188,7 @@ func (s *server) updateAddressesAndLastUsedIndexes(requestedAddressSet walletAdd
 
 		s.addressSet[entry.Address] = walletAddress
 
-		if walletAddress.keyChain == libhoosatwallet.ExternalKeychain {
+		if walletAddress.keyChain == libhtnwallet.ExternalKeychain {
 			if walletAddress.index > lastUsedExternalIndex {
 				lastUsedExternalIndex = walletAddress.index
 			}

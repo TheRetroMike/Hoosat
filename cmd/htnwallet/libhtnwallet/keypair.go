@@ -1,11 +1,11 @@
-package libhoosatwallet
+package libhtnwallet
 
 import (
 	"math"
 	"sort"
 	"strings"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/bip32"
 	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/kaspanet/go-secp256k1"

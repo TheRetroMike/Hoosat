@@ -3,7 +3,7 @@ package serialization
 import (
 	"math"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/serialization/protoserialization"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/serialization/protoserialization"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
 	"github.com/pkg/errors"

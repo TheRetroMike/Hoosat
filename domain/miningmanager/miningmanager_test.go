@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 	"github.com/Hoosat-Oy/HTND/domain/consensusreference"
 	"github.com/Hoosat-Oy/HTND/domain/miningmanager/model"
 	"github.com/Hoosat-Oy/HTND/util"
@@ -886,7 +886,7 @@ func generateNewCoinbase(addressPrefix util.Bech32Prefix, op opType) (*externala
 			ExtraData:       nil,
 		}, nil
 	}
-	_, publicKey, err := libhoosatwallet.CreateKeyPair(op == opECDSA)
+	_, publicKey, err := libhtnwallet.CreateKeyPair(op == opECDSA)
 	if err != nil {
 		return nil, err
 	}

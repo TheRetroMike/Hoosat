@@ -1,4 +1,4 @@
-package libhoosatwallet
+package libhtnwallet
 
 import (
 	"encoding/hex"
@@ -10,10 +10,10 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
 )
 
-// HoosatwalletdUTXOsTolibhoosatwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libhoosatwallet.UTXO
-func HoosatwalletdUTXOsTolibhoosatwalletUTXOs(hoosatwalletdUtxoEntires []*pb.UtxosByAddressesEntry) ([]*UTXO, error) {
-	UTXOs := make([]*UTXO, len(hoosatwalletdUtxoEntires))
-	for i, entry := range hoosatwalletdUtxoEntires {
+// HoosatwalletdUTXOsTolibhtnwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libhtnwallet.UTXO
+func HoosatwalletdUTXOsTolibhtnwalletUTXOs(htnwalletdUtxoEntires []*pb.UtxosByAddressesEntry) ([]*UTXO, error) {
+	UTXOs := make([]*UTXO, len(htnwalletdUtxoEntires))
+	for i, entry := range htnwalletdUtxoEntires {
 		script, err := hex.DecodeString(entry.UtxoEntry.ScriptPublicKey.ScriptPublicKey)
 		if err != nil {
 			return nil, err

@@ -14,8 +14,8 @@ RUN go mod download
 
 COPY . .
 
-WORKDIR /go/src/github.com/Hoosat-Oy/HTND/cmd/hoosatwallet
-RUN GOOS=linux go build -a -installsuffix cgo -o hoosatwallet .
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND/cmd/htnwallet
+RUN GOOS=linux go build -a -installsuffix cgo -o htnwallet .
 
 # --- multistage docker build: stage #2: runtime image
 FROM alpine
@@ -23,7 +23,7 @@ WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tini
 
-COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/cmd/htnwallet/hoosatwallet /app/
+COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/cmd/htnwallet/htnwallet /app/
 
 USER nobody
 ENTRYPOINT [ "/sbin/tini", "--" ]

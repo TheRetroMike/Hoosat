@@ -1,9 +1,9 @@
-package libhoosatwallet
+package libhtnwallet
 
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet/bip32"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/bip32"
 	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"
