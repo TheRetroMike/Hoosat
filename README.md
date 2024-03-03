@@ -1,5 +1,5 @@
 
-Hoosat Network Daemon. 
+Hoosat Network Daemon
 ====
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
@@ -7,9 +7,9 @@ Hoosat Network Daemon.
 
 Hoosat Network Daemon is the reference full node Hoosat Network implementation written in Go (golang).
 
-## What is hoosat
+## What is Hoosat Network
 
-Hoosat is an attempt at a proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is fork of Kaspa and based on the [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus. 
+Hoosat Network is an attempt at a ASIC resistant proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is fork of Kaspa and based on the [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus. 
 
 ## Requirements
 
