@@ -1,15 +1,15 @@
 
-htnd
+Hoosat Network Daemon. 
 ====
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/hoosatnet/htnd)
 
-htnd is the reference full node hoosat implementation written in Go (golang).
+Hoosat Network Daemon is the reference full node Hoosat Network implementation written in Go (golang).
 
 ## What is hoosat
 
-hoosat is an attempt at a proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is based on [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus.
+Hoosat is an attempt at a proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is fork of Kaspa and based on the [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus. 
 
 ## Requirements
 
@@ -31,12 +31,12 @@ $ go version
 - Run the following commands to obtain and install htnd including all dependencies:
 
 ```bash
-$ git clone https://github.com/hoosatnet/htnd
-$ cd htnd
+$ git clone https://github.com/Hoosat-Oy/HTND
+$ cd HTND
 $ go install . ./cmd/...
 ```
 
-- htnd (and utilities) should now be installed in `$(go env GOPATH)/bin`. If you did
+- HTND (and utilities) should now be installed in `$(go env GOPATH)/bin`. If you did
   not already add the bin directory to your system path during Go installation,
   you are encouraged to do so now.
 
@@ -51,18 +51,17 @@ $ htnd
 ```
 
 ## Discord
-Join our discord server using the following link: https://discord.gg/YNYnNN5Pf2
+Join our discord server using the following link: 
 
 ## Issue Tracker
 
 The [integrated github issue tracker](https://github.com/Hoosat-Oy/HTND/issues)
 is used for this project.
 
-Issue priorities may be seen at https://github.com/orgs/hoosatnet/projects/4
 
 ## Documentation
 
-The [documentation](https://github.com/hoosatnet/docs) is a work-in-progress
+The [documentation](https://github.com//Hoosat-Oy/docs) is a work-in-progress
 
 ## License
 
