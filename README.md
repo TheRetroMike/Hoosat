@@ -1,5 +1,5 @@
 
-Hoosat Network Daemon. 
+Hoosat Network Daemon
 ====
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
