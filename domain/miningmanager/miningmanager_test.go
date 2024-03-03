@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
 	"github.com/Hoosat-Oy/HTND/domain/consensusreference"
 	"github.com/Hoosat-Oy/HTND/domain/miningmanager/model"
 	"github.com/Hoosat-Oy/HTND/util"

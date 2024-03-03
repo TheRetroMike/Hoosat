@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/HTND/cmd/hoosatwallet/libhoosatwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhoosatwallet"
 	"github.com/Hoosat-Oy/HTND/util"
 )
 
