@@ -19,10 +19,9 @@ func (f *FlowContext) ConnectionManager() *connmanager.ConnectionManager {
 	return f.connectionManager
 }
 
-func (f *FlowContext) CheckIfPeerExists(peer *peerpkg.Peer) bool {
+func (f *FlowContext) HasPeer(peer *peerpkg.Peer) bool {
 	f.peersMutex.Lock()
 	defer f.peersMutex.Unlock()
-
 	if _, ok := f.peers[*peer.ID()]; ok {
 		return true
 	}

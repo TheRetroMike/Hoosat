@@ -25,7 +25,7 @@ type HandleHandshakeContext interface {
 	Domain() domain.Domain
 	AddressManager() *addressmanager.AddressManager
 	AddToPeers(peer *peerpkg.Peer) error
-	CheckIfPeerExists(peer *peerpkg.Peer) bool
+	HasPeer(peer *peerpkg.Peer) bool
 	HandleError(err error, flowName string, isStopping *uint32, errChan chan<- error)
 }
 
@@ -80,7 +80,7 @@ func HandleHandshake(context HandleHandshakeContext, netConnection *netadapter.N
 		return nil, nil
 	case <-doneChan:
 	}
-	if !context.CheckIfPeerExists(peer) {
+	if !context.HasPeer(peer) {
 		err := context.AddToPeers(peer)
 		if err != nil {
 			if errors.Is(err, common.ErrPeerWithSameIDExists) {
