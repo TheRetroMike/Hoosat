@@ -94,6 +94,7 @@ type Params struct {
 	SubsidyGenesisReward            uint64
 	PreDeflationaryPhaseBaseSubsidy uint64
 	DeflationaryPhaseBaseSubsidy    uint64
+	DeflationaryPhaseCurveFactor    float64
 
 	// TargetTimePerBlock is the desired amount of time to generate each
 	// block.
@@ -226,6 +227,7 @@ var MainnetParams = Params{
 	SubsidyGenesisReward:            defaultSubsidyGenesisReward,
 	PreDeflationaryPhaseBaseSubsidy: defaultPreDeflationaryPhaseBaseSubsidy,
 	DeflationaryPhaseBaseSubsidy:    defaultDeflationaryPhaseBaseSubsidy,
+	DeflationaryPhaseCurveFactor:    defaultDeflationaryPhaseCurveFactor,
 	TargetTimePerBlock:              defaultTargetTimePerBlock,
 	FinalityDuration:                defaultFinalityDuration,
 	DifficultyAdjustmentWindowSize:  defaultDifficultyAdjustmentWindowSize,

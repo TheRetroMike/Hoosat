@@ -49,8 +49,9 @@ const (
 	// in block take longer)
 	defaultMergeSetSizeLimit                       = defaultGHOSTDAGK * 10
 	defaultSubsidyGenesisReward                    = 1 * constants.SompiPerHoosat
-	defaultPreDeflationaryPhaseBaseSubsidy         = 100 * constants.SompiPerHoosat
+	defaultPreDeflationaryPhaseBaseSubsidy         = 250 * constants.SompiPerHoosat
 	defaultDeflationaryPhaseBaseSubsidy            = 100 * constants.SompiPerHoosat
+	defaultDeflationaryPhaseCurveFactor            = 2
 	defaultCoinbasePayloadScriptPublicKeyMaxLength = 150
 	// defaultDifficultyAdjustmentWindowSize is the number of blocks in a block's past used to calculate its difficulty
 	// target.
@@ -78,9 +79,8 @@ const (
 
 	// defaultDeflationaryPhaseDaaScore is the DAA score after which the pre-deflationary period
 	// switches to the deflationary period. This number is calculated as follows:
-	// We define a year as 365.25 days
-	// Year in seconds = 365.25 * 24 * 60 * 60 = 31557600
-	defaultDeflationaryPhaseDaaScore = 31557600
+	// We define a day in seconds for premine = 1 * 24 * 60 * 60 = 86400
+	defaultDeflationaryPhaseDaaScore = 86400
 
 	defaultMergeDepth = 3600
 )

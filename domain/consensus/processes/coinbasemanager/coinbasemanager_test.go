@@ -14,6 +14,7 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 	const secondsPerHalving = secondsPerMonth * 12
 	const deflationaryPhaseDaaScore = secondsPerMonth * 6
 	const deflationaryPhaseBaseSubsidy = 100 * constants.SompiPerHoosat
+	deflationaryPhaseCurveFactor := dagconfig.MainnetParams.DeflationaryPhaseCurveFactor
 	coinbaseManagerInterface := New(
 		nil,
 		0,
@@ -22,6 +23,7 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 		&externalapi.DomainHash{},
 		deflationaryPhaseDaaScore,
 		deflationaryPhaseBaseSubsidy,
+		deflationaryPhaseCurveFactor,
 		nil,
 		nil,
 		nil,
@@ -84,6 +86,7 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 
 func TestBuildSubsidyTable(t *testing.T) {
 	deflationaryPhaseBaseSubsidy := dagconfig.MainnetParams.DeflationaryPhaseBaseSubsidy
+	deflationaryPhaseCurveFactor := dagconfig.MainnetParams.DeflationaryPhaseCurveFactor
 	if deflationaryPhaseBaseSubsidy != 440*constants.SompiPerHoosat {
 		t.Errorf("TestBuildSubsidyTable: table generation function was not updated to reflect "+
 			"the new base subsidy %d. Please fix the constant above and replace subsidyByDeflationaryMonthTable "+
@@ -97,6 +100,7 @@ func TestBuildSubsidyTable(t *testing.T) {
 		&externalapi.DomainHash{},
 		0,
 		deflationaryPhaseBaseSubsidy,
+		deflationaryPhaseCurveFactor,
 		nil,
 		nil,
 		nil,
@@ -124,4 +128,6 @@ func TestBuildSubsidyTable(t *testing.T) {
 	}
 	tableStr += "\n}"
 	t.Logf(tableStr)
+	len := len(subsidyTable)
+	t.Logf("Length: %d", len)
 }

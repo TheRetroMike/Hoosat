@@ -20,6 +20,7 @@ type coinbaseManager struct {
 	genesisHash                             *externalapi.DomainHash
 	deflationaryPhaseDaaScore               uint64
 	deflationaryPhaseBaseSubsidy            uint64
+	deflationaryPhaseCurveFactor            float64
 
 	databaseContext     model.DBReader
 	dagTraversalManager model.DAGTraversalManager
@@ -197,7 +198,7 @@ func (c *coinbaseManager) CalcBlockSubsidy(stagingArea *model.StagingArea, block
 func (c *coinbaseManager) calcDeflationaryPeriodBlockSubsidy(blockDaaScore uint64) uint64 {
 	// We define a year as 365.25 days and a month as 365.25 / 12 = 30.4375
 	// secondsPerMonth = 30.4375 * 24 * 60 * 60 = 2629800
-	// secondsPerYear = 2629800 * 12 =31557600
+	// secondsPerYear = 2629800 * 12 = 31557600
 	const secondsPerYear = 31557600
 	// Note that this calculation implicitly assumes that block per second = 1 (by assuming daa score diff is in second units).
 	yearsSinceDeflationStarted := (blockDaaScore - c.deflationaryPhaseDaaScore) / secondsPerYear
@@ -206,18 +207,15 @@ func (c *coinbaseManager) calcDeflationaryPeriodBlockSubsidy(blockDaaScore uint6
 }
 
 /*
-This table was pre-calculated by calling `calcDeflationaryPeriodBlockSubsidyFloatCalc` for all months until reaching 0 subsidy.
+This table was pre-calculated by calling `calcDeflationaryPeriodBlockSubsidyFloatCalc` for all years until reaching 0 subsidy.
 To regenerate this table, run `TestBuildSubsidyTable` in coinbasemanager_test.go (note the `deflationaryPhaseBaseSubsidy` therein)
 */
 var subsidyByDeflationaryYearTable = []uint64{
-	10000000000, 5000000000, 2500000000, 1250000000,
-	625000000, 312500000, 156250000, 78125000,
-	39062500, 19531250, 9765625, 4882812,
-	2441406, 1220703, 610351, 305175,
-	152587, 76293, 38146, 19073,
-	9536, 4768, 2384, 1192, 596,
-	298, 149, 74, 37, 18, 9, 4,
-	2, 1, 0,
+	10000000000, 8164965809, 6666666666, 5443310539, 4444444444, 3628873693, 2962962962, 2419249128, 1975308641, 1612832752, 1316872427, 1075221834, 877914951, 716814556, 585276634, 477876371, 390184423, 318584247, 260122948, 212389498, 173415299, 141592998, 115610199, 94395332, 77073466,
+	62930221, 51382310, 41953481, 34254873, 27968987, 22836582, 18645991, 15224388, 12430661, 10149592, 8287107, 6766394, 5524738, 4510929, 3683158, 3007286, 2455439, 2004857, 1636959, 1336571, 1091306, 891047, 727537, 594031, 485025,
+	396021, 323350, 264014, 215566, 176009, 143711, 117339, 95807, 78226, 63871, 52150, 42581, 34767, 28387, 23178, 18924, 15452, 12616, 10301, 8411, 6867, 5607, 4578, 3738, 3052,
+	2492, 2034, 1661, 1356, 1107, 904, 738, 602, 492, 401, 328, 267, 218, 178, 145, 119, 97, 79, 64, 52, 43, 35, 28, 23, 19,
+	15, 12, 10, 8, 6, 5, 4, 3, 3, 2, 2, 1, 1, 1, 0,
 }
 
 func (c *coinbaseManager) getDeflationaryPeriodBlockSubsidyFromTable(year uint64) uint64 {
@@ -229,7 +227,8 @@ func (c *coinbaseManager) getDeflationaryPeriodBlockSubsidyFromTable(year uint64
 
 func (c *coinbaseManager) calcDeflationaryPeriodBlockSubsidyFloatCalc(year uint64) uint64 {
 	baseSubsidy := c.deflationaryPhaseBaseSubsidy
-	subsidy := float64(baseSubsidy) / math.Pow(2, float64(year))
+	curve := c.deflationaryPhaseCurveFactor // default 2
+	subsidy := float64(baseSubsidy) / math.Pow(1.5, float64(year)/curve)
 	return uint64(subsidy)
 }
 
@@ -275,7 +274,7 @@ func New(
 	genesisHash *externalapi.DomainHash,
 	deflationaryPhaseDaaScore uint64,
 	deflationaryPhaseBaseSubsidy uint64,
-
+	defaultdeflationaryPhaseCurveFactor float64,
 	dagTraversalManager model.DAGTraversalManager,
 	ghostdagDataStore model.GHOSTDAGDataStore,
 	acceptanceDataStore model.AcceptanceDataStore,
@@ -293,6 +292,7 @@ func New(
 		genesisHash:                             genesisHash,
 		deflationaryPhaseDaaScore:               deflationaryPhaseDaaScore,
 		deflationaryPhaseBaseSubsidy:            deflationaryPhaseBaseSubsidy,
+		deflationaryPhaseCurveFactor:            defaultdeflationaryPhaseCurveFactor,
 
 		dagTraversalManager: dagTraversalManager,
 		ghostdagDataStore:   ghostdagDataStore,
