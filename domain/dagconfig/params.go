@@ -216,7 +216,7 @@ var MainnetParams = Params{
 	DefaultPort: "16111",
 	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
-		"mainnet-dnsseed-1.hoosat.fi",
+		"mainnet-dnsseed.hoosat.fi",
 	},
 
 	// DAG parameters
