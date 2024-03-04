@@ -43,7 +43,7 @@ $ go install . ./cmd/...
 
 ## Getting Started
 
-htnd has several configuration options available to tweak how it runs, but all
+HTND has several configuration options available to tweak how it runs, but all
 of the basic operations work with zero configuration.
 
 ```bash
@@ -65,4 +65,4 @@ The [documentation](https://github.com//Hoosat-Oy/docs) is a work-in-progress
 
 ## License
 
-htnd is licensed under the copyfree [ISC License](https://choosealicense.com/licenses/isc/).
+HTND is licensed under the copyfree [ISC License](https://choosealicense.com/licenses/isc/).
