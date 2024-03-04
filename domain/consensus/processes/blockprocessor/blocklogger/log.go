@@ -5,7 +5,7 @@
 package blocklogger
 
 import (
-	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
 )
 
 var log = logger.RegisterSubSystem("BDAG")

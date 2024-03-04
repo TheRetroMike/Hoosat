@@ -3,7 +3,7 @@ package protowire
 import (
 	"math"
 
-	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/htnd/app/appmessage"
 	"github.com/pkg/errors"
 )
 

@@ -1,8 +1,8 @@
 package consensusstatemanager
 
 import (
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
 )
 
 func (csm *consensusStateManager) stageDiff(stagingArea *model.StagingArea, blockHash *externalapi.DomainHash,

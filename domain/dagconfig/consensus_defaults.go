@@ -3,7 +3,7 @@ package dagconfig
 import (
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/constants"
 )
 
 // The documentation refers to the following constants which aren't explicated in the code:
@@ -49,7 +49,7 @@ const (
 	// in block take longer)
 	defaultMergeSetSizeLimit                       = defaultGHOSTDAGK * 10
 	defaultSubsidyGenesisReward                    = 1 * constants.SompiPerHoosat
-	defaultPreDeflationaryPhaseBaseSubsidy         = 250 * constants.SompiPerHoosat
+	defaultPreDeflationaryPhaseBaseSubsidy         = 1160 * constants.SompiPerHoosat
 	defaultDeflationaryPhaseBaseSubsidy            = 100 * constants.SompiPerHoosat
 	defaultDeflationaryPhaseCurveFactor            = 2
 	defaultCoinbasePayloadScriptPublicKeyMaxLength = 150

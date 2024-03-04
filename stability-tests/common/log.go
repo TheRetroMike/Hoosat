@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
-	"github.com/Hoosat-Oy/HTND/stability-tests/common/mine"
-	"github.com/Hoosat-Oy/HTND/stability-tests/common/rpc"
-	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	"github.com/Hoosat-Oy/htnd/stability-tests/common/mine"
+	"github.com/Hoosat-Oy/htnd/stability-tests/common/rpc"
+	"github.com/Hoosat-Oy/htnd/util/panics"
 )
 
 // log is a logger that is initialized with no output filters. This

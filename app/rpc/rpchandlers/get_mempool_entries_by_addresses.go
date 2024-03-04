@@ -1,12 +1,12 @@
 package rpchandlers
 
 import (
-	"github.com/Hoosat-Oy/HTND/app/appmessage"
-	"github.com/Hoosat-Oy/HTND/app/rpc/rpccontext"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
+	"github.com/Hoosat-Oy/htnd/app/appmessage"
+	"github.com/Hoosat-Oy/htnd/app/rpc/rpccontext"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/txscript"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
-	"github.com/Hoosat-Oy/HTND/util"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/htnd/util"
 )
 
 // HandleGetMempoolEntriesByAddresses handles the respectively named RPC command

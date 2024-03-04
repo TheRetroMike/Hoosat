@@ -7,18 +7,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/HTND/util/txmass"
+	"github.com/Hoosat-Oy/htnd/util/txmass"
 
-	"github.com/Hoosat-Oy/HTND/util/profiling"
+	"github.com/Hoosat-Oy/htnd/util/profiling"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/keys"
-	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient"
-	"github.com/Hoosat-Oy/HTND/infrastructure/os/signal"
-	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/pb"
+	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/keys"
+	"github.com/Hoosat-Oy/htnd/domain/dagconfig"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/htnd/infrastructure/os/signal"
+	"github.com/Hoosat-Oy/htnd/util/panics"
 	"github.com/pkg/errors"
 
 	"google.golang.org/grpc"

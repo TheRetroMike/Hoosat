@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/htnd/infrastructure/config"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/rpcclient"
 )
 
 const rpcTimeout = 10 * time.Second

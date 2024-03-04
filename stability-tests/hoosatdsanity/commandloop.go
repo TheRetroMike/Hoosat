@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
-	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	"github.com/Hoosat-Oy/htnd/stability-tests/common"
 	"github.com/pkg/errors"
 )
 

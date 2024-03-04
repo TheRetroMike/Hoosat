@@ -3,7 +3,7 @@ package addressmanager
 import (
 	"net"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/htnd/infrastructure/config"
 )
 
 // Config is a descriptor which specifies the AddressManager instance configuration.

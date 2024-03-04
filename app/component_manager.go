@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/HTND/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/htnd/domain/miningmanager/mempool"
 
-	"github.com/Hoosat-Oy/HTND/app/protocol"
-	"github.com/Hoosat-Oy/HTND/app/rpc"
-	"github.com/Hoosat-Oy/HTND/domain"
-	"github.com/Hoosat-Oy/HTND/domain/consensus"
-	"github.com/Hoosat-Oy/HTND/domain/utxoindex"
-	"github.com/Hoosat-Oy/HTND/infrastructure/config"
-	infrastructuredatabase "github.com/Hoosat-Oy/HTND/infrastructure/db/database"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/connmanager"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/id"
-	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/htnd/app/protocol"
+	"github.com/Hoosat-Oy/htnd/app/rpc"
+	"github.com/Hoosat-Oy/htnd/domain"
+	"github.com/Hoosat-Oy/htnd/domain/consensus"
+	"github.com/Hoosat-Oy/htnd/domain/utxoindex"
+	"github.com/Hoosat-Oy/htnd/infrastructure/config"
+	infrastructuredatabase "github.com/Hoosat-Oy/htnd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/id"
+	"github.com/Hoosat-Oy/htnd/util/panics"
 )
 
 // ComponentManager is a wrapper for all the htnd services

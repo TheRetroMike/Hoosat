@@ -12,15 +12,15 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/HTND/app/appmessage"
-	pb2 "github.com/Hoosat-Oy/HTND/infrastructure/network/dnsseed/pb"
+	"github.com/Hoosat-Oy/htnd/app/appmessage"
+	pb2 "github.com/Hoosat-Oy/htnd/infrastructure/network/dnsseed/pb"
 	"google.golang.org/grpc"
 
-	"github.com/Hoosat-Oy/HTND/util/mstime"
+	"github.com/Hoosat-Oy/htnd/util/mstime"
 
-	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/htnd/domain/dagconfig"
 )
 
 const (

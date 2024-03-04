@@ -3,18 +3,18 @@ package handshake
 import (
 	"sync/atomic"
 
-	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/htnd/domain"
 
-	"github.com/Hoosat-Oy/HTND/app/protocol/common"
-	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/htnd/app/protocol/common"
+	"github.com/Hoosat-Oy/htnd/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/addressmanager"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/config"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/htnd/infrastructure/config"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
 
-	"github.com/Hoosat-Oy/HTND/app/appmessage"
-	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
-	routerpkg "github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/htnd/app/appmessage"
+	peerpkg "github.com/Hoosat-Oy/htnd/app/protocol/peer"
+	routerpkg "github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 
@@ -25,6 +25,7 @@ type HandleHandshakeContext interface {
 	Domain() domain.Domain
 	AddressManager() *addressmanager.AddressManager
 	AddToPeers(peer *peerpkg.Peer) error
+	CheckIfPeerExists(peer *peerpkg.Peer) bool
 	HandleError(err error, flowName string, isStopping *uint32, errChan chan<- error)
 }
 
@@ -79,19 +80,20 @@ func HandleHandshake(context HandleHandshakeContext, netConnection *netadapter.N
 		return nil, nil
 	case <-doneChan:
 	}
-
-	err := context.AddToPeers(peer)
-	if err != nil {
-		if errors.Is(err, common.ErrPeerWithSameIDExists) {
-			return nil, protocolerrors.Wrap(false, err, "peer already exists")
-		}
-		return nil, err
-	}
-
-	if peerAddress != nil {
-		err := context.AddressManager().AddAddresses(peerAddress)
+	if !context.CheckIfPeerExists(peer) {
+		err := context.AddToPeers(peer)
 		if err != nil {
+			if errors.Is(err, common.ErrPeerWithSameIDExists) {
+				return nil, protocolerrors.Wrap(false, err, "peer already exists")
+			}
 			return nil, err
+		}
+
+		if peerAddress != nil {
+			err := context.AddressManager().AddAddresses(peerAddress)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 	return peer, nil

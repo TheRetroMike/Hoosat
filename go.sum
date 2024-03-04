@@ -1,5 +1,7 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/Hoosat-Oy/HTND v0.0.0-20240304085405-7613415109ca h1:I6zfjDOhjBMAaoSHRc1HLv4b+z1q4yU9PPrsvt5mnFw=
+github.com/Hoosat-Oy/HTND v0.0.0-20240304085405-7613415109ca/go.mod h1:eZdo62pYETv3Qxhk9K1uqe9/ERKZQP3DH8o5Q9j6J+g=
 github.com/Hoosat-Oy/HTND v0.12.15 h1:UytF5bEx0cZfbwc63igsL3ltA+gtoHUxM1b3Sq5uAMo=
 github.com/Hoosat-Oy/HTND v0.12.15/go.mod h1:7p8WgqEpdLQybHt71P7zx47Ob7kKJnwYWzKu4wQvxsk=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=

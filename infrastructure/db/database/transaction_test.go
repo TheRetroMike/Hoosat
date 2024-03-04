@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
 )
 
 func TestTransactionPut(t *testing.T) {

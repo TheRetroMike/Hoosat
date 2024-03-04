@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/client"
-	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
+	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/client"
+	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/pb"
 )
 
 func newAddress(conf *newAddressConfig) error {

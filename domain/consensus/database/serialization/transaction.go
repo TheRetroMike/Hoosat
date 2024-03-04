@@ -3,7 +3,7 @@ package serialization
 import (
 	"math"
 
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 

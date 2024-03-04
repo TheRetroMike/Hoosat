@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient/grpcclient"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/rpcclient/grpcclient"
 	"github.com/pkg/errors"
 )
 

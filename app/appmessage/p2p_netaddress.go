@@ -7,7 +7,7 @@ package appmessage
 import (
 	"net"
 
-	"github.com/Hoosat-Oy/HTND/util/mstime"
+	"github.com/Hoosat-Oy/htnd/util/mstime"
 )
 
 // NetAddress defines information about a peer on the network including the time

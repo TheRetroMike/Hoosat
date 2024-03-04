@@ -3,9 +3,9 @@ package main
 import (
 	"sync/atomic"
 
-	"github.com/Hoosat-Oy/HTND/stability-tests/common"
-	"github.com/Hoosat-Oy/HTND/util/panics"
-	"github.com/Hoosat-Oy/HTND/util/profiling"
+	"github.com/Hoosat-Oy/htnd/stability-tests/common"
+	"github.com/Hoosat-Oy/htnd/util/panics"
+	"github.com/Hoosat-Oy/htnd/util/profiling"
 	"github.com/pkg/errors"
 )
 

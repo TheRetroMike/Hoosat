@@ -1,9 +1,9 @@
 package grpcserver
 
 import (
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/server"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/server/grpcserver/protowire"
-	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/server"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/Hoosat-Oy/htnd/util/panics"
 )
 
 type rpcServer struct {

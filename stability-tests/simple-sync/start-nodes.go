@@ -7,8 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/stability-tests/common"
-	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/htnd/stability-tests/common"
+	"github.com/Hoosat-Oy/htnd/util/panics"
 	"github.com/pkg/errors"
 )
 

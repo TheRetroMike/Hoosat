@@ -4,12 +4,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/app/appmessage"
-	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
-	routerpkg "github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient/grpcclient"
-	"github.com/Hoosat-Oy/HTND/util/panics"
-	"github.com/Hoosat-Oy/HTND/version"
+	"github.com/Hoosat-Oy/htnd/app/appmessage"
+	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	routerpkg "github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/rpcclient/grpcclient"
+	"github.com/Hoosat-Oy/htnd/util/panics"
+	"github.com/Hoosat-Oy/htnd/version"
 	"github.com/pkg/errors"
 )
 

@@ -4,18 +4,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Hoosat-Oy/HTND/util/mstime"
+	"github.com/Hoosat-Oy/htnd/util/mstime"
 
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/htnd/domain"
 
-	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
-	"github.com/Hoosat-Oy/HTND/infrastructure/config"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/connmanager"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
-	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/id"
+	peerpkg "github.com/Hoosat-Oy/htnd/app/protocol/peer"
+	"github.com/Hoosat-Oy/htnd/infrastructure/config"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/id"
 )
 
 // OnNewBlockTemplateHandler is a handler function that's triggered when a new block template is available
