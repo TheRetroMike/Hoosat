@@ -214,9 +214,9 @@ var MainnetParams = Params{
 	Net:         appmessage.Mainnet,
 	RPCPort:     "16110",
 	DefaultPort: "16111",
-	DNSSeeds:    []string{
+	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
-		// "mainnet-dnsseed.hoosat.fi",
+		"mainnet-dnsseed.hoosat.fi",
 	},
 
 	// DAG parameters

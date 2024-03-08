@@ -49,7 +49,7 @@ const (
 	// in block take longer)
 	defaultMergeSetSizeLimit                       = defaultGHOSTDAGK * 10
 	defaultSubsidyGenesisReward                    = 1 * constants.SompiPerHoosat
-	defaultPreDeflationaryPhaseBaseSubsidy         = 1160 * 24 * constants.SompiPerHoosat
+	defaultPreDeflationaryPhaseBaseSubsidy         = 1160 * 24 * 10 * constants.SompiPerHoosat
 	defaultDeflationaryPhaseBaseSubsidy            = 100 * constants.SompiPerHoosat
 	defaultDeflationaryPhaseCurveFactor            = 2
 	defaultCoinbasePayloadScriptPublicKeyMaxLength = 150
@@ -80,7 +80,7 @@ const (
 	// defaultDeflationaryPhaseDaaScore is the DAA score after which the pre-deflationary period
 	// switches to the deflationary period. This number is calculated as follows:
 	// We define a day in seconds for premine = 60 * 60 = 3600
-	defaultDeflationaryPhaseDaaScore = 3600
+	defaultDeflationaryPhaseDaaScore = 360
 
 	defaultMergeDepth = 3600
 )
