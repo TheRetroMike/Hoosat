@@ -1125,7 +1125,7 @@ func (s *consensus) isNearlySyncedNoLock() (bool, error) {
 	}
 
 	if virtualGHOSTDAGData.SelectedParent().Equal(s.genesisHash) {
-		return true, nil
+		return false, nil
 	}
 
 	virtualSelectedParentHeader, err := s.blockHeaderStore.BlockHeader(s.databaseContext, stagingArea, virtualGHOSTDAGData.SelectedParent())
@@ -1137,7 +1137,7 @@ func (s *consensus) isNearlySyncedNoLock() (bool, error) {
 	// As a heuristic, we allow the node to mine if he is likely to be within the current DAA window of fully synced nodes.
 	// Such blocks contribute to security by maintaining the current difficulty despite possibly being slightly out of sync.
 	if now-virtualSelectedParentHeader.TimeInMilliseconds() < s.expectedDAAWindowDurationInMilliseconds {
-		log.Debugf("The selected tip timestamp is recent (%d), so IsNearlySynced returns true",
+		log.Debugf("The selected tip timestamp is recent (%d),(90_000_000 * Som so IsNearlySynced returns true",
 			virtualSelectedParentHeader.TimeInMilliseconds())
 		return true, nil
 	}

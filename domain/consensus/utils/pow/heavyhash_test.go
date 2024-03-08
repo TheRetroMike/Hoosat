@@ -12,7 +12,7 @@ import (
 
 func BenchmarkMatrix_HeavyHash(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
-	writer := hashes.NewPoWHashWriter()
+	writer := hashes.PoWHashWriter()
 	writer.InfallibleWrite(input)
 	hash := writer.Finalize()
 	matrix := generateMatrix(hash)
@@ -156,7 +156,7 @@ func TestMatrix_HeavyHash(t *testing.T) {
 		t.Fatal(err)
 	}
 	input := []byte{0xC1, 0xEC, 0xFD, 0xFC}
-	writer := hashes.NewPoWHashWriter()
+	writer := hashes.PoWHashWriter()
 	writer.InfallibleWrite(input)
 	hashed := testMatrix.HeavyHash(writer.Finalize())
 
