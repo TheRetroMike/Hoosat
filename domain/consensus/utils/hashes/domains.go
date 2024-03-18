@@ -30,6 +30,14 @@ func NewTransactionHashWriter() HashWriter {
 	return HashWriter{blake}
 }
 
+// func NewTransactionHashWriter() HashWriter {
+// 	blake, err := blake2b.New256([]byte(transcationHashDomain))
+// 	if err != nil {
+// 		panic(errors.Wrapf(err, "this should never happen. %s is less than 64 bytes", transcationHashDomain))
+// 	}
+// 	return HashWriter{blake}
+// }
+
 // NewTransactionIDWriter Returns a new HashWriter used for transaction IDs
 func NewTransactionIDWriter() HashWriter {
 	var fixedSizeKey [32]byte
@@ -38,6 +46,14 @@ func NewTransactionIDWriter() HashWriter {
 	return HashWriter{blake}
 }
 
+// func NewTransactionIDWriter() HashWriter {
+// 	blake, err := blake2b.New256([]byte(transcationIDDomain))
+// 	if err != nil {
+// 		panic(errors.Wrapf(err, "this should never happen. %s is less than 64 bytes", transcationIDDomain))
+// 	}
+// 	return HashWriter{blake}
+// }
+
 // NewTransactionSigningHashWriter Returns a new HashWriter used for signing on a transaction
 func NewTransactionSigningHashWriter() HashWriter {
 	var fixedSizeKey [32]byte
@@ -45,6 +61,14 @@ func NewTransactionSigningHashWriter() HashWriter {
 	blake := blake3.New(32, fixedSizeKey[:])
 	return HashWriter{blake}
 }
+
+// func NewTransactionSigningHashWriter() HashWriter {
+// 	blake, err := blake2b.New256([]byte(transcationSigningDomain))
+// 	if err != nil {
+// 		panic(errors.Wrapf(err, "this should never happen. %s is less than 64 bytes", transcationSigningDomain))
+// 	}
+// 	return HashWriter{blake}
+// }
 
 // NewTransactionSigningHashECDSAWriter Returns a new HashWriter used for signing on a transaction with ECDSA
 func NewTransactionSigningHashECDSAWriter() HashWriter {
@@ -61,11 +85,24 @@ func NewBlockHashWriter() HashWriter {
 	return HashWriter{blake}
 }
 
+// func NewBlockHashWriter() HashWriter {
+// 	blake, err := blake2b.New256([]byte(blockDomain))
+// 	if err != nil {
+// 		panic(errors.Wrapf(err, "this should never happen. %s is less than 64 bytes", blockDomain))
+// 	}
+// 	return HashWriter{blake}
+// }
+
 // NewPoWHashWriter Returns a new HashWriter used for the PoW function
 func PoWHashWriter() HashWriter {
 	blake := blake3.New(32, nil)
 	return HashWriter{blake}
 }
+
+// func NewPoWHashWriter() ShakeHashWriter {
+// 	shake256 := sha3.NewCShake256(nil, []byte(proofOfWorkDomain))
+// 	return ShakeHashWriter{shake256}
+// }
 
 // NewHeavyHashWriter Returns a new HashWriter used for the HeavyHash function
 func HeavyHashWriter() HashWriter {
@@ -80,3 +117,11 @@ func NewMerkleBranchHashWriter() HashWriter {
 	blake := blake3.New(32, fixedSizeKey[:])
 	return HashWriter{blake}
 }
+
+// func NewMerkleBranchHashWriter() HashWriter {
+// 	blake, err := blake2b.New256([]byte(merkleBranchDomain))
+// 	if err != nil {
+// 		panic(errors.Wrapf(err, "this should never happen. %s is less than 64 bytes", merkleBranchDomain))
+// 	}
+// 	return HashWriter{blake}
+// }
