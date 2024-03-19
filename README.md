@@ -31,7 +31,7 @@ $ go version
 - Run the following commands to obtain and install htnd including all dependencies:
 
 ```bash
-$ git clone https://github.com/Hoosat-Oy/htnd
+$ git clone https://github.com/Hoosat-Oy/HTND
 $ cd HTND
 $ go install . ./cmd/...
 ```
@@ -55,7 +55,7 @@ Join our discord server using the following link:
 
 ## Issue Tracker
 
-The [integrated github issue tracker](https://github.com/Hoosat-Oy/htnd/issues)
+The [integrated github issue tracker](https://github.com/Hoosat-Oy/HTND/issues)
 is used for this project.
 
 

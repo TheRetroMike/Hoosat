@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/testutils"
-	"github.com/Hoosat-Oy/htnd/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
 )
 
 // TestGenerateFastPruningIBDTest generates the json needed for dag-for-fast-pruning-ibd-test.json.gz

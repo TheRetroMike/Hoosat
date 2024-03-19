@@ -5,9 +5,9 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/Hoosat-Oy/htnd/util/difficulty"
+	"github.com/Hoosat-Oy/HTND/util/difficulty"
 
-	"github.com/Hoosat-Oy/htnd/util"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 func ExampleAmount() {

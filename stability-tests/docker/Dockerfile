@@ -6,9 +6,9 @@ FROM ${HOOSATMINER_IMAGE} as hoosatminer
 
 FROM golang:1.19-alpine
 
-RUN mkdir -p /go/src/github.com/Hoosat-Oy/htnd
+RUN mkdir -p /go/src/github.com/Hoosat-Oy/HTND
 
-WORKDIR /go/src/github.com/Hoosat-Oy/htnd
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND
 
 RUN apk add bash build-base git
 
@@ -23,7 +23,7 @@ COPY --from=htnd /app/ /app/
 COPY --from=hoosatminer /app/ /app/
 ENV PATH="/app:${PATH}"
 
-WORKDIR /go/src/github.com/Hoosat-Oy/htnd/stability-tests
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND/stability-tests
 
 RUN go install ./...
 

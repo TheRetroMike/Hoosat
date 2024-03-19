@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/pb"
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/libhtnwallet"
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/libhtnwallet/serialization"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/serialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
 )
 

@@ -5,22 +5,22 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Hoosat-Oy/htnd/app/protocol/flowcontext"
-	"github.com/Hoosat-Oy/htnd/app/protocol/flows/v5/transactionrelay"
+	"github.com/Hoosat-Oy/HTND/app/protocol/flowcontext"
+	"github.com/Hoosat-Oy/HTND/app/protocol/flows/v5/transactionrelay"
 
-	"github.com/Hoosat-Oy/htnd/app/protocol/protocolerrors"
-	"github.com/Hoosat-Oy/htnd/domain"
-	"github.com/Hoosat-Oy/htnd/domain/consensus"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/testutils"
-	"github.com/Hoosat-Oy/htnd/domain/miningmanager/mempool"
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
-	"github.com/Hoosat-Oy/htnd/util/panics"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/testutils"
+	"github.com/Hoosat-Oy/HTND/domain/miningmanager/mempool"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util/panics"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	"github.com/Hoosat-Oy/htnd/infrastructure/config"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 )
 
 type mocTransactionsRelayContext struct {

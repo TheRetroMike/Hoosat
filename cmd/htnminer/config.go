@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
 
-	"github.com/Hoosat-Oy/htnd/util"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/htnd/version"
+	"github.com/Hoosat-Oy/HTND/version"
 	"github.com/jessevdk/go-flags"
 )
 

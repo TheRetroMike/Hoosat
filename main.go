@@ -8,7 +8,7 @@ import (
 	_ "net/http/pprof"
 	"os"
 
-	"github.com/Hoosat-Oy/htnd/app"
+	"github.com/Hoosat-Oy/HTND/app"
 )
 
 func main() {

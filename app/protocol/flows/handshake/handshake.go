@@ -3,18 +3,18 @@ package handshake
 import (
 	"sync/atomic"
 
-	"github.com/Hoosat-Oy/htnd/domain"
+	"github.com/Hoosat-Oy/HTND/domain"
 
-	"github.com/Hoosat-Oy/htnd/app/protocol/common"
-	"github.com/Hoosat-Oy/htnd/app/protocol/protocolerrors"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/HTND/app/protocol/common"
+	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/config"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	peerpkg "github.com/Hoosat-Oy/htnd/app/protocol/peer"
-	routerpkg "github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
+	routerpkg "github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

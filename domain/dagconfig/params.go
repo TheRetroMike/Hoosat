@@ -8,14 +8,14 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	"github.com/Hoosat-Oy/htnd/util/network"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/util/network"
 
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/htnd/util"
+	"github.com/Hoosat-Oy/HTND/util"
 )
 
 // These variables are the DAG proof-of-work limit parameters for each default
@@ -217,6 +217,7 @@ var MainnetParams = Params{
 	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
+		"mainnet-dnsseed-2.hoosat.fi",
 	},
 
 	// DAG parameters

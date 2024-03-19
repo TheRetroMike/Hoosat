@@ -1,8 +1,8 @@
 package rpc
 
 import (
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
-	"github.com/Hoosat-Oy/htnd/util/panics"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util/panics"
 )
 
 // log is a logger that is initialized with no output filters. This

@@ -1,8 +1,8 @@
 package rpcclient
 
 import (
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	routerpkg "github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	routerpkg "github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

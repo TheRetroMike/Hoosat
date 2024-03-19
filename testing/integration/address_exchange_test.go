@@ -3,7 +3,7 @@ package integration
 import (
 	"testing"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/addressmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
 )
 
 func TestAddressExchange(t *testing.T) {

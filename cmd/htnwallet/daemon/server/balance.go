@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/pb"
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/libhtnwallet"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
 )
 
 type balancesType struct{ available, pending uint64 }

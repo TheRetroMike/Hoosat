@@ -7,12 +7,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/pow"
-	"github.com/Hoosat-Oy/htnd/domain/dagconfig"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/rpcclient"
-	"github.com/Hoosat-Oy/htnd/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/pow"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/rpcclient"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
 )
 
 const rpcAddress = "localhost:9000"

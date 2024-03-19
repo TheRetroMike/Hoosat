@@ -3,9 +3,9 @@ package serialization
 import (
 	"math"
 
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/libhtnwallet/serialization/protoserialization"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/subnetworks"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet/serialization/protoserialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
 	"github.com/pkg/errors"
 	"google.golang.org/protobuf/proto"
 )

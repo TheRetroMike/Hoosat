@@ -3,7 +3,7 @@ package integration
 import (
 	"testing"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
 )
 
 func TestVirtualSelectedParentBlueScoreAndVirtualDAAScore(t *testing.T) {

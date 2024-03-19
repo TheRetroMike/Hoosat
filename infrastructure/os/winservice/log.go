@@ -5,8 +5,8 @@
 package winservice
 
 import (
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
-	"github.com/Hoosat-Oy/htnd/util/panics"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util/panics"
 )
 
 var log = logger.RegisterSubSystem("CNFG")

@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/server"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/server"
 
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
 	"google.golang.org/grpc"
 )
 

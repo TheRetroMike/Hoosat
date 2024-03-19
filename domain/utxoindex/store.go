@@ -3,10 +3,10 @@ package utxoindex
 import (
 	"encoding/binary"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/database/binaryserialization"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/database/binaryserialization"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 	"github.com/pkg/errors"
 )
 

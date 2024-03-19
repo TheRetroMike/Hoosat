@@ -7,17 +7,17 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/config"
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database/ldb"
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
-	"github.com/Hoosat-Oy/htnd/infrastructure/os/execenv"
-	"github.com/Hoosat-Oy/htnd/infrastructure/os/limits"
-	"github.com/Hoosat-Oy/htnd/infrastructure/os/signal"
-	"github.com/Hoosat-Oy/htnd/infrastructure/os/winservice"
-	"github.com/Hoosat-Oy/htnd/util/panics"
-	"github.com/Hoosat-Oy/htnd/util/profiling"
-	"github.com/Hoosat-Oy/htnd/version"
+	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database/ldb"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/execenv"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/limits"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/signal"
+	"github.com/Hoosat-Oy/HTND/infrastructure/os/winservice"
+	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/HTND/util/profiling"
+	"github.com/Hoosat-Oy/HTND/version"
 )
 
 const (

@@ -9,10 +9,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/htnd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/pkg/errors"
 )
 

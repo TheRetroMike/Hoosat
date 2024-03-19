@@ -1,10 +1,10 @@
 package consensus
 
 import (
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/testapi"
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/testapi"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 )
 
 func (tc *testConsensus) DatabaseContext() model.DBManager {

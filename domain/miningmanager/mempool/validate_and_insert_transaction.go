@@ -3,10 +3,10 @@ package mempool
 import (
 	"fmt"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 )
 
 func (mp *mempool) validateAndInsertTransaction(transaction *externalapi.DomainTransaction, isHighPriority bool,

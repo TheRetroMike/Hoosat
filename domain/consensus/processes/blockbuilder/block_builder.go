@@ -4,17 +4,17 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/ruleerrors"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/blockheader"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/blockheader"
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/constants"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/merkle"
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
-	"github.com/Hoosat-Oy/htnd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/merkle"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 )
 
 type blockBuilder struct {

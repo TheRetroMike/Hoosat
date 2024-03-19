@@ -1,9 +1,9 @@
 # -- multistage docker build: stage #1: build stage
 FROM golang:1.19-alpine AS build
 
-RUN mkdir -p /go/src/github.com/Hoosat-Oy/htnd
+RUN mkdir -p /go/src/github.com/Hoosat-Oy/HTND
 
-WORKDIR /go/src/github.com/Hoosat-Oy/htnd
+WORKDIR /go/src/github.com/Hoosat-Oy/HTND
 
 RUN apk add --no-cache curl git openssh binutils gcc musl-dev
 
@@ -24,8 +24,8 @@ WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tini
 
-COPY --from=build /go/src/github.com/Hoosat-Oy/htnd/htnd /app/
-COPY --from=build /go/src/github.com/Hoosat-Oy/htnd/infrastructure/config/sample-htnd.conf /app/
+COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/htnd /app/
+COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/infrastructure/config/sample-htnd.conf /app/
 
 USER nobody
 ENTRYPOINT [ "/sbin/tini", "--" ]

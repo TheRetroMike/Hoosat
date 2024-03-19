@@ -1,6 +1,6 @@
 package model
 
-import "github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
+import "github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
 // GHOSTDAGManager resolves and manages GHOSTDAG block data
 type GHOSTDAGManager interface {

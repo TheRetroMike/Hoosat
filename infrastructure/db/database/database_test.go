@@ -9,7 +9,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
 )
 
 func TestDatabasePut(t *testing.T) {

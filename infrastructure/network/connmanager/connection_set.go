@@ -1,7 +1,7 @@
 package connmanager
 
 import (
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 )
 
 type connectionSet map[string]*netadapter.NetConnection

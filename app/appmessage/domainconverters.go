@@ -6,14 +6,14 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/blockheader"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/hashes"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/utxo"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/blockheader"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/utxo"
 
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/subnetworks"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/transactionid"
-	"github.com/Hoosat-Oy/htnd/util/mstime"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionid"
+	"github.com/Hoosat-Oy/HTND/util/mstime"
 )
 
 // DomainBlockToMsgBlock converts an externalapi.DomainBlock to MsgBlock

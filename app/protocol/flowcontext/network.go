@@ -1,11 +1,11 @@
 package flowcontext
 
 import (
-	"github.com/Hoosat-Oy/htnd/app/appmessage"
-	"github.com/Hoosat-Oy/htnd/app/protocol/common"
-	peerpkg "github.com/Hoosat-Oy/htnd/app/protocol/peer"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/connmanager"
-	"github.com/Hoosat-Oy/htnd/infrastructure/network/netadapter"
+	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/app/protocol/common"
+	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 	"github.com/pkg/errors"
 )
 

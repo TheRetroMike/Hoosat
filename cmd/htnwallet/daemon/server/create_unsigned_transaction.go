@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/daemon/pb"
-	"github.com/Hoosat-Oy/htnd/cmd/htnwallet/libhtnwallet"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/constants"
-	"github.com/Hoosat-Oy/htnd/util"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
+	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/libhtnwallet"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/pkg/errors"
 	"golang.org/x/exp/slices"
 )

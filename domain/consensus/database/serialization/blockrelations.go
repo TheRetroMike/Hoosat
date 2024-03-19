@@ -1,7 +1,7 @@
 package serialization
 
 import (
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 )
 
 // DomainBlockRelationsToDbBlockRelations converts model.BlockRelations to DbBlockRelations

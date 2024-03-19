@@ -22,7 +22,7 @@ $ go version
 - Run the following commands to obtain and install htnd including all dependencies:
 
 ```bash
-$ git clone https://github.com/Hoosat-Oy/htnd
+$ git clone https://github.com/Hoosat-Oy/HTND
 $ cd htnd/cmd/htnctl
 $ go install .
 ```

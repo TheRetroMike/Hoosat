@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/Hoosat-Oy/htnd/domain/dagconfig"
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/domain/dagconfig"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 	"github.com/pkg/errors"
 )
 

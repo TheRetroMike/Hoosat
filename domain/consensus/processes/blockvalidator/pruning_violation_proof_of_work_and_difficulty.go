@@ -1,13 +1,13 @@
 package blockvalidator
 
 import (
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/ruleerrors"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/pow"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/utils/virtual"
-	"github.com/Hoosat-Oy/htnd/infrastructure/db/database"
-	"github.com/Hoosat-Oy/htnd/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/pow"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/virtual"
+	"github.com/Hoosat-Oy/HTND/infrastructure/db/database"
+	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 	"github.com/pkg/errors"
 )
 

@@ -1,8 +1,8 @@
 package utxodiffstore
 
 import (
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model"
-	"github.com/Hoosat-Oy/htnd/domain/consensus/model/externalapi"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 type utxoDiffStagingShard struct {

@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/Hoosat-Oy/htnd/domain/consensus"
-	"github.com/Hoosat-Oy/htnd/stability-tests/common"
-	"github.com/Hoosat-Oy/htnd/stability-tests/common/mine"
-	"github.com/Hoosat-Oy/htnd/stability-tests/common/rpc"
-	"github.com/Hoosat-Oy/htnd/util/panics"
-	"github.com/Hoosat-Oy/htnd/util/profiling"
+	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common/mine"
+	"github.com/Hoosat-Oy/HTND/stability-tests/common/rpc"
+	"github.com/Hoosat-Oy/HTND/util/panics"
+	"github.com/Hoosat-Oy/HTND/util/profiling"
 	"github.com/pkg/errors"
 )
 
