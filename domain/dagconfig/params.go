@@ -212,8 +212,8 @@ var MainnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "hoosat-mainnet",
 	Net:         appmessage.Mainnet,
-	RPCPort:     "16110",
-	DefaultPort: "16111",
+	RPCPort:     "42420",
+	DefaultPort: "42421",
 	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
@@ -282,8 +282,8 @@ var TestnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "hoosat-testnet-10",
 	Net:         appmessage.Testnet,
-	RPCPort:     "16210",
-	DefaultPort: "16211",
+	RPCPort:     "42422",
+	DefaultPort: "42423",
 	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"testnet-dnsseed-1.hoosat.fi",
@@ -353,8 +353,8 @@ var SimnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "hoosat-simnet",
 	Net:         appmessage.Simnet,
-	RPCPort:     "16510",
-	DefaultPort: "16511",
+	RPCPort:     "42424",
+	DefaultPort: "42425",
 	DNSSeeds:    []string{}, // NOTE: There must NOT be any seeds.
 
 	// DAG parameters
@@ -413,8 +413,8 @@ var DevnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "hoosat-devnet",
 	Net:         appmessage.Devnet,
-	RPCPort:     "16610",
-	DefaultPort: "16611",
+	RPCPort:     "42426",
+	DefaultPort: "42427",
 	DNSSeeds:    []string{}, // NOTE: There must NOT be any seeds.
 
 	// DAG parameters
