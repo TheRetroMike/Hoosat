@@ -134,8 +134,9 @@ func parseCommandLine() (subCommand string, config interface{}) {
 	parser := flags.NewParser(cfg, flags.PrintErrors|flags.HelpFlag)
 
 	createConf := &createConfig{}
-	parser.AddCommand(createSubCmd, "Creates a new wallet",
-		"Creates a private key and 3 public addresses, one for each of MainNet, TestNet and DevNet", createConf)
+	parser.AddCommand(createSubCmd, "Creates a new wallet (`--import` to recover from seed)",
+		"Creates a private key and 3 public addresses, one for each of MainNet, TestNet and DevNet. "+
+			"Import existing private key and public addresses from seed using `--import`.", createConf)
 
 	balanceConf := &balanceConfig{DaemonAddress: defaultListen}
 	parser.AddCommand(balanceSubCmd, "Shows the balance of a public address",
@@ -299,7 +300,7 @@ func validateCreateUnsignedTransactionConf(conf *createUnsignedTransactionConfig
 	if (!conf.IsSendAll && conf.SendAmount == "") ||
 		(conf.IsSendAll && conf.SendAmount != "") {
 
-		return errors.New("exactly one of '--send-amount' or '--all' must be specified")
+		return errors.New("exactly one of '--send-amount' or '--send-all' must be specified")
 	}
 	return nil
 }
@@ -308,7 +309,7 @@ func validateSendConfig(conf *sendConfig) error {
 	if (!conf.IsSendAll && conf.SendAmount == "") ||
 		(conf.IsSendAll && conf.SendAmount != "") {
 
-		return errors.New("exactly one of '--send-amount' or '--all' must be specified")
+		return errors.New("exactly one of '--send-amount' or '--send-all' must be specified")
 	}
 	return nil
 }
