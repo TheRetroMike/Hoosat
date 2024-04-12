@@ -14,6 +14,7 @@ import (
 	"golang.org/x/crypto/blake2b"
 
 	"github.com/Hoosat-Oy/HTND/util"
+	"github.com/Hoosat-Oy/HTND/util/bech32"
 )
 
 func TestAddresses(t *testing.T) {
@@ -457,4 +458,18 @@ func TestPrefixToString(t *testing.T) {
 				test.prefix, test.expectedPrefixStr, result)
 		}
 	}
+}
+
+// createBurnAddress generates a burn address using a predefined identifier.
+func TestCreateBurnAddress(t *testing.T) {
+	identifier := "HOOSAT_NETWORK_BURN_TOKEN_2024"
+	hasher, err := blake2b.New256(nil)
+	if err != nil {
+		t.Errorf("Failed to create hash: %v", err)
+	}
+	hasher.Write([]byte(identifier))
+	hashed := hasher.Sum(nil)
+	prefix := util.Bech32PrefixHoosat
+	address := bech32.Encode(prefix.String(), hashed, 0)
+	t.Errorf("%s", address)
 }
