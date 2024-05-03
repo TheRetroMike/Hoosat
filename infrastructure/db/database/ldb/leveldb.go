@@ -27,6 +27,7 @@ func NewLevelDB(path string, cacheSizeMiB int) (*LevelDB, error) {
 		log.Warnf("LevelDB corruption detected for path %s: %s",
 			path, err)
 		var recoverErr error
+		log.Warnf("Starting to recover LevelDB for path %s: %s", path, err)
 		ldb, recoverErr = leveldb.RecoverFile(path, nil)
 		if recoverErr != nil {
 			return nil, errors.Wrapf(err, "failed recovering from "+
