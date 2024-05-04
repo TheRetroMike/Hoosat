@@ -42,7 +42,9 @@ func HandleGetBlock(context *rpccontext.Context, _ *router.Router, request appme
 			errorMessage.Error = appmessage.RPCErrorf("Block %s is invalid", hash)
 			return errorMessage, nil
 		}
-		return nil, err
+		errorMessage := &appmessage.GetBlockResponseMessage{}
+		errorMessage.Error = appmessage.RPCErrorf("Block %s caused an error", hash)
+		return errorMessage, err
 	}
 
 	return response, nil

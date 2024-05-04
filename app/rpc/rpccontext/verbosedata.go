@@ -76,13 +76,10 @@ func (ctx *Context) PopulateBlockWithVerboseData(block *appmessage.RPCBlock, dom
 		MergeSetRedsHashes:  hashes.ToStrings(blockInfo.MergeSetReds),
 		IsChainBlock:        isChainBlock,
 	}
+
 	// selectedParentHash will be nil in the genesis block
 	if blockInfo.SelectedParent != nil {
 		block.VerboseData.SelectedParentHash = blockInfo.SelectedParent.String()
-	}
-
-	if blockInfo.BlockStatus == externalapi.StatusHeaderOnly {
-		return nil
 	}
 
 	// Get the block if we didn't receive it previously
@@ -91,6 +88,10 @@ func (ctx *Context) PopulateBlockWithVerboseData(block *appmessage.RPCBlock, dom
 		if err != nil {
 			return err
 		}
+	}
+
+	if domainBlock == nil && blockInfo.BlockStatus == externalapi.StatusHeaderOnly {
+		return nil
 	}
 
 	transactionIDs := make([]string, len(domainBlock.Transactions))
@@ -120,7 +121,6 @@ func (ctx *Context) PopulateTransactionWithVerboseData(
 	if err != nil {
 		return err
 	}
-
 	ctx.Domain.Consensus().PopulateMass(domainTransaction)
 
 	transaction.VerboseData = &appmessage.RPCTransactionVerboseData{
