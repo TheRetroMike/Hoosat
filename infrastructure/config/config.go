@@ -33,7 +33,7 @@ const (
 	defaultLogDirname          = "logs"
 	defaultLogFilename         = "htnd.log"
 	defaultErrLogFilename      = "htnd_err.log"
-	defaultTargetOutboundPeers = 0
+	defaultTargetOutboundPeers = 1
 	defaultMaxInboundPeers     = 117
 	defaultBanDuration         = time.Hour * 24
 	defaultBanThreshold        = 100
@@ -424,7 +424,7 @@ func LoadConfig() (*Config, error) {
 	// ConnectPeers means no DNS seeding and no outbound peers
 	if len(cfg.ConnectPeers) > 0 {
 		cfg.DisableDNSSeed = true
-		cfg.TargetOutboundPeers = 0
+		cfg.TargetOutboundPeers = 1
 	}
 
 	// Add the default listener if none were specified. The default
