@@ -33,7 +33,7 @@ const (
 	defaultLogDirname          = "logs"
 	defaultLogFilename         = "htnd.log"
 	defaultErrLogFilename      = "htnd_err.log"
-	defaultTargetOutboundPeers = 1
+	defaultTargetOutboundPeers = 4
 	defaultMaxInboundPeers     = 117
 	defaultBanDuration         = time.Hour * 24
 	defaultBanThreshold        = 100

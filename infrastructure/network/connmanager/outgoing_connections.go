@@ -23,7 +23,7 @@ func (c *ConnectionManager) checkOutgoingConnections(connSet connectionSet) {
 	}
 
 	liveConnections := len(c.activeOutgoing)
-	if c.targetOutgoing == liveConnections {
+	if (c.maxIncoming + c.targetOutgoing) == liveConnections {
 		return
 	}
 
