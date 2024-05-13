@@ -2,6 +2,7 @@ htnd v0.12.17 - 2024-02-19
 ===========================
 
 * Wallet-related improvements and fixes (#2253, #2257, #2258, #2262)
+* Fix block verbosedata population. (ecac3a5d464b019a381f5c38c6ccc4bac95fa335)
 
 htnd v0.12.16 - 2023-12-25
 ===========================

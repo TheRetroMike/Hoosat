@@ -13,7 +13,7 @@ import (
 )
 
 // Connect connects to the htnwalletd server, and returns the client instance
-func Connect(address string) (pb.HoosatwalletdClient, func(), error) {
+func Connect(address string) (pb.HtnwalletdClient, func(), error) {
 	// Connection is local, so 1 second timeout is sufficient
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
@@ -26,7 +26,7 @@ func Connect(address string) (pb.HoosatwalletdClient, func(), error) {
 		return nil, nil, err
 	}
 
-	return pb.NewHoosatwalletdClient(conn), func() {
+	return pb.NewHtnwalletdClient(conn), func() {
 		conn.Close()
 	}, nil
 }
