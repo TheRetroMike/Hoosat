@@ -4,7 +4,7 @@ txscript
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
 [![GoDoc](https://godoc.org/github.com/Hoosat-Oy/HTND/txscript?status.png)](http://godoc.org/github.com/Hoosat-Oy/HTND/txscript)
 
-Package txscript implements the hoosat transaction script language. There is
+Package txscript implements the Hoosat transaction script language. There is
 a comprehensive test suite.
 
 ## Hoosat Scripts

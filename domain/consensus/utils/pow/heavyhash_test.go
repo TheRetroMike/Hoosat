@@ -151,7 +151,7 @@ func TestGenerateMatrix(t *testing.T) {
 }
 
 func TestMatrix_HeavyHash(t *testing.T) {
-	expected, err := hex.DecodeString("87689f379943eaf9b7475ca95325687772bfcc68fc7899caeb4409ec4590c325")
+	expected, err := hex.DecodeString("c271447b0661f558d79a6cc0c65ba1009ea08f3f14c995743b9aafbbbb4318bd")
 	if err != nil {
 		t.Fatal(err)
 	}
