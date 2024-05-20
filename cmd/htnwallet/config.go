@@ -1,9 +1,10 @@
 package main
 
 import (
+	"os"
+
 	"github.com/Hoosat-Oy/HTND/infrastructure/config"
 	"github.com/pkg/errors"
-	"os"
 
 	"github.com/jessevdk/go-flags"
 )
@@ -26,7 +27,7 @@ const (
 )
 
 const (
-	defaultListen    = "localhost:8082"
+	defaultListen    = "localhost:4282"
 	defaultRPCServer = "localhost"
 )
 
