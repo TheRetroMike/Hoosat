@@ -16,15 +16,16 @@ RUN go mod download
 
 COPY . .
 
-RUN go build $FLAGS -o htnd .
+RUN go build $FLAGS -o HTND .
 
 # --- multistage docker build: stage #2: runtime image
 FROM alpine
 WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tini
+RUN mkdir -p /.htnd && chown nobody:nobody /.htnd && chmod 700 /.htnd
 
-COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/htnd /app/
+COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/HTND /app/
 COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/infrastructure/config/sample-htnd.conf /app/
 
 USER nobody

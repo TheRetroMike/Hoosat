@@ -235,6 +235,7 @@ func TestCalculateSignatureHashECDSA(t *testing.T) {
 			expectedSignatureHash: "1d679268414c20ffe952e3c255befd892e60e86ae1657fce8a20225e5dc87d64"},
 		{name: "native-all-0-modify-input-1", tx: nativeTx, hashType: all, inputIndex: 0,
 			modificationFunction:  modifyInput(1), // should change the hash
+<<<<<<< Updated upstream
 			expectedSignatureHash: "c573469b9ec6551507371d26eaa75417905420577f56d0277c4234a99f2305d7"},
 		{name: "native-all-0-modify-output-1", tx: nativeTx, hashType: all, inputIndex: 0,
 			modificationFunction:  modifyOutput(1), // should change the hash
@@ -253,6 +254,26 @@ func TestCalculateSignatureHashECDSA(t *testing.T) {
 		{name: "native-all-anyonecanpay-0-modify-sequence", tx: nativeTx, hashType: allAnyoneCanPay, inputIndex: 0,
 			modificationFunction:  modifySequence(1), // shouldn't change the hash
 			expectedSignatureHash: "13270aeb5b56d844d064d5d2cf06af7dbd0341fd55069b9af56d5e3c99f2eddd"},
+=======
+			expectedSignatureHash: "509e9b4702aba106fc99f668fd062d67d6ce35d773a33eaf8074d4d86f80f2e9"},
+		{name: "native-all-0-modify-output-1", tx: nativeTx, hashType: all, inputIndex: 0,
+			modificationFunction:  modifyOutput(1), // should change the hash
+			expectedSignatureHash: "c745cf630b973a9f862379306e7caf145c0bad949fdf2b987b0db36d98167cf6"},
+		{name: "native-all-0-modify-sequence-1", tx: nativeTx, hashType: all, inputIndex: 0,
+			modificationFunction:  modifySequence(1), // should change the hash
+			expectedSignatureHash: "3f934123cb3f4b263f1b4be8fad806a6e87d76267b846605612af007e2fd1971"},
+		{name: "native-all-anyonecanpay-0", tx: nativeTx, hashType: allAnyoneCanPay, inputIndex: 0,
+			expectedSignatureHash: "4cfbffb6536e7101c6c1ce2c705a6e1b020dc666c08fe727259723468e2bed75"},
+		{name: "native-all-anyonecanpay-0-modify-input-0", tx: nativeTx, hashType: allAnyoneCanPay, inputIndex: 0,
+			modificationFunction:  modifyInput(0), // should change the hash
+			expectedSignatureHash: "731454b874c3ae8acc229874090342eae9cad6e4dfe8afdd9314701811bcf8dc"},
+		{name: "native-all-anyonecanpay-0-modify-input-1", tx: nativeTx, hashType: allAnyoneCanPay, inputIndex: 0,
+			modificationFunction:  modifyInput(1), // shouldn't change the hash
+			expectedSignatureHash: "4cfbffb6536e7101c6c1ce2c705a6e1b020dc666c08fe727259723468e2bed75"},
+		{name: "native-all-anyonecanpay-0-modify-sequence", tx: nativeTx, hashType: allAnyoneCanPay, inputIndex: 0,
+			modificationFunction:  modifySequence(1), // shouldn't change the hash
+			expectedSignatureHash: "4cfbffb6536e7101c6c1ce2c705a6e1b020dc666c08fe727259723468e2bed75"},
+>>>>>>> Stashed changes
 
 		// sigHashNone
 		{name: "native-none-0", tx: nativeTx, hashType: none, inputIndex: 0,
@@ -334,12 +355,65 @@ func TestCalculateSignatureHashECDSA(t *testing.T) {
 	}
 }
 
-func generateTxs() (nativeTx, subnetworkTx *externalapi.DomainTransaction, err error) {
-	genesisCoinbase := dagconfig.SimnetParams.GenesisBlock.Transactions[0]
+func TestSignatureHash(t *testing.T) {
+	genesisCoinbase := dagconfig.MainnetParams.GenesisBlock.Transactions[0]
 	genesisCoinbaseTransactionID := consensushashing.TransactionID(genesisCoinbase)
+	fmt.Printf("%s\r\n", genesisCoinbaseTransactionID)
 
-	address1Str := "hoosatsim:qzpj2cfa9m40w9m2cmr8pvfuqpp32mzzwsuw6ukhfduqpp32mzzws59e8fapc"
-	address1, err := util.DecodeAddress(address1Str, util.Bech32PrefixHoosatSim)
+	address1Str := "hoosat:qzdz9t3j5pmrmqwzj3htquk82kxj77uqdh47ucq23wv00evkxnff6sefjdrg4"
+	address1, err := util.DecodeAddress(address1Str, util.Bech32PrefixHoosat)
+	if err != nil {
+		t.Errorf("error decoding address1: %+v", err)
+	}
+	address1ToScript, err := txscript.PayToAddrScript(address1)
+	if err != nil {
+		t.Errorf("error generating script: %+v", err)
+	}
+
+	address2Str := "hoosat:qrt7lyuplddukhjnm8wlu9dy3npz2j58a6qhpm9cmdawfw5ymmhxgpvmwfnsp"
+	address2, err := util.DecodeAddress(address2Str, util.Bech32PrefixHoosat)
+	if err != nil {
+		t.Errorf("error decoding address2: %+v", err)
+	}
+	address2ToScript, err := txscript.PayToAddrScript(address2)
+	if err != nil {
+		t.Errorf("error generating script: %+v", err)
+	}
+
+	txIns := []*externalapi.DomainTransactionInput{
+		{
+			PreviousOutpoint: *externalapi.NewDomainOutpoint(genesisCoinbaseTransactionID, 1),
+			Sequence:         1,
+			UTXOEntry:        utxo.NewUTXOEntry(200, address1ToScript, false, 0),
+		},
+	}
+	txOuts := []*externalapi.DomainTransactionOutput{
+		{
+			Value:           300,
+			ScriptPublicKey: address2ToScript,
+		},
+		{
+			Value:           300,
+			ScriptPublicKey: address1ToScript,
+		},
+	}
+	nativeTx := &externalapi.DomainTransaction{
+		Version:      0,
+		Inputs:       txIns,
+		Outputs:      txOuts,
+		LockTime:     1615462089000,
+		SubnetworkID: subnetworks.SubnetworkIDNative,
+	}
+	t.Errorf("er %s", nativeTx)
+}
+
+func generateTxs() (nativeTx, subnetworkTx *externalapi.DomainTransaction, err error) {
+	genesisCoinbase := dagconfig.MainnetParams.GenesisBlock.Transactions[0]
+	genesisCoinbaseTransactionID := consensushashing.TransactionID(genesisCoinbase)
+	fmt.Printf("%s\r\n", genesisCoinbaseTransactionID)
+
+	address1Str := "hoosat:qzdz9t3j5pmrmqwzj3htquk82kxj77uqdh47ucq23wv00evkxnff6sefjdrg4"
+	address1, err := util.DecodeAddress(address1Str, util.Bech32PrefixHoosat)
 	if err != nil {
 		return nil, nil, fmt.Errorf("error decoding address1: %+v", err)
 	}
