@@ -17,7 +17,7 @@ func BenchmarkMatrix_HeavyHash(b *testing.B) {
 	hash := writer.Finalize()
 	matrix := generateMatrix(hash)
 	for i := 0; i < b.N; i++ {
-		hash = matrix.HeavyHash(hash)
+		hash = matrix.kHeavyHash(hash)
 	}
 }
 
@@ -158,7 +158,7 @@ func TestMatrix_HeavyHash(t *testing.T) {
 	input := []byte{0xC1, 0xEC, 0xFD, 0xFC}
 	writer := hashes.PoWHashWriter()
 	writer.InfallibleWrite(input)
-	hashed := testMatrix.HeavyHash(writer.Finalize())
+	hashed := testMatrix.kHeavyHash(writer.Finalize())
 
 	if !bytes.Equal(expected, hashed.ByteSlice()) {
 		t.Fatalf("expected: %x == %s", expected, hashed)

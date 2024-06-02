@@ -45,7 +45,7 @@ func NewState(header externalapi.MutableBlockHeader) *State {
 // CalculateProofOfWorkValue hashes the internal header and returns its big.Int value
 func (state *State) CalculateProofOfWorkValue() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
-	writer := hashes.PoWHashWriter()
+	writer := hashes.PoWHashWriter() // Blake 3
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
 	err := serialization.WriteElement(writer, state.Timestamp)
 	if err != nil {
@@ -58,8 +58,9 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
 	powHash := writer.Finalize()
-	heavyHash := state.mat.HeavyHash(powHash)
-	return toBig(heavyHash)
+	heavyHash := state.mat.kHeavyHash(powHash) // Keccak hash done inside after matrix multiplication
+	wagHash := state.mat.bHeavyHash(heavyHash) // Blake3 hash done inside after matrix multiplication
+	return toBig(wagHash)
 }
 
 // IncrementNonce the nonce in State by 1

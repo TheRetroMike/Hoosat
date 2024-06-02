@@ -102,7 +102,7 @@ func BenchmarkNewHeavyHashWriterSmall(b *testing.B) {
 	var someBytes [32]byte
 	r.Read(someBytes[:])
 	for i := 0; i < b.N; i++ {
-		hasher := HeavyHashWriter()
+		hasher := KeccakHeavyHashWriter()
 		hasher.InfallibleWrite(someBytes[:])
 		hasher.Finalize()
 	}
@@ -113,7 +113,7 @@ func BenchmarkNewHeavyHashWriterBig(b *testing.B) {
 	var someBytes [1024]byte
 	r.Read(someBytes[:])
 	for i := 0; i < b.N; i++ {
-		hasher := HeavyHashWriter()
+		hasher := KeccakHeavyHashWriter()
 		hasher.InfallibleWrite(someBytes[:])
 		hasher.Finalize()
 	}

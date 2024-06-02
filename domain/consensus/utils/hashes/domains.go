@@ -3,6 +3,7 @@ package hashes
 import (
 	"crypto/sha256"
 
+	"golang.org/x/crypto/sha3"
 	"lukechampine.com/blake3"
 )
 
@@ -105,9 +106,15 @@ func PoWHashWriter() HashWriter {
 // }
 
 // NewHeavyHashWriter Returns a new HashWriter used for the HeavyHash function
-func HeavyHashWriter() HashWriter {
+func BlakeHeavyHashWriter() HashWriter {
 	blake := blake3.New(32, nil)
 	return HashWriter{blake}
+}
+
+// NewHeavyHashWriter Returns a new HashWriter used for the HeavyHash function
+func KeccakHeavyHashWriter() ShakeHashWriter {
+	shake256 := sha3.NewCShake256(nil, []byte(heavyHashDomain))
+	return ShakeHashWriter{shake256}
 }
 
 // NewMerkleBranchHashWriter Returns a new HashWriter used for a merkle tree branch
