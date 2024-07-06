@@ -58,9 +58,30 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
 	powHash := writer.Finalize()
-	heavyHash := state.mat.kHeavyHash(powHash) // Keccak hash done inside after matrix multiplication
-	wagHash := state.mat.bHeavyHash(heavyHash) // Blake3 hash done inside after matrix multiplication
-	return toBig(wagHash)
+	hash := state.mat.bHeavyHash(powHash) 
+	return toBig(hash)
+}
+
+
+func (state *State) CalculateProofOfWorkValueHoohash() *big.Int {
+	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+	writer := hashes.Blake3HashWriter()
+	writer.InfallibleWrite(state.prePowHash.ByteSlice())
+	err := serialization.WriteElement(writer, state.Timestamp)
+	if err != nil {
+		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
+	}
+	zeroes := [32]byte{}
+	writer.InfallibleWrite(zeroes[:])
+	err = serialization.WriteElement(writer, state.Nonce)
+	if err != nil {
+		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
+	}
+	powHash := writer.Finalize()
+	multiplied := state.mat.HoohashMatrixMultiplication(powHash) 
+	secondPass := hashes.Blake3HashWriter()
+	secondPass.InfallibleWrite(multiplied)
+	return toBig(secondPass.Finalize())
 }
 
 // IncrementNonce the nonce in State by 1

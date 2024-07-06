@@ -2,6 +2,7 @@ package hashes
 
 import (
 	"crypto/sha256"
+	"crypto/sha512"
 
 	"golang.org/x/crypto/sha3"
 	"lukechampine.com/blake3"
@@ -94,6 +95,16 @@ func NewBlockHashWriter() HashWriter {
 // 	return HashWriter{blake}
 // }
 
+func SHA3512PowHashWriter() HashWriter {
+	sha3512 := sha3.New512()
+	return HashWriter{sha3512}
+}
+
+func SHA512PowHashWriter() HashWriter {
+	sha512 := sha512.New()
+	return HashWriter{sha512}
+}
+
 // NewPoWHashWriter Returns a new HashWriter used for the PoW function
 func PoWHashWriter() HashWriter {
 	blake := blake3.New(32, nil)
@@ -107,6 +118,12 @@ func PoWHashWriter() HashWriter {
 
 // NewHeavyHashWriter Returns a new HashWriter used for the HeavyHash function
 func BlakeHeavyHashWriter() HashWriter {
+	blake := blake3.New(32, nil)
+	return HashWriter{blake}
+}
+
+// BlakeHashWriter Returns a new HashWriter used for the HeavyHash function
+func Blake3HashWriter() HashWriter {
 	blake := blake3.New(32, nil)
 	return HashWriter{blake}
 }

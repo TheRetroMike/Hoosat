@@ -97,7 +97,7 @@ func BenchmarkNewBlockHashWriterBig(b *testing.B) {
 	}
 }
 
-func BenchmarkNewHeavyHashWriterSmall(b *testing.B) {
+func BenchmarkKHeavyHashWriterSmall(b *testing.B) {
 	r := rand.New(rand.NewSource(0))
 	var someBytes [32]byte
 	r.Read(someBytes[:])
@@ -108,12 +108,35 @@ func BenchmarkNewHeavyHashWriterSmall(b *testing.B) {
 	}
 }
 
-func BenchmarkNewHeavyHashWriterBig(b *testing.B) {
+func BenchmarkKHeavyHashWriterBig(b *testing.B) {
 	r := rand.New(rand.NewSource(0))
 	var someBytes [1024]byte
 	r.Read(someBytes[:])
 	for i := 0; i < b.N; i++ {
 		hasher := KeccakHeavyHashWriter()
+		hasher.InfallibleWrite(someBytes[:])
+		hasher.Finalize()
+	}
+}
+
+
+func BenchmarkBHeavyHashWriterSmall(b *testing.B) {
+	r := rand.New(rand.NewSource(0))
+	var someBytes [32]byte
+	r.Read(someBytes[:])
+	for i := 0; i < b.N; i++ {
+		hasher := BlakeHeavyHashWriter()
+		hasher.InfallibleWrite(someBytes[:])
+		hasher.Finalize()
+	}
+}
+
+func BenchmarkBHeavyHashWriterBig(b *testing.B) {
+	r := rand.New(rand.NewSource(0))
+	var someBytes [1024]byte
+	r.Read(someBytes[:])
+	for i := 0; i < b.N; i++ {
+		hasher := BlakeHeavyHashWriter()
 		hasher.InfallibleWrite(someBytes[:])
 		hasher.Finalize()
 	}

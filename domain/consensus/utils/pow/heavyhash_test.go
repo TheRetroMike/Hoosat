@@ -10,14 +10,64 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
 )
 
-func BenchmarkMatrix_HeavyHash(b *testing.B) {
+func BenchmarkMatrixHoohash(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
-	writer := hashes.PoWHashWriter()
-	writer.InfallibleWrite(input)
-	hash := writer.Finalize()
-	matrix := generateMatrix(hash)
 	for i := 0; i < b.N; i++ {
+		firstPass := hashes.Blake3HashWriter()
+		firstPass.InfallibleWrite(input)
+		hash := firstPass.Finalize()
+		matrix := generateHoohashMatrix(hash)
+		multiplied := matrix.HoohashMatrixMultiplication(hash)
+		secondPass := hashes.Blake3HashWriter()
+		secondPass.InfallibleWrite(multiplied)
+		hash = secondPass.Finalize()
+	}
+}
+
+func BenchmarkMatrixKheavyHash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		writer := hashes.KeccakHeavyHashWriter()
+		writer.InfallibleWrite(input)
+		hash := writer.Finalize()
+		matrix := generateMatrix(hash)
 		hash = matrix.kHeavyHash(hash)
+	}
+}
+
+func BenchmarkMatrixKarlsenHash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		writer := hashes.BlakeHeavyHashWriter()
+		writer.InfallibleWrite(input)
+		hash := writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.kHeavyHash(hash)
+	}
+}
+
+func BenchmarkMatrixPyrinhash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		writer := hashes.BlakeHeavyHashWriter()
+		writer.InfallibleWrite(input)
+		hash := writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.bHeavyHash(hash)
+	}
+}
+
+func BenchmarkMatrixWalahash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		keccakWriter := hashes.KeccakHeavyHashWriter()
+		keccakWriter.InfallibleWrite(input)
+		keccakFinalized := keccakWriter.Finalize()
+		blake3Writer := hashes.BlakeHeavyHashWriter()
+		blake3Writer.InfallibleWrite([]byte(keccakFinalized.String()))
+		hash := blake3Writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.walahash(hash)
 	}
 }
 
@@ -151,7 +201,7 @@ func TestGenerateMatrix(t *testing.T) {
 }
 
 func TestMatrix_HeavyHash(t *testing.T) {
-	expected, err := hex.DecodeString("c271447b0661f558d79a6cc0c65ba1009ea08f3f14c995743b9aafbbbb4318bd")
+	expected, err := hex.DecodeString("f32d27ec12b058b602252dc79dbd5c32958ef5c153731dfc8220d25b58ffa691")
 	if err != nil {
 		t.Fatal(err)
 	}
