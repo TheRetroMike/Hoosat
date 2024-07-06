@@ -2,6 +2,7 @@ package pow
 
 import (
 	"bytes"
+	"encoding/binary"
 	"encoding/hex"
 	"math/rand"
 	"testing"
@@ -10,7 +11,27 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
 )
 
-func BenchmarkMatrixHoohash(b *testing.B) {
+func BenchmarkMatrixHoohashRev2(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	generateHoohashLookupTable()
+	for i := 0; i < b.N; i++ {
+		firstPass := hashes.Blake3HashWriter()
+		firstPass.InfallibleWrite(input)
+		hash := firstPass.Finalize()
+		memoryHardResult := memoryHardFunction(hash.ByteSlice())
+		tradeoffResult := timeMemoryTradeoff(binary.BigEndian.Uint64(memoryHardResult))
+		vdfResult := verifiableDelayFunction(memoryHardResult)
+		combined := append(memoryHardResult, vdfResult...)
+		combined = append(combined, byte(tradeoffResult))
+		matrix := generateHoohashMatrix(hash)
+		multiplied := matrix.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
+		secondPass := hashes.Blake3HashWriter()
+		secondPass.InfallibleWrite(multiplied)
+		hash = secondPass.Finalize()
+	}
+}
+
+func BenchmarkMatrixHoohashRev1(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
 	for i := 0; i < b.N; i++ {
 		firstPass := hashes.Blake3HashWriter()
@@ -23,6 +44,7 @@ func BenchmarkMatrixHoohash(b *testing.B) {
 		hash = secondPass.Finalize()
 	}
 }
+
 
 func BenchmarkMatrixKheavyHash(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
