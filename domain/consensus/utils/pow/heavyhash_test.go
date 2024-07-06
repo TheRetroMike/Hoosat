@@ -2,6 +2,7 @@ package pow
 
 import (
 	"bytes"
+	"encoding/binary"
 	"encoding/hex"
 	"math/rand"
 	"testing"
@@ -10,14 +11,85 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
 )
 
-func BenchmarkMatrix_HeavyHash(b *testing.B) {
+func BenchmarkMatrixHoohashRev2(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
-	writer := hashes.PoWHashWriter()
-	writer.InfallibleWrite(input)
-	hash := writer.Finalize()
-	matrix := generateMatrix(hash)
+	generateHoohashLookupTable()
 	for i := 0; i < b.N; i++ {
-		hash = matrix.HeavyHash(hash)
+		firstPass := hashes.Blake3HashWriter()
+		firstPass.InfallibleWrite(input)
+		hash := firstPass.Finalize()
+		memoryHardResult := memoryHardFunction(hash.ByteSlice())
+		tradeoffResult := timeMemoryTradeoff(binary.BigEndian.Uint64(memoryHardResult))
+		vdfResult := verifiableDelayFunction(memoryHardResult)
+		combined := append(memoryHardResult, vdfResult...)
+		combined = append(combined, byte(tradeoffResult))
+		matrix := generateHoohashMatrix(hash)
+		multiplied := matrix.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
+		secondPass := hashes.Blake3HashWriter()
+		secondPass.InfallibleWrite(multiplied)
+		hash = secondPass.Finalize()
+	}
+}
+
+func BenchmarkMatrixHoohashRev1(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		firstPass := hashes.Blake3HashWriter()
+		firstPass.InfallibleWrite(input)
+		hash := firstPass.Finalize()
+		matrix := generateHoohashMatrix(hash)
+		multiplied := matrix.HoohashMatrixMultiplication(hash)
+		secondPass := hashes.Blake3HashWriter()
+		secondPass.InfallibleWrite(multiplied)
+		hash = secondPass.Finalize()
+	}
+}
+
+
+func BenchmarkMatrixKheavyHash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		writer := hashes.KeccakHeavyHashWriter()
+		writer.InfallibleWrite(input)
+		hash := writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.kHeavyHash(hash)
+	}
+}
+
+func BenchmarkMatrixKarlsenHash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		writer := hashes.BlakeHeavyHashWriter()
+		writer.InfallibleWrite(input)
+		hash := writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.kHeavyHash(hash)
+	}
+}
+
+func BenchmarkMatrixPyrinhash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		writer := hashes.BlakeHeavyHashWriter()
+		writer.InfallibleWrite(input)
+		hash := writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.bHeavyHash(hash)
+	}
+}
+
+func BenchmarkMatrixWalahash(b *testing.B) {
+	input := []byte("BenchmarkMatrix_HeavyHash")
+	for i := 0; i < b.N; i++ {
+		keccakWriter := hashes.KeccakHeavyHashWriter()
+		keccakWriter.InfallibleWrite(input)
+		keccakFinalized := keccakWriter.Finalize()
+		blake3Writer := hashes.BlakeHeavyHashWriter()
+		blake3Writer.InfallibleWrite([]byte(keccakFinalized.String()))
+		hash := blake3Writer.Finalize()
+		matrix := generateMatrix(hash)
+		hash = matrix.walahash(hash)
 	}
 }
 
@@ -151,14 +223,14 @@ func TestGenerateMatrix(t *testing.T) {
 }
 
 func TestMatrix_HeavyHash(t *testing.T) {
-	expected, err := hex.DecodeString("87689f379943eaf9b7475ca95325687772bfcc68fc7899caeb4409ec4590c325")
+	expected, err := hex.DecodeString("f32d27ec12b058b602252dc79dbd5c32958ef5c153731dfc8220d25b58ffa691")
 	if err != nil {
 		t.Fatal(err)
 	}
 	input := []byte{0xC1, 0xEC, 0xFD, 0xFC}
 	writer := hashes.PoWHashWriter()
 	writer.InfallibleWrite(input)
-	hashed := testMatrix.HeavyHash(writer.Finalize())
+	hashed := testMatrix.kHeavyHash(writer.Finalize())
 
 	if !bytes.Equal(expected, hashed.ByteSlice()) {
 		t.Fatalf("expected: %x == %s", expected, hashed)
