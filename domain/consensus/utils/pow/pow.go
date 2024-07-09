@@ -72,26 +72,6 @@ func NewState(header externalapi.MutableBlockHeader) *State {
 	}
 }
 
-// CalculateProofOfWorkValue hashes the internal header and returns its big.Int value
-func (state *State) CalculateProofOfWorkValue() *big.Int {
-	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
-	writer := hashes.PoWHashWriter() // Blake 3
-	writer.InfallibleWrite(state.prePowHash.ByteSlice())
-	err := serialization.WriteElement(writer, state.Timestamp)
-	if err != nil {
-		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
-	}
-	zeroes := [32]byte{}
-	writer.InfallibleWrite(zeroes[:])
-	err = serialization.WriteElement(writer, state.Nonce)
-	if err != nil {
-		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
-	}
-	powHash := writer.Finalize()
-	hash := state.mat.bHeavyHash(powHash) 
-	return toBig(hash)
-}
-
 
 func memoryHardFunction(input []byte) []byte {
     const memorySize = 1 << 10 // 2^16 = 65536
@@ -173,7 +153,7 @@ func (state *State) CalculateProofOfWorkValueHoohashRev2() *big.Int {
 }
 
 
-func (state *State) CalculateProofOfWorkValueHoohashRev1() *big.Int {
+func (state *State) CalculateProofOfWorkValue() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.Blake3HashWriter()
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
@@ -192,6 +172,26 @@ func (state *State) CalculateProofOfWorkValueHoohashRev1() *big.Int {
 	secondPass := hashes.Blake3HashWriter()
 	secondPass.InfallibleWrite(multiplied)
 	return toBig(secondPass.Finalize())
+}
+
+// CalculateProofOfWorkValue hashes the internal header and returns its big.Int value
+func (state *State) CalculateProofOfWorkValuePyrinhash() *big.Int {
+	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+	writer := hashes.PoWHashWriter() // Blake 3
+	writer.InfallibleWrite(state.prePowHash.ByteSlice())
+	err := serialization.WriteElement(writer, state.Timestamp)
+	if err != nil {
+		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
+	}
+	zeroes := [32]byte{}
+	writer.InfallibleWrite(zeroes[:])
+	err = serialization.WriteElement(writer, state.Nonce)
+	if err != nil {
+		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
+	}
+	powHash := writer.Finalize()
+	hash := state.mat.bHeavyHash(powHash) 
+	return toBig(hash)
 }
 
 // IncrementNonce the nonce in State by 1
