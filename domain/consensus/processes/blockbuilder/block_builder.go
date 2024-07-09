@@ -20,6 +20,7 @@ import (
 type blockBuilder struct {
 	databaseContext model.DBManager
 	genesisHash     *externalapi.DomainHash
+	POWScores       []uint64
 
 	difficultyManager     model.DifficultyManager
 	pastMedianTimeManager model.PastMedianTimeManager
@@ -42,6 +43,7 @@ type blockBuilder struct {
 func New(
 	databaseContext model.DBManager,
 	genesisHash *externalapi.DomainHash,
+	POWScores []uint64,
 
 	difficultyManager model.DifficultyManager,
 	pastMedianTimeManager model.PastMedianTimeManager,
@@ -63,6 +65,7 @@ func New(
 	return &blockBuilder{
 		databaseContext: databaseContext,
 		genesisHash:     genesisHash,
+		POWScores:  	 POWScores,
 
 		difficultyManager:     difficultyManager,
 		pastMedianTimeManager: pastMedianTimeManager,
@@ -225,8 +228,16 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 		return nil, err
 	}
 
+	// Raise BlockVersion until daaScore is more than powScore
+	version := constants.BlockVersion
+	for _, powScore := range bb.POWScores {
+		if daaScore >= powScore { 
+			version = constants.BlockVersion + 1
+		}
+	}
+
 	return blockheader.NewImmutableBlockHeader(
-		constants.BlockVersion,
+		version,
 		parents,
 		hashMerkleRoot,
 		acceptedIDMerkleRoot,

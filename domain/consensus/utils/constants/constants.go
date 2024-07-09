@@ -3,7 +3,10 @@ package constants
 import "math"
 
 const (
-	// BlockVersion represents the current block version
+	// BlockVersion represents the current block 
+	// 1 Pyrinhash
+	// 2 HoohashV1
+	// 3 HoohashV2
 	BlockVersion uint16 = 1
 
 	// MaxTransactionVersion is the current latest supported transaction version.

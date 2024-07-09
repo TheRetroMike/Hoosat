@@ -49,6 +49,7 @@ type State struct {
 	Nonce      uint64
 	Target     big.Int
 	prePowHash externalapi.DomainHash
+	blockVersion uint16
 }
 
 // NewState creates a new state with pre-computed values to speed up mining
@@ -69,6 +70,7 @@ func NewState(header externalapi.MutableBlockHeader) *State {
 		mat:        *generateMatrix(prePowHash),
 		Timestamp:  timestamp,
 		Nonce:      nonce,
+		blockVersion: header.Version(),
 	}
 }
 
@@ -126,7 +128,19 @@ func verifiableDelayFunction(input []byte) []byte {
     return hash[:]
 }
 
-func (state *State) CalculateProofOfWorkValueHoohashRev2() *big.Int {
+func (state *State) CalculateProofOfWorkValue() *big.Int {
+	if state.blockVersion == 1 {
+		return state.CalculateProofOfWorkValuePyrinhash()
+	} else if state.blockVersion == 2 {
+		return state.CalculateProofOfWorkValueHoohashV1()
+	} else if state.blockVersion == 3 {
+		return state.CalculateProofOfWorkValueHoohashV2()
+	} else {
+		return state.CalculateProofOfWorkValuePyrinhash() // default to the oldest version.
+	}
+}
+
+func (state *State) CalculateProofOfWorkValueHoohashV2() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.Blake3HashWriter()
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
@@ -153,7 +167,7 @@ func (state *State) CalculateProofOfWorkValueHoohashRev2() *big.Int {
 }
 
 
-func (state *State) CalculateProofOfWorkValue() *big.Int {
+func (state *State) CalculateProofOfWorkValueHoohashV1() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.Blake3HashWriter()
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())

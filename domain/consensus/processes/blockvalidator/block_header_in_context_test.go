@@ -108,7 +108,6 @@ func TestCheckParentsIncest(t *testing.T) {
 		if err != nil {
 			t.Fatalf("AddBlock: %+v", err)
 		}
-
 		version := constants.BlockVersion
 		directParentsRelationBlock := &externalapi.DomainBlock{
 			Header: blockheader.NewImmutableBlockHeader(
