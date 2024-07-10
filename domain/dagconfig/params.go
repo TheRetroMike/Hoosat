@@ -342,7 +342,7 @@ var TestnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{20000000},
+	POWScores: []uint64{0},
 }
 
 // SimnetParams defines the network parameters for the simulation test Hoosat
@@ -409,7 +409,7 @@ var SimnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{20000000},
+	POWScores: []uint64{0},
 }
 
 // DevnetParams defines the network parameters for the development Hoosat network.
@@ -472,7 +472,7 @@ var DevnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{20000000},
+	POWScores: []uint64{0},
 }
 
 // ErrDuplicateNet describes an error where the parameters for a Hoosat
