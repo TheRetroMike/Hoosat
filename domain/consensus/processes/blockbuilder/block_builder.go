@@ -11,7 +11,6 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/merkle"
 	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 	"github.com/Hoosat-Oy/HTND/util/mstime"
@@ -229,10 +228,10 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 	}
 
 	// Raise BlockVersion until daaScore is more than powScore
-	version := constants.BlockVersion
+	var version uint16 = 1 
 	for _, powScore := range bb.POWScores {
 		if daaScore >= powScore { 
-			version = constants.BlockVersion + 1
+			version = version + 1
 		}
 	}
 

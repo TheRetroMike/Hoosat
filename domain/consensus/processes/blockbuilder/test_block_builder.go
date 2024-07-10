@@ -96,10 +96,10 @@ func (bb *testBlockBuilder) buildUTXOInvalidHeader(stagingArea *model.StagingAre
 	}
 
 	// Raise BlockVersion until daaScore is more than powScore
-	version := constants.BlockVersion
+	var version uint16 = 1 
 	for _, powScore := range bb.POWScores {
 		if daaScore >= powScore { 
-			version = constants.BlockVersion + 1
+			version = version + 1
 		}
 	}
 	bb.nonceCounter++
