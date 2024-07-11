@@ -347,9 +347,6 @@ func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) []b
 		low := uint16(math.Mod(product[2*i+1], 16))
 		res[i] = hashBytes[i] ^ (byte(high<<4) | byte(low))
 	}
-	// Hash again
-	writer := hashes.BlakeHeavyHashWriter()
-	writer.InfallibleWrite(res[:])
 	return res[:]
 }
 

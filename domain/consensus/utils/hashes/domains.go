@@ -25,9 +25,9 @@ const (
 var transactionSigningECDSADomainHash = sha256.Sum256([]byte(transcationSigningECDSADomain))
 
 // NewTransactionHashWriter Returns a new HashWriter used for transaction hashes
-func NewTransactionHashWriter() HashWriter {
-	var fixedSizeKey [32]byte
-	copy(fixedSizeKey[:], transcationHashDomain)
+	func NewTransactionHashWriter() HashWriter {
+		var fixedSizeKey [32]byte
+		copy(fixedSizeKey[:], transcationHashDomain)
 	blake := blake3.New(32, fixedSizeKey[:])
 	return HashWriter{blake}
 }
