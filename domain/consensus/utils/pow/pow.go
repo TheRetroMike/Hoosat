@@ -63,11 +63,10 @@ func NewState(header externalapi.MutableBlockHeader) *State {
 	prePowHash := consensushashing.HeaderHash(header)
 	header.SetTimeInMilliseconds(timestamp)
 	header.SetNonce(nonce)
-	generateHoohashLookupTable()
 	return &State{
 		Target:     *target,
 		prePowHash: *prePowHash,
-		mat:        *generateMatrix(prePowHash),
+		mat:        *generateHoohashMatrix(prePowHash),
 		Timestamp:  timestamp,
 		Nonce:      nonce,
 		blockVersion: header.Version(),
