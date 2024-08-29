@@ -33,7 +33,7 @@ type matrix [64][64]uint16
 func generateMatrix(hash *externalapi.DomainHash) *matrix {
 	var mat matrix
 	generator := newxoShiRo256PlusPlus(hash)
-	
+
 	for {
 		for i := range mat {
 			for j := 0; j < 64; j += 16 {
@@ -66,7 +66,7 @@ func generateMatrix(hash *externalapi.DomainHash) *matrix {
 func generateHoohashMatrix(hash *externalapi.DomainHash) *matrix {
 	var mat matrix
 	generator := newxoShiRo256PlusPlus(hash)
-	
+
 	for {
 		for i := range mat {
 			for j := 0; j < 64; j += 16 {
@@ -122,7 +122,7 @@ func generateHoohashMatrix(hash *externalapi.DomainHash) *matrix {
 // Extremely Complex Non-linear Operations are the most computationally intensive, combining high-power terms, exponentials, and logarithms of absolute values.
 
 func BasicComplexNonLinear(x float64) float64 {
-    return math.Sin(x) + math.Cos(x)
+	return math.Sin(x) + math.Cos(x)
 }
 
 func MediumComplexNonLinear(x float64) float64 {
@@ -130,92 +130,91 @@ func MediumComplexNonLinear(x float64) float64 {
 }
 
 func IntermediateComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 {
-        return 0 // Avoid singularity
-    }
-    return math.Sin(x) * math.Cos(x) * math.Tan(x)
+	if x == math.Pi/2 || x == 3*math.Pi/2 {
+		return 0 // Avoid singularity
+	}
+	return math.Sin(x) * math.Cos(x) * math.Tan(x)
 }
 
 func AdvancedComplexNonLinear(x float64) float64 {
-    if x <= -1 {
-        return 0 // Avoid log domain error
-    }
-    return math.Exp(math.Sin(x) + math.Cos(x*x)) * math.Log1p(x*x + 1)
+	if x <= -1 {
+		return 0 // Avoid log domain error
+	}
+	return math.Exp(math.Sin(x)+math.Cos(x*x)) * math.Log1p(x*x+1)
 }
 
-
 func HighComplexNonLinear(x float64) float64 {
-	return math.Exp(x) * math.Log(x + 1)
+	return math.Exp(x) * math.Log(x+1)
 }
 
 func VeryComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
-        return 0 // Avoid singularity and log domain error
-    }
-    return math.Exp(math.Sin(x) + math.Cos(x*x) + math.Tan(x)) * math.Log1p(x*x + 1)
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(x)+math.Cos(x*x)+math.Tan(x)) * math.Log1p(x*x+1)
 }
 
 func HyperComplexNonLinear(x float64) float64 {
-    if x <= 0 {
-        return 0 // Avoid log domain error
-    }
-    return math.Pow(math.Exp(math.Sin(x) + math.Cos(x)), 1.5) * math.Log1p(x*x*x + 1)
+	if x <= 0 {
+		return 0 // Avoid log domain error
+	}
+	return math.Pow(math.Exp(math.Sin(x)+math.Cos(x)), 1.5) * math.Log1p(x*x*x+1)
 }
 
 func UltraComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 || x == 0 {
-        return 0 // Avoid singularity and log domain error
-    }
-    return math.Exp(math.Sin(x*x) + math.Cos(x*x*x) + math.Tan(x)) * math.Log1p(math.Abs(math.Tan(x*x + x)))
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 || x == 0 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(x*x)+math.Cos(x*x*x)+math.Tan(x)) * math.Log1p(math.Abs(math.Tan(x*x+x)))
 }
 
 func MegaComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
-        return 0 // Avoid singularity and log domain error
-    }
-    return math.Exp(math.Pow(math.Sin(x), 3) + math.Cos(math.Exp(x))) * math.Log1p(math.Pow(math.Tan(x), 2) + x*x)
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Pow(math.Sin(x), 3)+math.Cos(math.Exp(x))) * math.Log1p(math.Pow(math.Tan(x), 2)+x*x)
 }
 
 func GigaComplexNonLinear(x float64) float64 {
-    if x <= 0 {
-        return 0 // Avoid log domain error
-    }
-    return math.Exp(math.Sin(x*x) + math.Cos(math.Exp(x))) * math.Log1p(math.Pow(x, 5) + 1)
+	if x <= 0 {
+		return 0 // Avoid log domain error
+	}
+	return math.Exp(math.Sin(x*x)+math.Cos(math.Exp(x))) * math.Log1p(math.Pow(x, 5)+1)
 }
 
 func TeraComplexNonLinear(x float64) float64 {
-    if x <= -1 {
-        return 0 // Avoid log domain error
-    }
-    return math.Exp(math.Sin(math.Exp(x)) + math.Cos(math.Exp(x*x))) * math.Log1p(math.Pow(math.Abs(x), 3) + 1)
+	if x <= -1 {
+		return 0 // Avoid log domain error
+	}
+	return math.Exp(math.Sin(math.Exp(x))+math.Cos(math.Exp(x*x))) * math.Log1p(math.Pow(math.Abs(x), 3)+1)
 }
 
 func PetaComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
-        return 0 // Avoid singularity and log domain error
-    }
-    return math.Exp(math.Sin(math.Exp(x)) + math.Cos(math.Exp(x*x)) + math.Tan(math.Exp(x))) * math.Log1p(math.Pow(math.Abs(x), 5) + 1)
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(math.Exp(x))+math.Cos(math.Exp(x*x))+math.Tan(math.Exp(x))) * math.Log1p(math.Pow(math.Abs(x), 5)+1)
 }
 
 func ExaComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
-        return 0 // Avoid singularity and log domain error
-    }
-    return math.Exp(math.Sin(math.Pow(x, 4)) + math.Cos(math.Pow(x, 3)) + math.Tan(math.Pow(x, 2))) * math.Log1p(math.Exp(math.Abs(x*x + x)))
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(math.Pow(x, 4))+math.Cos(math.Pow(x, 3))+math.Tan(math.Pow(x, 2))) * math.Log1p(math.Exp(math.Abs(x*x+x)))
 }
 
 func SuperComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
-        return 0 // Avoid singularity and log domain error
-    }
-    return math.Exp(math.Sin(x)*math.Cos(x) + math.Tan(x*x)) * math.Log1p(x*x*x + 1)
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(x)*math.Cos(x)+math.Tan(x*x)) * math.Log1p(x*x*x+1)
 }
 
 func ExtremlyComplexNonLinear(x float64) float64 {
-    if x == math.Pi/2 || x == 3*math.Pi/2 {
-        return 0 // Avoid singularity
-    }
-    return math.Exp(x*x*x) * math.Log1p(math.Abs(math.Tan(x)))
+	if x == math.Pi/2 || x == 3*math.Pi/2 {
+		return 0 // Avoid singularity
+	}
+	return math.Exp(x*x*x) * math.Log1p(math.Abs(math.Tan(x)))
 }
 
 func ComplexNonLinear(x float64) float64 {
@@ -322,32 +321,47 @@ func (mat *matrix) computeRank() int {
 	return rank
 }
 
-
-func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) []byte {
+func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()
 	var vector [64]float64
 	var product [64]float64
+
+	// Populate the vector with floating-point values
 	for i := 0; i < 32; i++ {
 		vector[2*i] = float64(hashBytes[i] >> 4)
 		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
 	}
+
 	// Matrix-vector multiplication with floating point operations
 	for i := 0; i < 64; i++ {
-		var sum float64
 		for j := 0; j < 64; j++ {
-			sum += float64(mat[i][j]) * ComplexNonLinear(vector[j]) // Introduce non-linear operations
+			// Transform Matrix values with complex non linear equations and sum into product.
+			product[i] += ComplexNonLinear(float64(mat[i][j])) * vector[j]
 		}
-		product[i] = sum
 	}
 
 	// Convert product back to uint16 and then to byte array
 	var res [32]byte
 	for i := range res {
-		high := uint16(math.Mod(product[2*i], 16))
-		low := uint16(math.Mod(product[2*i+1], 16))
-		res[i] = hashBytes[i] ^ (byte(high<<4) | byte(low))
+		high := math.Round(math.Mod(product[2*i], 16))
+		low := math.Round(math.Mod(product[2*i+1], 16))
+		// Clamp values to uint16 range
+		if high > 65535 {
+			high = 65535
+		}
+		if low > 65535 {
+			low = 65535
+		}
+		highInt := uint16(high)
+		lowInt := uint16(low)
+		// Combine high and low into a single byte
+		combined := (highInt<<4 | lowInt) & 0xFF
+		res[i] = hashBytes[i] ^ byte(combined)
 	}
-	return res[:]
+	// Hash again
+	writer := hashes.Blake3HashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
 }
 
 func (mat *matrix) bHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
@@ -434,7 +448,6 @@ func (mat *matrix) kHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainH
 	return writer.Finalize()
 }
 
-
 func (mat *matrix) walahash(hash *externalapi.DomainHash) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()
 	var vector [64]uint16
@@ -465,7 +478,6 @@ func (mat *matrix) walahash(hash *externalapi.DomainHash) *externalapi.DomainHas
 	blakeWriter.InfallibleWrite([]byte(keccakFinalized.String()))
 	return blakeWriter.Finalize()
 }
-
 
 func (mat *matrix) ComplexNonLinearkHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()

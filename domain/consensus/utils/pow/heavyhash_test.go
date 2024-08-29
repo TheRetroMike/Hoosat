@@ -24,10 +24,7 @@ func BenchmarkMatrixHoohashRev2(b *testing.B) {
 		combined := append(memoryHardResult, vdfResult...)
 		combined = append(combined, byte(tradeoffResult))
 		matrix := generateHoohashMatrix(hash)
-		multiplied := matrix.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
-		secondPass := hashes.Blake3HashWriter()
-		secondPass.InfallibleWrite(multiplied)
-		hash = secondPass.Finalize()
+		hash = matrix.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
 	}
 }
 
@@ -38,13 +35,9 @@ func BenchmarkMatrixHoohashRev1(b *testing.B) {
 		firstPass.InfallibleWrite(input)
 		hash := firstPass.Finalize()
 		matrix := generateHoohashMatrix(hash)
-		multiplied := matrix.HoohashMatrixMultiplication(hash)
-		secondPass := hashes.Blake3HashWriter()
-		secondPass.InfallibleWrite(multiplied)
-		hash = secondPass.Finalize()
+		hash = matrix.HoohashMatrixMultiplication(hash)
 	}
 }
-
 
 func BenchmarkMatrixKheavyHash(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
