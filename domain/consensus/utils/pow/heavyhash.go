@@ -217,6 +217,29 @@ func ExtremlyComplexNonLinear(x float64) float64 {
 	return math.Exp(x*x*x) * math.Log1p(math.Abs(math.Tan(x)))
 }
 
+func billionFlops(x float64) float64 {
+	// Sum inside the exponential function
+	sum := 0.0
+	for j := 1; j <= 100; j++ {
+		sum += math.Pow(x, float64(2*j)) + 1.0/float64(j)
+	}
+
+	// Exponential and Logarithm
+	expPart := math.Exp(sum)
+	logPart := math.Log1p(expPart)
+
+	// Product of trigonometric functions
+	product := 1.0
+	for i := 1; i <= 1000; i++ {
+		powX := math.Pow(x, float64(i))
+		product *= math.Sin(powX) + math.Cos(math.Pow(x, float64(i+1))) + math.Tan(powX)
+	}
+
+	// Final result
+	result := product * logPart
+	return result
+}
+
 func ComplexNonLinear(x float64) float64 {
 	transformFactor := math.Mod(x, 1.0)
 	if x < 1 {

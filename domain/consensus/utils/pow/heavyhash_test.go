@@ -11,6 +11,12 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
 )
 
+func BenchmarkBasicComplexNonlinear(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		billionFlops(float64(i))
+	}
+}
+
 func BenchmarkMatrixHoohashRev2(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
 	generateHoohashLookupTable()
