@@ -17,6 +17,9 @@ type blockProcessor struct {
 	maxBlockLevel      int
 	databaseContext    model.DBManager
 	blockLogger        *blocklogger.BlockLogger
+	DevFeeAddress      string
+	DevFeeMin          uint64
+	DevFee             uint64
 
 	consensusStateManager model.ConsensusStateManager
 	pruningManager        model.PruningManager
@@ -28,7 +31,6 @@ type blockProcessor struct {
 	coinbaseManager       model.CoinbaseManager
 	headerTipsManager     model.HeadersSelectedTipManager
 	syncManager           model.SyncManager
-	finalityManager       model.FinalityManager
 
 	acceptanceDataStore                 model.AcceptanceDataStore
 	blockStore                          model.BlockStore
@@ -56,6 +58,9 @@ func New(
 	targetTimePerBlock time.Duration,
 	maxBlockLevel int,
 	databaseContext model.DBManager,
+	DevFeeAddress string,
+	DevFeeMin uint64,
+	DevFee uint64,
 
 	consensusStateManager model.ConsensusStateManager,
 	pruningManager model.PruningManager,
@@ -90,6 +95,9 @@ func New(
 		genesisHash:           genesisHash,
 		targetTimePerBlock:    targetTimePerBlock,
 		maxBlockLevel:         maxBlockLevel,
+		DevFeeAddress:         DevFeeAddress,
+		DevFeeMin:             DevFeeMin,
+		DevFee:                DevFee,
 		databaseContext:       databaseContext,
 		blockLogger:           blocklogger.NewBlockLogger(),
 		pruningManager:        pruningManager,
