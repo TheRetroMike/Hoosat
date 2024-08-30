@@ -219,7 +219,6 @@ var MainnetParams = Params{
 	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
-		"mainnet-dnsseed-1.hoosat.fi",
 	},
 
 	// DAG parameters
@@ -277,7 +276,7 @@ var MainnetParams = Params{
 	// This means that any block that has a level lower or equal to genesis will be level 0.
 	MaxBlockLevel: 225,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{20000000},
+	POWScores:     []uint64{15080000}, // Test block version change.
 }
 
 // TestnetParams defines the network parameters for the test Hoosat network.
@@ -288,7 +287,7 @@ var TestnetParams = Params{
 	RPCPort:     "42422",
 	DefaultPort: "42423",
 	DNSSeeds: []string{
-		"testnet-dnsseed-1.hoosat.fi",
+		"testnet-dnsseed.hoosat.fi",
 	},
 
 	// DAG parameters
@@ -342,7 +341,7 @@ var TestnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{0},
+	POWScores:     []uint64{0},
 }
 
 // SimnetParams defines the network parameters for the simulation test Hoosat
@@ -409,7 +408,7 @@ var SimnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{0},
+	POWScores:     []uint64{0},
 }
 
 // DevnetParams defines the network parameters for the development Hoosat network.
@@ -472,7 +471,7 @@ var DevnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores: []uint64{0},
+	POWScores:     []uint64{0},
 }
 
 // ErrDuplicateNet describes an error where the parameters for a Hoosat

@@ -11,6 +11,7 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashset"
 	"github.com/Hoosat-Oy/HTND/infrastructure/config"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
@@ -134,6 +135,19 @@ func (flow *handleRelayInvsFlow) start() error {
 			continue
 		}
 
+		daaScore := block.Header.DAAScore()
+		var version uint16 = 1
+		for _, powScore := range flow.Config().NetParams().POWScores {
+			if daaScore >= powScore {
+				version = version + 1
+			}
+		}
+		constants.BlockVersion = version
+		if block.Header.Version() != constants.BlockVersion {
+			log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
+			continue
+		}
+
 		err = flow.banIfBlockIsHeaderOnly(block)
 		if err != nil {
 			return err
@@ -234,7 +248,6 @@ func (flow *handleRelayInvsFlow) start() error {
 				return err
 			}
 		}
-
 		log.Infof("Accepted block %s via relay", inv.Hash)
 		err = flow.OnNewBlock(block)
 		if err != nil {
