@@ -1,14 +1,19 @@
 package blockvalidator
 
 import (
+	"bytes"
+
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/merkle"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionhelper"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
 	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/pkg/errors"
 )
 
@@ -39,6 +44,10 @@ func (v *blockValidator) ValidateBodyInIsolation(stagingArea *model.StagingArea,
 	}
 
 	err = v.checkFirstBlockTransactionIsCoinbase(block)
+	if err != nil {
+		return err
+	}
+	err = v.checkDevFee(block)
 	if err != nil {
 		return err
 	}
@@ -115,6 +124,42 @@ func (v *blockValidator) checkFirstBlockTransactionIsCoinbase(block *externalapi
 	if !transactionhelper.IsCoinBase(block.Transactions[transactionhelper.CoinbaseTransactionIndex]) {
 		return errors.Wrapf(ruleerrors.ErrFirstTxNotCoinbase, "first transaction in "+
 			"block is not a coinbase")
+	}
+	return nil
+}
+
+func IsDevFeeOutput(output *externalapi.DomainTransactionOutput) bool {
+	nodeFeeAddress, err := util.DecodeAddress(constants.DevFeeAddress, util.Bech32PrefixHoosat)
+	if err != nil {
+		return false
+	}
+	nodeFeeScriptPublicKey, err := txscript.PayToAddrScript(nodeFeeAddress)
+	if err != nil {
+		return false
+	}
+	isScriptPublicKeyEqual := bytes.Equal(output.ScriptPublicKey.Script, nodeFeeScriptPublicKey.Script)
+	isValueEqual := output.Value >= constants.DevFeeMin && output.Value == constants.DevFee
+
+	return isScriptPublicKeyEqual && isValueEqual
+}
+
+func (v *blockValidator) checkDevFee(block *externalapi.DomainBlock) error {
+	// Check for nodeFee in block outputs
+	hasDevFee := false
+	for _, transaction := range block.Transactions {
+		for _, output := range transaction.Outputs {
+			if IsDevFeeOutput(output) {
+				hasDevFee = true
+				break
+			}
+		}
+		if hasDevFee {
+			break
+		}
+	}
+
+	if !hasDevFee && block.Header.Version() > 1 {
+		return errors.Wrapf(ruleerrors.ErrDevFeeNotIncluded, "transactions do not include dev fee transaction.")
 	}
 	return nil
 }

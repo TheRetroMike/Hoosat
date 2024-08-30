@@ -122,6 +122,10 @@ var (
 	// is not a coinbase transaction.
 	ErrFirstTxNotCoinbase = newRuleError("ErrFirstTxNotCoinbase")
 
+	// ErrDevFeeNotIncluded indicates that the transactions do not
+	// include dev fee.
+	ErrDevFeeNotIncluded = newRuleError("ErrDevFeeNotIncluded")
+
 	// ErrMultipleCoinbases indicates a block contains more than one
 	// coinbase transaction.
 	ErrMultipleCoinbases = newRuleError("ErrMultipleCoinbases")
