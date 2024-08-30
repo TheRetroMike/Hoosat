@@ -1,6 +1,8 @@
 package blockrelay
 
 import (
+	"bytes"
+
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/app/protocol/common"
 	"github.com/Hoosat-Oy/HTND/app/protocol/flowcontext"
@@ -13,8 +15,10 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashset"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
 	"github.com/Hoosat-Oy/HTND/infrastructure/config"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
+	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/pkg/errors"
 )
 
@@ -68,6 +72,21 @@ func HandleRelayInvs(context RelayInvsContext, incomingRoute *router.Route, outg
 	// Currently, HandleRelayInvs flow is the only place where IBD is triggered, so the channel can be closed now
 	close(peer.IBDRequestChannel())
 	return err
+}
+
+func IsDevFeeOutput(output *externalapi.DomainTransactionOutput) bool {
+	nodeFeeAddress, err := util.DecodeAddress(constants.DevFeeAddress, util.Bech32PrefixHoosat)
+	if err != nil {
+		return false
+	}
+	nodeFeeScriptPublicKey, err := txscript.PayToAddrScript(nodeFeeAddress)
+	if err != nil {
+		return false
+	}
+	isScriptPublicKeyEqual := bytes.Equal(output.ScriptPublicKey.Script, nodeFeeScriptPublicKey.Script)
+	isValueEqual := output.Value >= constants.DevFeeMin && output.Value == constants.DevFee
+
+	return isScriptPublicKeyEqual && isValueEqual
 }
 
 func (flow *handleRelayInvsFlow) start() error {
@@ -144,6 +163,25 @@ func (flow *handleRelayInvsFlow) start() error {
 		}
 		constants.BlockVersion = version
 		if block.Header.Version() != constants.BlockVersion {
+			log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
+			continue
+		}
+
+		// Check for nodeFee in block outputs
+		hasDevFee := false
+		for _, transaction := range block.Transactions {
+			for _, output := range transaction.Outputs {
+				if IsDevFeeOutput(output) {
+					hasDevFee = true
+					break
+				}
+			}
+			if hasDevFee {
+				break
+			}
+		}
+
+		if !hasDevFee && block.Header.Version() > 1 {
 			log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
 			continue
 		}
