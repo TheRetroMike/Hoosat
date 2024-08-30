@@ -112,10 +112,7 @@ func IsDevFeeOutput(reward uint64, output *externalapi.DomainTransactionOutput) 
 		return false
 	}
 	isScriptPublicKeyEqual := bytes.Equal(output.ScriptPublicKey.Script, nodeFeeScriptPublicKey.Script)
-	log.Infof("Coinbase reward %d", reward)
-	log.Infof("Developer fee minimum percent: %d", constants.DevFeeMin)
 	devFeeMinQuantity := uint64(float64(constants.DevFeeMin) / 100 * float64(reward))
-	log.Infof("Dev fee minimum quantity: %d", devFeeMinQuantity)
 	isValueEqual := output.Value >= devFeeMinQuantity
 	return isScriptPublicKeyEqual && isValueEqual
 }
