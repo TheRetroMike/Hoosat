@@ -58,9 +58,7 @@ func (v *blockValidator) checkParentsLimit(header externalapi.BlockHeader) error
 func (v *blockValidator) checkBlockVersion(header externalapi.BlockHeader) error {
 	var version uint16 = 1
 	daaScore := header.DAAScore()
-	log.Infof("DaaScore: %d", daaScore)
 	for _, powScore := range v.POWScores {
-		log.Infof("PoWScore: %d", powScore)
 		if daaScore >= powScore {
 			version = version + 1
 		}

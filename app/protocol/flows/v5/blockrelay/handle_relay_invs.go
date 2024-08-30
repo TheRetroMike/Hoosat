@@ -167,25 +167,6 @@ func (flow *handleRelayInvsFlow) start() error {
 			continue
 		}
 
-		// Check for nodeFee in block outputs
-		hasDevFee := false
-		for _, transaction := range block.Transactions {
-			for _, output := range transaction.Outputs {
-				if IsDevFeeOutput(output) {
-					hasDevFee = true
-					break
-				}
-			}
-			if hasDevFee {
-				break
-			}
-		}
-
-		if !hasDevFee && block.Header.Version() > 1 {
-			log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
-			continue
-		}
-
 		err = flow.banIfBlockIsHeaderOnly(block)
 		if err != nil {
 			return err

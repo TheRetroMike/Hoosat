@@ -128,7 +128,7 @@ func (c *coinbaseManager) coinbaseOutputForBlueBlock(stagingArea *model.StagingA
 		return nil, false, err
 	}
 
-	devFeeQuantity := blockReward / 100 * c.devFee
+	devFeeQuantity := uint64(float64(c.devFee) / 100 * float64(blockReward))
 	blockReward = blockReward - devFeeQuantity
 
 	if blockReward <= 0 {
