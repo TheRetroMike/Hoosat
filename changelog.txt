@@ -1,3 +1,14 @@
+htnd v1.00.00 - 2024-08-3
+===========================
+
+For the love of Kaspa and GhostDAG, we are here to bring you FPGA / ASIC resistant algorithm in Hoosat Network. 
+
+* Hoohash implementation
+* Developer fee addition
+* First major version
+
+
+
 htnd v0.12.17 - 2024-02-19
 ===========================
 
