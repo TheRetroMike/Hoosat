@@ -125,6 +125,9 @@ func (v *blockValidator) checkDevFee(stagingArea *model.StagingArea, blockHash *
 	if len(block.Transactions[0].Outputs) < 1 {
 		return nil
 	}
+	if block.Header.Version() < 2 {
+		return nil
+	}
 
 	reward, _ := v.coinbaseManager.CalcBlockSubsidy(stagingArea, blockHash)
 	hasDevFee := false
