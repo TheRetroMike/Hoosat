@@ -23,8 +23,6 @@ type coinbaseManager struct {
 	deflationaryPhaseDaaScore               uint64
 	deflationaryPhaseBaseSubsidy            uint64
 	deflationaryPhaseCurveFactor            float64
-	devFeeAddress                           string
-	devFee                                  uint64
 
 	databaseContext     model.DBReader
 	dagTraversalManager model.DAGTraversalManager
@@ -64,25 +62,50 @@ func (c *coinbaseManager) ExpectedCoinbaseTransaction(stagingArea *model.Staging
 
 	txOuts := make([]*externalapi.DomainTransactionOutput, 0, len(ghostdagData.MergeSetBlues()))
 	acceptanceDataMap := acceptanceDataFromArrayToMap(acceptanceData)
-	for _, blue := range ghostdagData.MergeSetBlues() {
-		txOutRewads, hasReward, err := c.coinbaseOutputForBlueBlock(stagingArea, blue, acceptanceDataMap[*blue], daaAddedBlocksSet)
+	if constants.BlockVersion == 1 {
+		for _, blue := range ghostdagData.MergeSetBlues() {
+			txOut, hasReward, err := c.coinbaseOutputForBlueBlockV1(stagingArea, blue, acceptanceDataMap[*blue], daaAddedBlocksSet)
+			if err != nil {
+				return nil, false, err
+			}
+
+			if hasReward {
+				txOuts = append(txOuts, txOut)
+			}
+		}
+
+		txOut, hasRedReward, err := c.coinbaseOutputForRewardFromRedBlocksV1(
+			stagingArea, ghostdagData, acceptanceData, daaAddedBlocksSet, coinbaseData)
 		if err != nil {
 			return nil, false, err
 		}
 
-		if hasReward {
-			txOuts = append(txOuts, txOutRewads...)
+		if hasRedReward {
+			txOuts = append(txOuts, txOut)
 		}
-	}
+	} else if constants.BlockVersion == 2 {
+		for _, blue := range ghostdagData.MergeSetBlues() {
+			txOut, devTx, hasReward, err := c.coinbaseOutputForBlueBlockV2(stagingArea, blue, acceptanceDataMap[*blue], daaAddedBlocksSet)
+			if err != nil {
+				return nil, false, err
+			}
 
-	txOut, hasRedReward, err := c.coinbaseOutputForRewardFromRedBlocks(
-		stagingArea, ghostdagData, acceptanceData, daaAddedBlocksSet, coinbaseData)
-	if err != nil {
-		return nil, false, err
-	}
+			if hasReward {
+				txOuts = append(txOuts, txOut)
+				txOuts = append(txOuts, devTx)
+			}
+		}
 
-	if hasRedReward {
-		txOuts = append(txOuts, txOut)
+		txOut, devTx, hasRedReward, err := c.coinbaseOutputForRewardFromRedBlocksV2(
+			stagingArea, ghostdagData, acceptanceData, daaAddedBlocksSet, coinbaseData)
+		if err != nil {
+			return nil, false, err
+		}
+
+		if hasRedReward {
+			txOuts = append(txOuts, txOut)
+			txOuts = append(txOuts, devTx)
+		}
 	}
 
 	subsidy, err := c.CalcBlockSubsidy(stagingArea, blockHash)
@@ -95,7 +118,7 @@ func (c *coinbaseManager) ExpectedCoinbaseTransaction(stagingArea *model.Staging
 		return nil, false, err
 	}
 
-	return &externalapi.DomainTransaction{
+	domainTransaction := &externalapi.DomainTransaction{
 		Version:      constants.MaxTransactionVersion,
 		Inputs:       []*externalapi.DomainTransactionInput{},
 		Outputs:      txOuts,
@@ -103,7 +126,8 @@ func (c *coinbaseManager) ExpectedCoinbaseTransaction(stagingArea *model.Staging
 		SubnetworkID: subnetworks.SubnetworkIDCoinbase,
 		Gas:          0,
 		Payload:      payload,
-	}, hasRedReward, nil
+	}
+	return domainTransaction, hasRedReward, nil
 }
 
 func (c *coinbaseManager) daaAddedBlocksSet(stagingArea *model.StagingArea, blockHash *externalapi.DomainHash) (
@@ -119,17 +143,56 @@ func (c *coinbaseManager) daaAddedBlocksSet(stagingArea *model.StagingArea, bloc
 
 // coinbaseOutputForBlueBlock calculates the output that should go into the coinbase transaction of blueBlock
 // If blueBlock gets no fee - returns nil for txOut
-func (c *coinbaseManager) coinbaseOutputForBlueBlock(stagingArea *model.StagingArea,
+func (c *coinbaseManager) coinbaseOutputForBlueBlockV2(stagingArea *model.StagingArea,
 	blueBlock *externalapi.DomainHash, blockAcceptanceData *externalapi.BlockAcceptanceData,
-	mergingBlockDAAAddedBlocksSet hashset.HashSet) ([]*externalapi.DomainTransactionOutput, bool, error) {
+	mergingBlockDAAAddedBlocksSet hashset.HashSet) (*externalapi.DomainTransactionOutput, *externalapi.DomainTransactionOutput, bool, error) {
+
+	blockReward, err := c.calcMergedBlockReward(stagingArea, blueBlock, blockAcceptanceData, mergingBlockDAAAddedBlocksSet)
+	if err != nil {
+		return nil, nil, false, err
+	}
+
+	devFeeDecodedAddress, err := util.DecodeAddress(constants.DevFeeAddress, util.Bech32PrefixHoosat)
+	if err != nil {
+		return nil, nil, false, err
+	}
+	devFeeScriptPublicKey, err := txscript.PayToAddrScript(devFeeDecodedAddress)
+	if err != nil {
+		return nil, nil, false, err
+	}
+	devFeeQuantity := uint64(float64(constants.DevFee) / 100 * float64(blockReward))
+	blockReward -= devFeeQuantity
+	if blockReward <= 0 {
+		return nil, nil, false, nil
+	}
+
+	// the ScriptPublicKey for the coinbase is parsed from the coinbase payload
+	_, coinbaseData, _, err := c.ExtractCoinbaseDataBlueScoreAndSubsidy(blockAcceptanceData.TransactionAcceptanceData[0].Transaction)
+	if err != nil {
+		return nil, nil, false, err
+	}
+
+	txOut := &externalapi.DomainTransactionOutput{
+		Value:           blockReward,
+		ScriptPublicKey: coinbaseData.ScriptPublicKey,
+	}
+
+	devTx := &externalapi.DomainTransactionOutput{
+		Value:           devFeeQuantity,
+		ScriptPublicKey: devFeeScriptPublicKey,
+	}
+
+	return txOut, devTx, true, nil
+}
+
+func (c *coinbaseManager) coinbaseOutputForBlueBlockV1(stagingArea *model.StagingArea,
+	blueBlock *externalapi.DomainHash, blockAcceptanceData *externalapi.BlockAcceptanceData,
+	mergingBlockDAAAddedBlocksSet hashset.HashSet) (*externalapi.DomainTransactionOutput, bool, error) {
 
 	blockReward, err := c.calcMergedBlockReward(stagingArea, blueBlock, blockAcceptanceData, mergingBlockDAAAddedBlocksSet)
 	if err != nil {
 		return nil, false, err
 	}
-
-	devFeeQuantity := uint64(float64(c.devFee) / 100 * float64(blockReward))
-	blockReward = blockReward - devFeeQuantity
 
 	if blockReward <= 0 {
 		return nil, false, nil
@@ -141,30 +204,56 @@ func (c *coinbaseManager) coinbaseOutputForBlueBlock(stagingArea *model.StagingA
 		return nil, false, err
 	}
 
-	devFeeDecodedAddress, err := util.DecodeAddress(c.devFeeAddress, util.Bech32PrefixHoosat)
+	txOut := &externalapi.DomainTransactionOutput{
+		Value:           blockReward,
+		ScriptPublicKey: coinbaseData.ScriptPublicKey,
+	}
+
+	return txOut, true, nil
+}
+
+func (c *coinbaseManager) coinbaseOutputForRewardFromRedBlocksV2(stagingArea *model.StagingArea,
+	ghostdagData *externalapi.BlockGHOSTDAGData, acceptanceData externalapi.AcceptanceData, daaAddedBlocksSet hashset.HashSet,
+	coinbaseData *externalapi.DomainCoinbaseData) (*externalapi.DomainTransactionOutput, *externalapi.DomainTransactionOutput, bool, error) {
+
+	acceptanceDataMap := acceptanceDataFromArrayToMap(acceptanceData)
+	totalReward := uint64(0)
+	for _, red := range ghostdagData.MergeSetReds() {
+		reward, err := c.calcMergedBlockReward(stagingArea, red, acceptanceDataMap[*red], daaAddedBlocksSet)
+		if err != nil {
+			return nil, nil, false, err
+		}
+		totalReward += reward
+	}
+
+	devFeeDecodedAddress, err := util.DecodeAddress(constants.DevFeeAddress, util.Bech32PrefixHoosat)
 	if err != nil {
-		return nil, false, err
+		return nil, nil, false, err
 	}
 	devFeeScriptPublicKey, err := txscript.PayToAddrScript(devFeeDecodedAddress)
 	if err != nil {
-		return nil, false, err
+		return nil, nil, false, err
+	}
+	devFeeQuantity := uint64(float64(constants.DevFee) / 100 * float64(totalReward))
+	totalReward -= devFeeQuantity
+	if totalReward <= 0 {
+		return nil, nil, false, nil
 	}
 
-	txOuts := []*externalapi.DomainTransactionOutput{
-		{
-			Value:           blockReward,
-			ScriptPublicKey: coinbaseData.ScriptPublicKey,
-		},
-		{
-			Value:           devFeeQuantity,
-			ScriptPublicKey: devFeeScriptPublicKey,
-		},
+	txOut := &externalapi.DomainTransactionOutput{
+		Value:           totalReward,
+		ScriptPublicKey: coinbaseData.ScriptPublicKey,
 	}
 
-	return txOuts, true, nil
+	devTx := &externalapi.DomainTransactionOutput{
+		Value:           devFeeQuantity,
+		ScriptPublicKey: devFeeScriptPublicKey,
+	}
+
+	return txOut, devTx, true, nil
 }
 
-func (c *coinbaseManager) coinbaseOutputForRewardFromRedBlocks(stagingArea *model.StagingArea,
+func (c *coinbaseManager) coinbaseOutputForRewardFromRedBlocksV1(stagingArea *model.StagingArea,
 	ghostdagData *externalapi.BlockGHOSTDAGData, acceptanceData externalapi.AcceptanceData, daaAddedBlocksSet hashset.HashSet,
 	coinbaseData *externalapi.DomainCoinbaseData) (*externalapi.DomainTransactionOutput, bool, error) {
 
@@ -175,18 +264,18 @@ func (c *coinbaseManager) coinbaseOutputForRewardFromRedBlocks(stagingArea *mode
 		if err != nil {
 			return nil, false, err
 		}
-
 		totalReward += reward
 	}
-
-	if totalReward == 0 {
+	if totalReward <= 0 {
 		return nil, false, nil
 	}
 
-	return &externalapi.DomainTransactionOutput{
+	txOut := &externalapi.DomainTransactionOutput{
 		Value:           totalReward,
 		ScriptPublicKey: coinbaseData.ScriptPublicKey,
-	}, true, nil
+	}
+
+	return txOut, true, nil
 }
 
 func acceptanceDataFromArrayToMap(acceptanceData externalapi.AcceptanceData) map[externalapi.DomainHash]*externalapi.BlockAcceptanceData {
@@ -289,8 +378,6 @@ func (c *coinbaseManager) calcMergedBlockReward(stagingArea *model.StagingArea, 
 // New instantiates a new CoinbaseManager
 func New(
 	databaseContext model.DBReader,
-	devFeeAddress string,
-	devFee uint64,
 
 	subsidyGenesisReward uint64,
 	preDeflationaryPhaseBaseSubsidy uint64,
@@ -309,8 +396,6 @@ func New(
 
 	return &coinbaseManager{
 		databaseContext: databaseContext,
-		devFeeAddress:   devFeeAddress,
-		devFee:          devFee,
 
 		subsidyGenesisReward:                    subsidyGenesisReward,
 		preDeflationaryPhaseBaseSubsidy:         preDeflationaryPhaseBaseSubsidy,

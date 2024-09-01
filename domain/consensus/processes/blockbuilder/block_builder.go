@@ -229,16 +229,16 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 	}
 
 	// Raise BlockVersion until daaScore is more than powScore
-	var version uint16 = 1
+	var blockVersion uint16 = 1
 	for _, powScore := range bb.POWScores {
 		if daaScore >= powScore {
-			version = version + 1
+			blockVersion += 1
 		}
 	}
-	constants.BlockVersion = version
+	constants.BlockVersion = blockVersion
 
 	return blockheader.NewImmutableBlockHeader(
-		version,
+		blockVersion,
 		parents,
 		hashMerkleRoot,
 		acceptedIDMerkleRoot,

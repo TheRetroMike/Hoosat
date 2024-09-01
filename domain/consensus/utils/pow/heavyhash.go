@@ -96,6 +96,35 @@ func generateHoohashMatrix(hash *externalapi.DomainHash) *matrix {
 	}
 }
 
+// func generateMatrix(hash *externalapi.DomainHash) *matrix {
+// 	var mat matrix
+// 	generator := newxoShiRo256PlusPlus(hash)
+
+// 	for {
+// 		for i := range mat {
+// 			for j := 0; j < 128; j += 16 {
+// 				val := generator.Uint64()
+// 				for shift := 0; shift < 16; shift++ {
+// 					mat[i][j+shift] = uint16(val >> (4 * shift) & 0x0F)
+// 				}
+// 			}
+// 		}
+// 		if mat.computeRank() == 128 {
+// 			return &mat
+// 		}
+// 	}
+// }
+
+// Basic Non-linear Operations are fast but less computationally intensive.
+// Intermediate Non-linear Operations increase complexity with additional trigonometric functions.
+// Advanced Non-linear Operations involve more complex combinations of trigonometric, exponential, and logarithmic functions.
+// Very Complex Non-linear Operations introduce even more layers of computation, involving multiple transcendental functions.
+// Extremely Complex Non-linear Operations are the most computationally intensive, combining high-power terms, exponentials, and logarithms of absolute values.
+
+func BasicComplexNonLinear(x float64) float64 {
+	return math.Sin(x) + math.Cos(x)
+}
+
 func MediumComplexNonLinear(x float64) float64 {
 	return math.Exp(math.Sin(x) + math.Cos(x))
 }
@@ -107,8 +136,108 @@ func IntermediateComplexNonLinear(x float64) float64 {
 	return math.Sin(x) * math.Cos(x) * math.Tan(x)
 }
 
+func AdvancedComplexNonLinear(x float64) float64 {
+	if x <= -1 {
+		return 0 // Avoid log domain error
+	}
+	return math.Exp(math.Sin(x)+math.Cos(x*x)) * math.Log1p(x*x+1)
+}
+
 func HighComplexNonLinear(x float64) float64 {
 	return math.Exp(x) * math.Log(x+1)
+}
+
+func VeryComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(x)+math.Cos(x*x)+math.Tan(x)) * math.Log1p(x*x+1)
+}
+
+func HyperComplexNonLinear(x float64) float64 {
+	if x <= 0 {
+		return 0 // Avoid log domain error
+	}
+	return math.Pow(math.Exp(math.Sin(x)+math.Cos(x)), 1.5) * math.Log1p(x*x*x+1)
+}
+
+func UltraComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 || x == 0 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(x*x)+math.Cos(x*x*x)+math.Tan(x)) * math.Log1p(math.Abs(math.Tan(x*x+x)))
+}
+
+func MegaComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Pow(math.Sin(x), 3)+math.Cos(math.Exp(x))) * math.Log1p(math.Pow(math.Tan(x), 2)+x*x)
+}
+
+func GigaComplexNonLinear(x float64) float64 {
+	if x <= 0 {
+		return 0 // Avoid log domain error
+	}
+	return math.Exp(math.Sin(x*x)+math.Cos(math.Exp(x))) * math.Log1p(math.Pow(x, 5)+1)
+}
+
+func TeraComplexNonLinear(x float64) float64 {
+	if x <= -1 {
+		return 0 // Avoid log domain error
+	}
+	return math.Exp(math.Sin(math.Exp(x))+math.Cos(math.Exp(x*x))) * math.Log1p(math.Pow(math.Abs(x), 3)+1)
+}
+
+func PetaComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(math.Exp(x))+math.Cos(math.Exp(x*x))+math.Tan(math.Exp(x))) * math.Log1p(math.Pow(math.Abs(x), 5)+1)
+}
+
+func ExaComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(math.Pow(x, 4))+math.Cos(math.Pow(x, 3))+math.Tan(math.Pow(x, 2))) * math.Log1p(math.Exp(math.Abs(x*x+x)))
+}
+
+func SuperComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 || x <= -1 {
+		return 0 // Avoid singularity and log domain error
+	}
+	return math.Exp(math.Sin(x)*math.Cos(x)+math.Tan(x*x)) * math.Log1p(x*x*x+1)
+}
+
+func ExtremlyComplexNonLinear(x float64) float64 {
+	if x == math.Pi/2 || x == 3*math.Pi/2 {
+		return 0 // Avoid singularity
+	}
+	return math.Exp(x*x*x) * math.Log1p(math.Abs(math.Tan(x)))
+}
+
+func billionFlops(x float64) float64 {
+	// Sum inside the exponential function
+	sum := 0.0
+	for j := 1; j <= 100; j++ {
+		sum += math.Pow(x, float64(2*j)) + 1.0/float64(j)
+	}
+
+	// Exponential and Logarithm
+	expPart := math.Exp(sum)
+	logPart := math.Log1p(expPart)
+
+	// Product of trigonometric functions
+	product := 1.0
+	for i := 1; i <= 1000; i++ {
+		powX := math.Pow(x, float64(i))
+		product *= math.Sin(powX) + math.Cos(math.Pow(x, float64(i+1))) + math.Tan(powX)
+	}
+
+	// Final result
+	result := product * logPart
+	return result
 }
 
 func ComplexNonLinear(x float64) float64 {
@@ -215,7 +344,7 @@ func (mat *matrix) computeRank() int {
 	return rank
 }
 
-func (mat *matrix) HoohashHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
+func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()
 	var vector [64]float64
 	var product [64]float64
@@ -258,7 +387,7 @@ func (mat *matrix) HoohashHeavyHash(hash *externalapi.DomainHash) *externalapi.D
 	return writer.Finalize()
 }
 
-func (mat *matrix) PyrinHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
+func (mat *matrix) bHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()
 	var vector [64]uint16
 	var product [64]uint16
@@ -282,6 +411,123 @@ func (mat *matrix) PyrinHeavyHash(hash *externalapi.DomainHash) *externalapi.Dom
 	}
 	// Hash again
 	writer := hashes.BlakeHeavyHashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+
+func (mat *matrix) hHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]uint16
+	var product [64]uint16
+	for i := 0; i < 32; i++ {
+		vector[2*i] = uint16(hashBytes[i] >> 4)
+		vector[2*i+1] = uint16(hashBytes[i] & 0x0F)
+	}
+	// Matrix-vector multiplication, and convert to 4 bits.
+	for i := 0; i < 64; i++ {
+		var sum uint16
+		for j := 0; j < 64; j++ {
+			sum += mat[i][j] * vector[j]
+		}
+		product[i] = sum >> 10
+	}
+
+	// Concatenate 4 LSBs back to 8 bit xor with sum1
+	var res [32]byte
+	for i := range res {
+		res[i] = hashBytes[i] ^ (byte(product[2*i]<<4) | byte(product[2*i+1]))
+	}
+	// Hash again
+	writer := hashes.BlakeHeavyHashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+
+func (mat *matrix) kHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]uint16
+	var product [64]uint16
+	for i := 0; i < 32; i++ {
+		vector[2*i] = uint16(hashBytes[i] >> 4)
+		vector[2*i+1] = uint16(hashBytes[i] & 0x0F)
+	}
+	// Matrix-vector multiplication, and convert to 4 bits.
+	for i := 0; i < 64; i++ {
+		var sum uint16
+		for j := 0; j < 64; j++ {
+			sum += mat[i][j] * vector[j]
+		}
+		product[i] = sum >> 10
+	}
+
+	// Concatenate 4 LSBs back to 8 bit xor with sum1
+	var res [32]byte
+	for i := range res {
+		res[i] = hashBytes[i] ^ (byte(product[2*i]<<4) | byte(product[2*i+1]))
+	}
+	// Hash again
+	writer := hashes.KeccakHeavyHashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+
+func (mat *matrix) walahash(hash *externalapi.DomainHash) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]uint16
+	var product [64]uint16
+	for i := 0; i < 32; i++ {
+		vector[2*i] = uint16(hashBytes[i] >> 4)
+		vector[2*i+1] = uint16(hashBytes[i] & 0x0F)
+	}
+	// Matrix-vector multiplication, and convert to 4 bits.
+	for i := 0; i < 64; i++ {
+		var sum uint16
+		for j := 0; j < 64; j++ {
+			sum += mat[i][j] * vector[j]
+		}
+		product[i] = sum >> 10
+	}
+
+	// Concatenate 4 LSBs back to 8 bit xor with sum1
+	var res [32]byte
+	for i := range res {
+		res[i] = hashBytes[i] ^ (byte(product[2*i]<<4) | byte(product[2*i+1]))
+	}
+	// Hash again
+	keccakWriter := hashes.KeccakHeavyHashWriter()
+	keccakWriter.InfallibleWrite(res[:])
+	blakeWriter := hashes.BlakeHeavyHashWriter()
+	keccakFinalized := keccakWriter.Finalize()
+	blakeWriter.InfallibleWrite([]byte(keccakFinalized.String()))
+	return blakeWriter.Finalize()
+}
+
+func (mat *matrix) ComplexNonLinearkHeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]float64
+	var product [64]float64
+	for i := 0; i < 32; i++ {
+		vector[2*i] = float64(hashBytes[i] >> 4)
+		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
+	}
+	// Matrix-vector multiplication with floating point operations
+	for i := 0; i < 64; i++ {
+		var sum float64
+		for j := 0; j < 64; j++ {
+			sum += float64(mat[i][j]) * BasicComplexNonLinear(vector[j]) // Introduce non-linear operations
+		}
+		product[i] = sum
+	}
+
+	// Convert product back to uint16 and then to byte array
+	var res [32]byte
+	for i := range res {
+		high := uint16(math.Mod(product[2*i], 16))
+		low := uint16(math.Mod(product[2*i+1], 16))
+		res[i] = hashBytes[i] ^ (byte(high<<4) | byte(low))
+	}
+	// Hash again
+	writer := hashes.KeccakHeavyHashWriter()
 	writer.InfallibleWrite(res[:])
 	return writer.Finalize()
 }

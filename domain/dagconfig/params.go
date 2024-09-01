@@ -276,18 +276,18 @@ var MainnetParams = Params{
 	// This means that any block that has a level lower or equal to genesis will be level 0.
 	MaxBlockLevel: 225,
 	MergeDepth:    defaultMergeDepth,
-	POWScores:     []uint64{17500000}, // Test block version change.
+	POWScores:     []uint64{17500000},
 }
 
 // TestnetParams defines the network parameters for the test Hoosat network.
 var TestnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "hoosat-testnet-10",
+	Name:        "hoosat-testnet",
 	Net:         appmessage.Testnet,
 	RPCPort:     "42422",
 	DefaultPort: "42423",
 	DNSSeeds: []string{
-		"testnet-dnsseed.hoosat.fi",
+		"mainnet-dnsseed.hoosat.fi",
 	},
 
 	// DAG parameters
@@ -341,7 +341,7 @@ var TestnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores:     []uint64{0},
+	POWScores:     []uint64{5},
 }
 
 // SimnetParams defines the network parameters for the simulation test Hoosat
@@ -408,7 +408,7 @@ var SimnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores:     []uint64{0},
+	POWScores:     []uint64{5},
 }
 
 // DevnetParams defines the network parameters for the development Hoosat network.
@@ -471,7 +471,7 @@ var DevnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	POWScores:     []uint64{0},
+	POWScores:     []uint64{5},
 }
 
 // ErrDuplicateNet describes an error where the parameters for a Hoosat

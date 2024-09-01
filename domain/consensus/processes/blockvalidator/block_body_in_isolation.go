@@ -1,20 +1,14 @@
 package blockvalidator
 
 import (
-	"bytes"
-	"encoding/json"
-
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/merkle"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/subnetworks"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/transactionhelper"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/txscript"
 	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
-	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/pkg/errors"
 )
 
@@ -50,11 +44,6 @@ func (v *blockValidator) ValidateBodyInIsolation(stagingArea *model.StagingArea,
 	}
 
 	err = v.checkBlockContainsOnlyOneCoinbase(block)
-	if err != nil {
-		return err
-	}
-
-	err = v.checkDevFee(stagingArea, blockHash, block)
 	if err != nil {
 		return err
 	}
@@ -99,51 +88,6 @@ func (v *blockValidator) ValidateBodyInIsolation(stagingArea *model.StagingArea,
 		return err
 	}
 
-	return nil
-}
-
-func IsDevFeeOutput(reward uint64, output *externalapi.DomainTransactionOutput) bool {
-	nodeFeeAddress, err := util.DecodeAddress(constants.DevFeeAddress, util.Bech32PrefixHoosat)
-	if err != nil {
-		return false
-	}
-	nodeFeeScriptPublicKey, err := txscript.PayToAddrScript(nodeFeeAddress)
-	if err != nil {
-		return false
-	}
-	isScriptPublicKeyEqual := bytes.Equal(output.ScriptPublicKey.Script, nodeFeeScriptPublicKey.Script)
-	devFeeMinQuantity := uint64(float64(constants.DevFeeMin) / 100 * float64(reward))
-	isValueEqual := output.Value >= devFeeMinQuantity
-	return isScriptPublicKeyEqual && isValueEqual
-}
-
-func (v *blockValidator) checkDevFee(stagingArea *model.StagingArea, blockHash *externalapi.DomainHash, block *externalapi.DomainBlock) error {
-	// Check for nodeFee in block outputs
-	if len(block.Transactions) < 1 {
-		return nil
-	}
-	if len(block.Transactions[0].Outputs) < 1 {
-		return nil
-	}
-
-	reward, _ := v.coinbaseManager.CalcBlockSubsidy(stagingArea, blockHash)
-	hasDevFee := false
-	for _, transaction := range block.Transactions {
-		for _, output := range transaction.Outputs {
-			if IsDevFeeOutput(reward, output) {
-				hasDevFee = true
-				break
-			}
-		}
-		if hasDevFee {
-			break
-		}
-	}
-
-	if !hasDevFee {
-		jsonBytes, _ := json.MarshalIndent(block, "", "    ")
-		return errors.Wrapf(ruleerrors.ErrDevFeeNotIncluded, "transactions do not include dev fee transaction. \n%s", string(jsonBytes))
-	}
 	return nil
 }
 

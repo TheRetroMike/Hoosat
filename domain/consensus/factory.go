@@ -12,7 +12,6 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/processes/blockparentbuilder"
 	parentssanager "github.com/Hoosat-Oy/HTND/domain/consensus/processes/parentsmanager"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/processes/pruningproofmanager"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/util/staging"
 	"github.com/pkg/errors"
 
@@ -240,8 +239,6 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		config.GenesisBlock.Header.Bits())
 	coinbaseManager := coinbasemanager.New(
 		dbManager,
-		constants.DevFeeAddress,
-		constants.DevFee,
 		config.SubsidyGenesisReward,
 		config.PreDeflationaryPhaseBaseSubsidy,
 		config.CoinbasePayloadScriptPublicKeyMaxLength,
@@ -425,9 +422,6 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		config.TargetTimePerBlock,
 		config.MaxBlockLevel,
 		dbManager,
-		constants.DevFeeAddress,
-		constants.DevFeeMin,
-		constants.DevFee,
 		consensusStateManager,
 		pruningManager,
 		blockValidator,
