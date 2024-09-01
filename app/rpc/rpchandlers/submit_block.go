@@ -65,10 +65,10 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 			return nil, err
 		}
 
-		jsonBytes, _ := json.MarshalIndent(submitBlockRequest.Block.Header, "", "    ")
+		jsonBytes, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
 		if jsonBytes != nil {
 			log.Warnf("The RPC submitted block triggered a rule/protocol error (%s), printing "+
-				"the full header for debug purposes: \n%s", err, string(jsonBytes))
+				"the full block for debug purposes: \n%s", err, string(jsonBytes))
 		}
 
 		return &appmessage.SubmitBlockResponseMessage{

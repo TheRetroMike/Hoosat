@@ -10,9 +10,6 @@ import (
 
 // These constants are used to identify a specific RuleError.
 var (
-	// ErrDevFeeNotIncluded indicates that the transactions do not
-	// include dev fee.
-	ErrDevFeeNotIncluded = newRuleError("ErrDevFeeNotIncluded")
 
 	// DaaScoreNil indicates that the DAA Score is zero or negative.
 	DaaScoreNil = newRuleError("DaaScoreNil")
@@ -131,6 +128,10 @@ var (
 	// ErrFirstTxNotCoinbase indicates the first transaction in a block
 	// is not a coinbase transaction.
 	ErrFirstTxNotCoinbase = newRuleError("ErrFirstTxNotCoinbase")
+
+	// ErrDevFeeNotIncluded indicates that the transactions do not
+	// include dev fee.
+	ErrDevFeeNotIncluded = newRuleError("ErrDevFeeNotIncluded")
 
 	// ErrMultipleCoinbases indicates a block contains more than one
 	// coinbase transaction.

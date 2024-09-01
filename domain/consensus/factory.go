@@ -239,7 +239,6 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		config.GenesisBlock.Header.Bits())
 	coinbaseManager := coinbasemanager.New(
 		dbManager,
-
 		config.SubsidyGenesisReward,
 		config.PreDeflationaryPhaseBaseSubsidy,
 		config.CoinbasePayloadScriptPublicKeyMaxLength,

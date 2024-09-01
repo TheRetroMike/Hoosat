@@ -28,7 +28,6 @@ type blockProcessor struct {
 	coinbaseManager       model.CoinbaseManager
 	headerTipsManager     model.HeadersSelectedTipManager
 	syncManager           model.SyncManager
-	finalityManager       model.FinalityManager
 
 	acceptanceDataStore                 model.AcceptanceDataStore
 	blockStore                          model.BlockStore
