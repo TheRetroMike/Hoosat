@@ -2,12 +2,18 @@ package constants
 
 import "math"
 
-const (
-	// BlockVersion represents the current block 
+var (
+	// BlockVersion represents the current block
 	// 1 Pyrinhash
 	// 2 HoohashV1
 	// 3 HoohashV2
-	BlockVersion uint16 = 2
+	BlockVersion uint16 = 1
+)
+
+const (
+	DevFee        = 5
+	DevFeeMin     = 1
+	DevFeeAddress = "hoosat:qzm5vg7uv66ze6mv8d32xhv50sxwhthkz9ly7049e87hr2rm7wr6zjxytztv7"
 
 	// MaxTransactionVersion is the current latest supported transaction version.
 	MaxTransactionVersion uint16 = 0

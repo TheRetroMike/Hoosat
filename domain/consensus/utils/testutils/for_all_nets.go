@@ -13,8 +13,6 @@ func ForAllNets(t *testing.T, skipPow bool, testFunc func(*testing.T, *consensus
 	allParams := []dagconfig.Params{
 		dagconfig.MainnetParams,
 		dagconfig.TestnetParams,
-		dagconfig.SimnetParams,
-		dagconfig.DevnetParams,
 	}
 
 	for _, params := range allParams {

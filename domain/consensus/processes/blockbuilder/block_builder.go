@@ -6,6 +6,7 @@ import (
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/blockheader"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/pkg/errors"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
@@ -64,7 +65,7 @@ func New(
 	return &blockBuilder{
 		databaseContext: databaseContext,
 		genesisHash:     genesisHash,
-		POWScores:  	 POWScores,
+		POWScores:       POWScores,
 
 		difficultyManager:     difficultyManager,
 		pastMedianTimeManager: pastMedianTimeManager,
@@ -228,15 +229,16 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 	}
 
 	// Raise BlockVersion until daaScore is more than powScore
-	var version uint16 = 1 
+	var blockVersion uint16 = 1
 	for _, powScore := range bb.POWScores {
-		if daaScore >= powScore { 
-			version = version + 1
+		if daaScore >= powScore {
+			blockVersion += 1
 		}
 	}
+	constants.BlockVersion = blockVersion
 
 	return blockheader.NewImmutableBlockHeader(
-		version,
+		blockVersion,
 		parents,
 		hashMerkleRoot,
 		acceptedIDMerkleRoot,
