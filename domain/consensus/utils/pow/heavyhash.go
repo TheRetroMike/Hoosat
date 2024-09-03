@@ -241,7 +241,7 @@ func billionFlops(x float64) float64 {
 }
 
 func ComplexNonLinear(x float64) float64 {
-	transformFactor := math.Mod(x, 1.0)
+	transformFactor := math.Mod(x, 4) / 4.0
 	if x < 1 {
 		if transformFactor < 0.25 {
 			return MediumComplexNonLinear(x + (1 + transformFactor))

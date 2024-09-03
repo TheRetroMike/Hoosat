@@ -1,3 +1,8 @@
+htnd v1.00.10 - 2024-08-3
+===========================
+
+* Fix Hoohash V1 ComplexNonLinear functions pathways by taking modulo out of integer value.
+
 htnd v1.00.00 - 2024-08-3
 ===========================
 
