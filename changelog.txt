@@ -1,9 +1,14 @@
-htnd v1.00.10 - 2024-08-3
+htnd v1.0.2 - 2024-08-6
+===========================
+
+* Fix proof of work state returning correct matrix for a block.
+
+htnd v1.0.1 - 2024-08-3
 ===========================
 
 * Fix Hoohash V1 ComplexNonLinear functions pathways by taking modulo out of integer value.
 
-htnd v1.00.00 - 2024-08-3
+htnd v1.0.0 - 2024-08-31
 ===========================
 
 For the love of Kaspa and GhostDAG, we are here to bring you FPGA / ASIC resistant algorithm in Hoosat Network. 
