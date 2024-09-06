@@ -30,7 +30,7 @@ type matrix [64][64]uint16
 // 	}
 // }
 
-func generateMatrix(hash *externalapi.DomainHash) *matrix {
+func GenerateMatrix(hash *externalapi.DomainHash) *matrix {
 	var mat matrix
 	generator := newxoShiRo256PlusPlus(hash)
 
@@ -63,7 +63,7 @@ func generateMatrix(hash *externalapi.DomainHash) *matrix {
 	}
 }
 
-func generateHoohashMatrix(hash *externalapi.DomainHash) *matrix {
+func GenerateHoohashMatrix(hash *externalapi.DomainHash) *matrix {
 	var mat matrix
 	generator := newxoShiRo256PlusPlus(hash)
 
@@ -354,6 +354,7 @@ func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *ex
 		vector[2*i] = float64(hashBytes[i] >> 4)
 		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
 	}
+	log.Infof("vector\n%v", vector)
 
 	// Matrix-vector multiplication with floating point operations
 	for i := 0; i < 64; i++ {
