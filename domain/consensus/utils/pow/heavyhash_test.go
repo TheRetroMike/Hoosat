@@ -29,7 +29,7 @@ func BenchmarkMatrixHoohashRev2(b *testing.B) {
 		vdfResult := verifiableDelayFunction(memoryHardResult)
 		combined := append(memoryHardResult, vdfResult...)
 		combined = append(combined, byte(tradeoffResult))
-		matrix := generateHoohashMatrix(hash)
+		matrix := GenerateHoohashMatrix(hash)
 		hash = matrix.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
 	}
 }
@@ -40,7 +40,7 @@ func BenchmarkMatrixHoohashRev1(b *testing.B) {
 		firstPass := hashes.Blake3HashWriter()
 		firstPass.InfallibleWrite(input)
 		hash := firstPass.Finalize()
-		matrix := generateHoohashMatrix(hash)
+		matrix := GenerateHoohashMatrix(hash)
 		hash = matrix.HoohashMatrixMultiplication(hash)
 	}
 }
@@ -51,7 +51,7 @@ func BenchmarkMatrixKheavyHash(b *testing.B) {
 		writer := hashes.KeccakHeavyHashWriter()
 		writer.InfallibleWrite(input)
 		hash := writer.Finalize()
-		matrix := generateMatrix(hash)
+		matrix := GenerateMatrix(hash)
 		hash = matrix.kHeavyHash(hash)
 	}
 }
@@ -62,7 +62,7 @@ func BenchmarkMatrixKarlsenHash(b *testing.B) {
 		writer := hashes.BlakeHeavyHashWriter()
 		writer.InfallibleWrite(input)
 		hash := writer.Finalize()
-		matrix := generateMatrix(hash)
+		matrix := GenerateMatrix(hash)
 		hash = matrix.kHeavyHash(hash)
 	}
 }
@@ -73,7 +73,7 @@ func BenchmarkMatrixPyrinhash(b *testing.B) {
 		writer := hashes.BlakeHeavyHashWriter()
 		writer.InfallibleWrite(input)
 		hash := writer.Finalize()
-		matrix := generateMatrix(hash)
+		matrix := GenerateMatrix(hash)
 		hash = matrix.bHeavyHash(hash)
 	}
 }
@@ -87,7 +87,7 @@ func BenchmarkMatrixWalahash(b *testing.B) {
 		blake3Writer := hashes.BlakeHeavyHashWriter()
 		blake3Writer.InfallibleWrite([]byte(keccakFinalized.String()))
 		hash := blake3Writer.Finalize()
-		matrix := generateMatrix(hash)
+		matrix := GenerateMatrix(hash)
 		hash = matrix.walahash(hash)
 	}
 }
@@ -98,7 +98,7 @@ func BenchmarkMatrix_Generate(b *testing.B) {
 	r.Read(h[:])
 	hash := externalapi.NewDomainHashFromByteArray(&h)
 	for i := 0; i < b.N; i++ {
-		generateMatrix(hash)
+		GenerateMatrix(hash)
 	}
 }
 
@@ -107,7 +107,7 @@ func BenchmarkMatrix_Rank(b *testing.B) {
 	h := [32]byte{}
 	r.Read(h[:])
 	hash := externalapi.NewDomainHashFromByteArray(&h)
-	matrix := generateMatrix(hash)
+	matrix := GenerateMatrix(hash)
 
 	for i := 0; i < b.N; i++ {
 		matrix.computeRank()
@@ -124,10 +124,10 @@ func TestMatrix_Rank(t *testing.T) {
 	h := [32]byte{}
 	r.Read(h[:])
 	hash := externalapi.NewDomainHashFromByteArray(&h)
-	mat = *generateMatrix(hash)
+	mat = *GenerateMatrix(hash)
 
 	if mat.computeRank() != 64 {
-		t.Fatalf("generateMatrix() should always return full rank matrix, instead got: %d", mat.computeRank())
+		t.Fatalf("GenerateMatrix() should always return full rank matrix, instead got: %d", mat.computeRank())
 	}
 
 	for i := range mat {
@@ -214,7 +214,7 @@ func TestGenerateMatrix(t *testing.T) {
 		{10, 12, 2, 14, 14, 1, 11, 8, 3, 7, 13, 7, 2, 1, 14, 13, 7, 6, 15, 8, 15, 12, 13, 10, 11, 15, 4, 2, 6, 13, 12, 3, 2, 10, 15, 14, 10, 11, 8, 14, 9, 3, 12, 9, 15, 2, 14, 14, 5, 13, 7, 6, 2, 1, 1, 4, 1, 0, 13, 10, 1, 0, 2, 9},
 		{10, 5, 11, 14, 12, 1, 12, 7, 12, 8, 10, 5, 6, 10, 0, 7, 5, 6, 11, 11, 13, 12, 0, 13, 0, 6, 11, 0, 14, 4, 2, 1, 12, 7, 1, 10, 7, 15, 5, 3, 14, 15, 1, 3, 1, 2, 10, 4, 11, 8, 2, 11, 2, 5, 5, 4, 15, 5, 10, 3, 1, 7, 2, 14},
 	}
-	mat := generateMatrix(hash)
+	mat := GenerateMatrix(hash)
 
 	if *mat != expectedMatrix {
 		t.Fatal("The generated matrix doesn't match the test vector")
