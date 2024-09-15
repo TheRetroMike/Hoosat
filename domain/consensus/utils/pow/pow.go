@@ -173,23 +173,19 @@ func (state *State) CalculateProofOfWorkValueHoohashV2() *big.Int {
 func (state *State) CalculateProofOfWorkValueHoohashV1() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.Blake3HashWriter()
-	log.Infof("PRE_POW_HASH: %v", state.prePowHash)
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
-	log.Infof("TIME: %d", state.Timestamp)
 	err := serialization.WriteElement(writer, state.Timestamp)
 	if err != nil {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
 	zeroes := [32]byte{}
 	writer.InfallibleWrite(zeroes[:])
-	log.Infof("Nonce: %d", state.Nonce)
 	err = serialization.WriteElement(writer, state.Nonce)
 	if err != nil {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
 	powHash := writer.Finalize()
 	multiplied := state.mat.HoohashMatrixMultiplication(powHash)
-	log.Infof("POW HASH: %v", multiplied)
 	return toBig(multiplied)
 }
 

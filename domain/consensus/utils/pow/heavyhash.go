@@ -1,6 +1,8 @@
 package pow
 
 import (
+	// "github.com/chewxy/math"
+
 	"math"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
@@ -219,7 +221,7 @@ func ExtremlyComplexNonLinear(x float64) float64 {
 
 func billionFlops(x float64) float64 {
 	// Sum inside the exponential function
-	sum := 0.0
+	sum := float64(0.0)
 	for j := 1; j <= 100; j++ {
 		sum += math.Pow(x, float64(2*j)) + 1.0/float64(j)
 	}
@@ -229,7 +231,7 @@ func billionFlops(x float64) float64 {
 	logPart := math.Log1p(expPart)
 
 	// Product of trigonometric functions
-	product := 1.0
+	product := float64(1.0)
 	for i := 1; i <= 1000; i++ {
 		powX := math.Pow(x, float64(i))
 		product *= math.Sin(powX) + math.Cos(math.Pow(x, float64(i+1))) + math.Tan(powX)
@@ -241,7 +243,7 @@ func billionFlops(x float64) float64 {
 }
 
 func ComplexNonLinear(x float64) float64 {
-	transformFactor := math.Mod(x, 4) / 4.0
+	transformFactor := math.Mod(x, 4.0) / 4.0
 	if x < 1 {
 		if transformFactor < 0.25 {
 			return MediumComplexNonLinear(x + (1 + transformFactor))
@@ -354,32 +356,26 @@ func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *ex
 		vector[2*i] = float64(hashBytes[i] >> 4)
 		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
 	}
-	log.Infof("vector\n%v", vector)
 
 	// Matrix-vector multiplication with floating point operations
 	for i := 0; i < 64; i++ {
 		for j := 0; j < 64; j++ {
 			// Transform Matrix values with complex non linear equations and sum into product.
-			product[i] += ComplexNonLinear(float64(mat[i][j])) * vector[j]
+			forComplex := float64(mat[i][j]) * vector[j]
+			for forComplex > 20 {
+				forComplex = forComplex * 0.1
+			}
+			product[i] += ComplexNonLinear(forComplex)
 		}
 	}
 
 	// Convert product back to uint16 and then to byte array
 	var res [32]byte
 	for i := range res {
-		high := math.Round(math.Mod(product[2*i], 16))
-		low := math.Round(math.Mod(product[2*i+1], 16))
-		// Clamp values to uint16 range
-		if high > 65535 {
-			high = 65535
-		}
-		if low > 65535 {
-			low = 65535
-		}
-		highInt := uint16(high)
-		lowInt := uint16(low)
+		high := uint32(product[2*i] * 0.000001)
+		low := uint32(product[2*i+1] * 0.000001)
 		// Combine high and low into a single byte
-		combined := (highInt<<4 | lowInt) & 0xFF
+		combined := (high ^ low) & 0xFF
 		res[i] = hashBytes[i] ^ byte(combined)
 	}
 	// Hash again

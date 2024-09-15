@@ -4,11 +4,13 @@ import (
 	"bytes"
 	"encoding/binary"
 	"encoding/hex"
+	"fmt"
 	"math/rand"
 	"testing"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashes"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/serialization"
 )
 
 func BenchmarkBasicComplexNonlinear(b *testing.B) {
@@ -34,15 +36,138 @@ func BenchmarkMatrixHoohashRev2(b *testing.B) {
 	}
 }
 
-func BenchmarkMatrixHoohashRev1(b *testing.B) {
-	input := []byte("BenchmarkMatrix_HeavyHash")
-	for i := 0; i < b.N; i++ {
-		firstPass := hashes.Blake3HashWriter()
-		firstPass.InfallibleWrite(input)
-		hash := firstPass.Finalize()
-		matrix := GenerateHoohashMatrix(hash)
-		hash = matrix.HoohashMatrixMultiplication(hash)
+func GenerateHoohashMatrixTest(hash *externalapi.DomainHash, t *testing.T) *matrix {
+	var mat matrix
+	generator := newxoShiRo256PlusPlus(hash)
+	// fmt.Printf("Generator.s0 %x\n", generator.s0)
+	// fmt.Printf("Generator.s1 %x\n", generator.s1)
+	// fmt.Printf("Generator.s2 %x\n", generator.s2)
+	// fmt.Printf("Generator.s3 %x\n", generator.s3)
+	for {
+		for i := range mat {
+			for j := 0; j < 64; j += 16 {
+				val := generator.Uint64()
+				mat[i][j] = uint16(val & 0x0F)
+				mat[i][j+1] = uint16((val >> 4) & 0x0F)
+				mat[i][j+2] = uint16((val >> 8) & 0x0F)
+				mat[i][j+3] = uint16((val >> 12) & 0x0F)
+				mat[i][j+4] = uint16((val >> 16) & 0x0F)
+				mat[i][j+5] = uint16((val >> 20) & 0x0F)
+				mat[i][j+6] = uint16((val >> 24) & 0x0F)
+				mat[i][j+7] = uint16((val >> 28) & 0x0F)
+				mat[i][j+8] = uint16((val >> 32) & 0x0F)
+				mat[i][j+9] = uint16((val >> 36) & 0x0F)
+				mat[i][j+10] = uint16((val >> 40) & 0x0F)
+				mat[i][j+11] = uint16((val >> 44) & 0x0F)
+				mat[i][j+12] = uint16((val >> 48) & 0x0F)
+				mat[i][j+13] = uint16((val >> 52) & 0x0F)
+				mat[i][j+14] = uint16((val >> 56) & 0x0F)
+				mat[i][j+15] = uint16((val >> 60) & 0x0F)
+			}
+		}
+		rank := mat.computeHoohashRank()
+		if rank == 64 {
+			return &mat
+		}
 	}
+}
+
+func (mat *matrix) HoohashMatrixMultiplicationTest(hash *externalapi.DomainHash, t *testing.T) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]float64
+	var product [64]float64
+
+	// Populate the vector with floating-point values
+	for i := 0; i < 32; i++ {
+		vector[2*i] = float64(hashBytes[i] >> 4)
+		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
+	}
+	fmt.Printf("Vector: ")
+	for i := 0; i < 64; i++ {
+		fmt.Printf("%f, ", vector[i])
+	}
+	fmt.Printf("\n")
+
+	// Matrix-vector multiplication with floating point operations
+	fmt.Printf("Product: ")
+	for i := 0; i < 64; i++ {
+		for j := 0; j < 64; j++ {
+			// Transform Matrix values with complex non linear equations and sum into product.
+			forComplex := float64(mat[i][j]) * vector[j]
+			for forComplex > 16 {
+				forComplex = forComplex * 0.1
+			}
+			product[i] += ComplexNonLinear(forComplex)
+		}
+		fmt.Printf("%.20f, ", product[i])
+	}
+	fmt.Printf("\n")
+
+	// Convert product back to uint16 and then to byte array
+	var res [32]byte
+	fmt.Printf("Hi/low: ")
+	for i := range res {
+		high := uint32(product[2*i] * 0.00000001)
+		low := uint32(product[2*i+1] * 0.00000001)
+		fmt.Printf("%d - %d, ", high, low)
+		// Combine high and low into a single byte
+		combined := (high ^ low) & 0xFF
+		res[i] = hashBytes[i] ^ byte(combined)
+	}
+	fmt.Printf("\n")
+	fmt.Printf("Res: ")
+	for i := range res {
+		fmt.Printf("%d, ", res[i])
+	}
+	fmt.Printf("\n")
+	// Hash again
+	writer := hashes.Blake3HashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+func TestMatrixHoohashRev1(t *testing.T) {
+
+	hexStrings := []string{
+		"a49dbc7d44ae83253823592fd388f219f3cb83639d54c9e4c3154db36f2b5157",
+		"c6342bcdf1e7aee531c42cf9d2e5aafe598d39fe4cdc226c45bcc953fef375ff",
+		"b7c8f43d8a99aecdd37912c9ad4f2e51c8009f7ce1cdf6e3be2767972cc68a1c",
+	}
+	var prePowHashes [][]byte
+
+	for _, hexStr := range hexStrings {
+		bytes, err := hex.DecodeString(hexStr)
+		if err != nil {
+			fmt.Printf("Error decoding hex string %s: %s\n", hexStr, err)
+			return
+		}
+		prePowHashes = append(prePowHashes, bytes)
+	}
+
+	for i := 0; i < 3; i++ {
+		for Nonce := int64(0); Nonce < 5; Nonce++ {
+			fmt.Printf("------------------------------\n")
+			fmt.Printf("Test %d\n", Nonce)
+			prePowHash := prePowHashes[i]
+			Timestamp := int64(1725374568455)
+			// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+			writer := hashes.Blake3HashWriter()
+			fmt.Printf("PRE_POW_HASH: %v\n", hex.EncodeToString(prePowHash))
+			writer.InfallibleWrite(prePowHash)
+			fmt.Printf("TIME: %d\n", Timestamp)
+			serialization.WriteElement(writer, Timestamp)
+			zeroes := [32]byte{}
+			writer.InfallibleWrite(zeroes[:])
+			fmt.Printf("Nonce: %d\n", Nonce)
+			serialization.WriteElement(writer, Nonce)
+			powHash := writer.Finalize()
+			// fmt.Printf("Powhash finalized: %v\n", powHash)
+			matrix := GenerateHoohashMatrixTest(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
+			multiplied := matrix.HoohashMatrixMultiplicationTest(powHash, t)
+			fmt.Printf("POW HASH: %v\n", multiplied)
+		}
+	}
+
+	t.Fail()
 }
 
 func BenchmarkMatrixKheavyHash(b *testing.B) {

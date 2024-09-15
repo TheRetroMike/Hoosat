@@ -25,6 +25,7 @@ require (
 require github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 
 require (
+	github.com/chewxy/math32 v1.11.0
 	github.com/golang/snappy v0.0.1 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
