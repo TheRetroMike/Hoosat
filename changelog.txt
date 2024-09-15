@@ -1,16 +1,21 @@
-HTND v1.0.3 - 2024-08-6
+HTND v1.0.4 - 2024-08-15
+===========================
+
+* Fix some values in Hoohash that we're meant to be in last release.
+
+HTND v1.0.3 - 2024-09-15
 ===========================
 
 * Fix CompleNonLinear not to be precalculable. 
 * Fix float and double precision to return same result.
 * Remove the useless debug messages from CheckProofOfWork.
 
-HTND v1.0.2 - 2024-08-6
+HTND v1.0.2 - 2024-09-6
 ===========================
 
 * Fix proof of work state returning correct matrix for a block.
 
-HTND v1.0.1 - 2024-08-3
+HTND v1.0.1 - 2024-09-3
 ===========================
 
 * Fix Hoohash V1 ComplexNonLinear functions pathways by taking modulo out of integer value.

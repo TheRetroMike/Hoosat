@@ -362,7 +362,7 @@ func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *ex
 		for j := 0; j < 64; j++ {
 			// Transform Matrix values with complex non linear equations and sum into product.
 			forComplex := float64(mat[i][j]) * vector[j]
-			for forComplex > 20 {
+			for forComplex > 16 {
 				forComplex = forComplex * 0.1
 			}
 			product[i] += ComplexNonLinear(forComplex)
@@ -372,8 +372,8 @@ func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *ex
 	// Convert product back to uint16 and then to byte array
 	var res [32]byte
 	for i := range res {
-		high := uint32(product[2*i] * 0.000001)
-		low := uint32(product[2*i+1] * 0.000001)
+		high := uint32(product[2*i] * 0.00000001)
+		low := uint32(product[2*i+1] * 0.00000001)
 		// Combine high and low into a single byte
 		combined := (high ^ low) & 0xFF
 		res[i] = hashBytes[i] ^ byte(combined)
