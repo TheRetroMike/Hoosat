@@ -1,3 +1,9 @@
+HTND v1.0.5 - 2024-08-17
+===========================
+
+* Fix hitting error "coinbase has too many outputs: got 26 where the limit is 20" by doubling the coinbase output limit, because of developer fee is counted as output with coinbase outputs. 
+
+
 HTND v1.0.4 - 2024-08-15
 ===========================
 

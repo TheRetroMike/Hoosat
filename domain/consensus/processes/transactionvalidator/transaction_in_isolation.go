@@ -132,6 +132,8 @@ func (v *transactionValidator) checkCoinbaseInIsolation(tx *externalapi.DomainTr
 	}
 
 	outputsLimit := uint64(v.ghostdagK) + 2
+	// Make the outputsLimits twice the size because of developer fee in outputs with coinbase outputs.
+	outputsLimit *= 2
 	if uint64(len(tx.Outputs)) > outputsLimit {
 		return errors.Wrapf(ruleerrors.ErrCoinbaseTooManyOutputs, "coinbase has too many outputs: got %d where the limit is %d", len(tx.Outputs), outputsLimit)
 	}
