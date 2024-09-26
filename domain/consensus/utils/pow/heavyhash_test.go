@@ -88,6 +88,12 @@ func (mat *matrix) HoohashMatrixMultiplicationTest(hash *externalapi.DomainHash,
 	}
 	fmt.Printf("\n")
 
+	fmt.Printf("Matrix first 64: ")
+	for i := 0; i < 64; i++ {
+		fmt.Printf("%d, ", mat[0][i])
+	}
+	fmt.Printf("\n")
+
 	// Matrix-vector multiplication with floating point operations
 	fmt.Printf("Product: ")
 	for i := 0; i < 64; i++ {
@@ -166,7 +172,73 @@ func TestMatrixHoohashRev1(t *testing.T) {
 			fmt.Printf("POW HASH: %v\n", multiplied)
 		}
 	}
+	fmt.Printf("------------------------------\n")
+	Nonce := int64(7794931619413402210)
+	fmt.Printf("Test %d\n", Nonce)
+	prePowHash, _ := hex.DecodeString("82b1d17c5e2200a0565956b711485a2cba6da909e588261582c2f465ec2e3d3f")
+	Timestamp := int64(1727011258677)
+	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+	writer := hashes.Blake3HashWriter()
+	fmt.Printf("PRE_POW_HASH: %v\n", hex.EncodeToString(prePowHash))
+	writer.InfallibleWrite(prePowHash)
+	fmt.Printf("TIME: %d\n", Timestamp)
+	serialization.WriteElement(writer, Timestamp)
+	zeroes := [32]byte{}
+	writer.InfallibleWrite(zeroes[:])
+	fmt.Printf("Nonce: %d\n", Nonce)
+	serialization.WriteElement(writer, Nonce)
+	powHash := writer.Finalize()
+	// fmt.Printf("Powhash finalized: %v\n", powHash)
+	matrix := GenerateHoohashMatrixTest(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
+	multiplied := matrix.HoohashMatrixMultiplicationTest(powHash, t)
+	fmt.Printf("POW HASH: %v\n", multiplied)
 
+	t.Fail()
+}
+
+func (mat *matrix) kHeavyHashTest(hash *externalapi.DomainHash, t *testing.T) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]uint16
+	var product [64]uint16
+	for i := 0; i < 32; i++ {
+		vector[2*i] = uint16(hashBytes[i] >> 4)
+		vector[2*i+1] = uint16(hashBytes[i] & 0x0F)
+	}
+	// Matrix-vector multiplication, and convert to 4 bits.
+	for i := 0; i < 64; i++ {
+		product[i] = 3
+	}
+	// Concatenate 4 LSBs back to 8 bit xor with sum1
+	var res [32]byte
+	for i := range res {
+		res[i] = hashBytes[i] ^ (byte(product[2*i]<<4) | byte(product[2*i+1]))
+	}
+	// Hash again
+	writer := hashes.KeccakHeavyHashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+
+func TestKHeavyHash(t *testing.T) {
+	fmt.Printf("------------------------------\n")
+	for Nonce := int64(0); Nonce <= 10000; Nonce++ {
+		fmt.Printf("Test %d\n", Nonce)
+		prePowHash, _ := hex.DecodeString("82b1d17c5e2200a0565956b711485a2cba6da909e588261582c2f465ec2e3d3f")
+		Timestamp := int64(1727011258677)
+		// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+		writer := hashes.Blake3HashWriter()
+		writer.InfallibleWrite(prePowHash)
+		serialization.WriteElement(writer, Timestamp)
+		zeroes := [32]byte{}
+		writer.InfallibleWrite(zeroes[:])
+		fmt.Printf("Nonce: %d\n", Nonce)
+		serialization.WriteElement(writer, Nonce)
+		powHash := writer.Finalize()
+		// fmt.Printf("Powhash finalized: %v\n", powHash)
+		matrix := GenerateHoohashMatrix(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)))
+		multiplied := matrix.kHeavyHashTest(powHash, t)
+		fmt.Printf("POW HASH: %v\n", multiplied)
+	}
 	t.Fail()
 }
 

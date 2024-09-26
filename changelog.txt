@@ -1,8 +1,12 @@
+HTND v1.0.6 - 2024-08-17
+===========================
+
+* I apologize. I've left burn address as the dev fee address. This is right address hoosat:qp4ad2eh72xc8dtjjyz4llxzq9utn6k26uyl644xxw70wskdfl85zsqj9k4vz
+
 HTND v1.0.5 - 2024-08-17
 ===========================
 
 * Fix hitting error "coinbase has too many outputs: got 26 where the limit is 20" by doubling the coinbase output limit, because of developer fee is counted as output with coinbase outputs. 
-
 
 HTND v1.0.4 - 2024-08-15
 ===========================
