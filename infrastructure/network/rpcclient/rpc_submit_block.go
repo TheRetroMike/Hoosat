@@ -5,9 +5,9 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
-func (c *RPCClient) submitBlock(block *externalapi.DomainBlock, allowNonDAABlocks bool) (appmessage.RejectReason, error) {
+func (c *RPCClient) submitBlock(block *externalapi.DomainBlock, powHash *externalapi.DomainHash, allowNonDAABlocks bool) (appmessage.RejectReason, error) {
 	err := c.rpcRouter.outgoingRoute().Enqueue(
-		appmessage.NewSubmitBlockRequestMessage(appmessage.DomainBlockToRPCBlock(block), allowNonDAABlocks))
+		appmessage.NewSubmitBlockRequestMessage(appmessage.DomainBlockToRPCBlock(block), powHash, allowNonDAABlocks))
 	if err != nil {
 		return appmessage.RejectReasonNone, err
 	}
@@ -23,11 +23,11 @@ func (c *RPCClient) submitBlock(block *externalapi.DomainBlock, allowNonDAABlock
 }
 
 // SubmitBlock sends an RPC request respective to the function's name and returns the RPC server's response
-func (c *RPCClient) SubmitBlock(block *externalapi.DomainBlock) (appmessage.RejectReason, error) {
-	return c.submitBlock(block, false)
+func (c *RPCClient) SubmitBlock(block *externalapi.DomainBlock, powHash *externalapi.DomainHash) (appmessage.RejectReason, error) {
+	return c.submitBlock(block, powHash, false)
 }
 
 // SubmitBlockAlsoIfNonDAA operates the same as SubmitBlock with the exception that `allowNonDAABlocks` is set to true
-func (c *RPCClient) SubmitBlockAlsoIfNonDAA(block *externalapi.DomainBlock) (appmessage.RejectReason, error) {
-	return c.submitBlock(block, true)
+func (c *RPCClient) SubmitBlockAlsoIfNonDAA(block *externalapi.DomainBlock, powHash *externalapi.DomainHash) (appmessage.RejectReason, error) {
+	return c.submitBlock(block, powHash, true)
 }

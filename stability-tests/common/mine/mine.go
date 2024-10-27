@@ -1,6 +1,7 @@
 package mine
 
 import (
+	"math/big"
 	"math/rand"
 	"path/filepath"
 	"strings"
@@ -69,13 +70,13 @@ func mineBlocks(consensusConfig *consensus.Config, rpcClient *rpc.Client, blockC
 			}
 		}
 
-		block, err := mineOrFetchBlock(blockData, mdb, testConsensus)
+		block, powHash, err := mineOrFetchBlock(blockData, mdb, testConsensus)
 		if err != nil {
 			return err
 		}
 
 		beforeSubmitBlockTime := time.Now()
-		rejectReason, err := rpcClient.SubmitBlockAlsoIfNonDAA(block)
+		rejectReason, err := rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
 		if err != nil {
 			return errors.Wrap(err, "error in SubmitBlock")
 		}
@@ -90,7 +91,7 @@ func mineBlocks(consensusConfig *consensus.Config, rpcClient *rpc.Client, blockC
 			intervalDuration := time.Since(lastLogTime)
 			blocksPerSecond := logInterval / intervalDuration.Seconds()
 			log.Infof("It took %s to submit %d blocks (%f blocks/sec) while %s of it it waited for RPC response"+
-				" (total blocks sent %d)", intervalDuration, logInterval, blocksPerSecond, rpcWaitInInterval,
+				" (total blocks sent  %d)", intervalDuration, logInterval, blocksPerSecond, rpcWaitInInterval,
 				totalBlocksSubmitted)
 			rpcWaitInInterval = 0
 			lastLogTime = time.Now()
@@ -102,19 +103,19 @@ func mineBlocks(consensusConfig *consensus.Config, rpcClient *rpc.Client, blockC
 	return nil
 }
 
-func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.TestConsensus) (*externalapi.DomainBlock, error) {
+func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.TestConsensus) (*externalapi.DomainBlock, *externalapi.DomainHash, error) {
 	hash := mdb.hashByID(blockData.ID)
 	if mdb.hashByID(blockData.ID) != nil {
 		block, found, err := testConsensus.GetBlock(hash)
 		if err != nil {
-			return nil, err
+			return nil, new(externalapi.DomainHash), err
 		}
 
 		if !found {
-			return nil, errors.Errorf("block %s is missing", hash)
+			return nil, new(externalapi.DomainHash), errors.Errorf("block %s is missing", hash)
 		}
 
-		return block, nil
+		return block, new(externalapi.DomainHash), nil
 	}
 
 	parentHashes := make([]*externalapi.DomainHash, len(blockData.Parents))
@@ -124,35 +125,35 @@ func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.
 	block, _, err := testConsensus.BuildBlockWithParents(parentHashes,
 		&externalapi.DomainCoinbaseData{ScriptPublicKey: &externalapi.ScriptPublicKey{}}, []*externalapi.DomainTransaction{})
 	if err != nil {
-		return nil, errors.Wrap(err, "error in BuildBlockWithParents")
+		return nil, new(externalapi.DomainHash), errors.Wrap(err, "error in BuildBlockWithParents")
 	}
-
+	var powHash = new(externalapi.DomainHash)
 	if !testConsensus.DAGParams().SkipProofOfWork {
-		SolveBlock(block)
+		_, powHash = SolveBlock(block)
 	}
 
 	err = testConsensus.ValidateAndInsertBlock(block, true)
 	if err != nil {
-		return nil, errors.Wrap(err, "error in ValidateAndInsertBlock")
+		return nil, new(externalapi.DomainHash), errors.Wrap(err, "error in ValidateAndInsertBlock")
 	}
 
 	blockHash := consensushashing.BlockHash(block)
 	err = mdb.putID(blockData.ID, blockHash)
 	if err != nil {
-		return nil, err
+		return nil, new(externalapi.DomainHash), err
 	}
 
 	err = mdb.updateLastMinedBlock(blockData.ID)
 	if err != nil {
-		return nil, err
+		return nil, new(externalapi.DomainHash), err
 	}
 
-	return block, nil
+	return block, powHash, nil
 }
 
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 // SolveBlock increments the given block's nonce until it matches the difficulty requirements in its bits field
-func SolveBlock(block *externalapi.DomainBlock) {
-	mining.SolveBlock(block, random)
+func SolveBlock(block *externalapi.DomainBlock) (*big.Int, *externalapi.DomainHash) {
+	return mining.SolveBlock(block, random)
 }

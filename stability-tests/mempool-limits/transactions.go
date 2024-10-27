@@ -106,8 +106,8 @@ func mineBlockAndGetCoinbaseTransaction(t *testing.T, rpcClient *rpcclient.RPCCl
 	if err != nil {
 		t.Fatalf("RPCBlockToDomainBlock: %+v", err)
 	}
-	mine.SolveBlock(templateBlock)
-	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(templateBlock)
+	_, powHash := mine.SolveBlock(templateBlock)
+	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(templateBlock, powHash)
 	if err != nil {
 		t.Fatalf("SubmitBlock: %+v", err)
 	}

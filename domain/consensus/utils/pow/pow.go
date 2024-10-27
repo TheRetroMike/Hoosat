@@ -134,7 +134,7 @@ func verifiableDelayFunction(input []byte) []byte {
 	return hash[:]
 }
 
-func (state *State) CalculateProofOfWorkValue() *big.Int {
+func (state *State) CalculateProofOfWorkValue() (*big.Int, *externalapi.DomainHash) {
 	if state.blockVersion == 1 {
 		return state.CalculateProofOfWorkValuePyrinhash()
 	} else if state.blockVersion == 2 {
@@ -146,7 +146,7 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	}
 }
 
-func (state *State) CalculateProofOfWorkValueHoohashV2() *big.Int {
+func (state *State) CalculateProofOfWorkValueHoohashV2() (*big.Int, *externalapi.DomainHash) {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.Blake3HashWriter()
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
@@ -167,10 +167,10 @@ func (state *State) CalculateProofOfWorkValueHoohashV2() *big.Int {
 	combined := append(memoryHardResult, vdfResult...)
 	combined = append(combined, byte(tradeoffResult))
 	hash := state.mat.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
-	return toBig(hash)
+	return toBig(hash), hash
 }
 
-func (state *State) CalculateProofOfWorkValueHoohashV1() *big.Int {
+func (state *State) CalculateProofOfWorkValueHoohashV1() (*big.Int, *externalapi.DomainHash) {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.Blake3HashWriter()
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
@@ -186,11 +186,11 @@ func (state *State) CalculateProofOfWorkValueHoohashV1() *big.Int {
 	}
 	powHash := writer.Finalize()
 	multiplied := state.mat.HoohashMatrixMultiplication(powHash)
-	return toBig(multiplied)
+	return toBig(multiplied), multiplied
 }
 
 // CalculateProofOfWorkValue hashes the internal header and returns its big.Int value
-func (state *State) CalculateProofOfWorkValuePyrinhash() *big.Int {
+func (state *State) CalculateProofOfWorkValuePyrinhash() (*big.Int, *externalapi.DomainHash) {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
 	writer := hashes.PoWHashWriter() // Blake 3
 	writer.InfallibleWrite(state.prePowHash.ByteSlice())
@@ -206,7 +206,7 @@ func (state *State) CalculateProofOfWorkValuePyrinhash() *big.Int {
 	}
 	powHash := writer.Finalize()
 	hash := state.mat.bHeavyHash(powHash)
-	return toBig(hash)
+	return toBig(hash), hash
 }
 
 // IncrementNonce the nonce in State by 1
@@ -218,7 +218,7 @@ func (state *State) IncrementNonce() {
 // it does not check if the difficulty itself is valid or less than the maximum for the appropriate network
 func (state *State) CheckProofOfWork() bool {
 	// The block pow must be less than the claimed target
-	powNum := state.CalculateProofOfWorkValue()
+	powNum, _ := state.CalculateProofOfWorkValue()
 
 	// The block hash must be less or equal than the claimed target.
 	return powNum.Cmp(&state.Target) <= 0
@@ -250,7 +250,7 @@ func BlockLevel(header externalapi.BlockHeader, maxBlockLevel int) int {
 		return maxBlockLevel
 	}
 
-	proofOfWorkValue := NewState(header.ToMutable()).CalculateProofOfWorkValue()
+	proofOfWorkValue, _ := NewState(header.ToMutable()).CalculateProofOfWorkValue()
 	level := maxBlockLevel - proofOfWorkValue.BitLen()
 	// If the block has a level lower than genesis make it zero.
 	if level < 0 {

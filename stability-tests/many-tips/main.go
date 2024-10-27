@@ -77,8 +77,8 @@ func realMain() error {
 	genesisTimestamp := activeConfig().NetParams().GenesisBlock.Header.TimeInMilliseconds()
 	mutableHeader.SetTimeInMilliseconds(genesisTimestamp + 1000)
 	block.Header = mutableHeader.ToImmutable()
-	mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
-	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block)
+	_, powHash := mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
+	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
 	if err != nil {
 		return err
 	}
@@ -183,8 +183,8 @@ func mineBlock(rpcClient *rpc.Client, miningAddress util.Address) error {
 	if err != nil {
 		return err
 	}
-	mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
-	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block)
+	_, powHash := mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
+	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
 	if err != nil {
 		return err
 	}
@@ -202,8 +202,8 @@ func mineTips(numOfTips int, miningAddress util.Address, rpcClient *rpc.Client) 
 	}
 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < numOfTips; i++ {
-		mining.SolveBlock(block, rd)
-		_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block)
+		_, powHash := mining.SolveBlock(block, rd)
+		_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
 		if err != nil {
 			return err
 		}

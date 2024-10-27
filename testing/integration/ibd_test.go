@@ -230,9 +230,9 @@ func mineNextBlockWithMockTimestamps(t *testing.T, harness *appHarness, rd *rand
 	mutableHeader.SetTimeInMilliseconds(currentMockTimestamp)
 	block.Header = mutableHeader.ToImmutable()
 
-	mining.SolveBlock(block, rd)
+	_, powhash := mining.SolveBlock(block, rd)
 
-	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block)
+	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block, powhash)
 	if err != nil {
 		t.Fatalf("Error submitting block: %s", err)
 	}

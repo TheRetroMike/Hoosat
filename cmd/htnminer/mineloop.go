@@ -22,6 +22,11 @@ var hashesTried uint64
 
 const logHashRateInterval = 10 * time.Second
 
+type PowTransfer struct {
+	Block   *externalapi.DomainBlock
+	PowHash *externalapi.DomainHash
+}
+
 func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond float64, mineWhenNotSynced bool,
 	miningAddr util.Address, threads *int) error {
 	rand.Seed(time.Now().UnixNano()) // Seed the global concurrent-safe random source.
@@ -33,7 +38,7 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 	// a high chance we'll get disconnected from the node, so we make the channel
 	// capacity router.DefaultMaxMessages/2 (we give some slack for getBlockTemplate
 	// requests)
-	foundBlockChan := make(chan *externalapi.DomainBlock, router.DefaultMaxMessages/2)
+	foundBlockChan := make(chan *PowTransfer, router.DefaultMaxMessages/2)
 
 	spawn("templatesLoop", func() {
 		templatesLoop(client, miningAddr, errChan)
@@ -78,8 +83,8 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 
 	spawn("handleFoundBlock", func() {
 		for i := uint64(0); numberOfBlocks == 0 || i < numberOfBlocks; i++ {
-			block := <-foundBlockChan
-			err := handleFoundBlock(client, block)
+			powTransfer := <-foundBlockChan
+			err := handleFoundBlock(client, powTransfer.Block, powTransfer.PowHash)
 			if err != nil {
 				errChan <- err
 				return
@@ -114,11 +119,11 @@ func logHashRate() {
 	})
 }
 
-func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error {
+func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock, powHash *externalapi.DomainHash) error {
 	blockHash := consensushashing.BlockHash(block)
 	log.Infof("Submitting block %s to %s", blockHash, client.Address())
 
-	rejectReason, err := client.SubmitBlock(block)
+	rejectReason, err := client.SubmitBlock(block, powHash)
 	if err != nil {
 		if nativeerrors.Is(err, router.ErrTimeout) {
 			log.Warnf("Got timeout while submitting block %s to %s: %s", blockHash, client.Address(), err)
@@ -140,7 +145,7 @@ func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error
 	return nil
 }
 
-func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
+func mineNextBlock(mineWhenNotSynced bool) *PowTransfer {
 	nonce := rand.Uint64() // Use the global concurrent-safe random source.
 	for {
 		nonce++
@@ -152,12 +157,16 @@ func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
 		block, state := getBlockForMining(mineWhenNotSynced)
 		state.Nonce = nonce
 		atomic.AddUint64(&hashesTried, 1)
-		if state.CheckProofOfWork() {
+		powNum, hash := state.CalculateProofOfWorkValue()
+		if powNum.Cmp(&state.Target) <= 0 {
 			mutHeader := block.Header.ToMutable()
 			mutHeader.SetNonce(nonce)
 			block.Header = mutHeader.ToImmutable()
 			log.Infof("Found block %s with parents %s", consensushashing.BlockHash(block), block.Header.DirectParents())
-			return block
+			return &PowTransfer{
+				Block:   block,
+				PowHash: hash,
+			}
 		}
 	}
 }

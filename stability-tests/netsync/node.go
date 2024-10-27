@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/stability-tests/common"
@@ -196,9 +197,10 @@ func mineOnTips(client *rpc.Client) (appmessage.RejectReason, error) {
 		return appmessage.RejectReasonNone, err
 	}
 
+	var powHash = new(externalapi.DomainHash)
 	if !activeConfig().NetParams().SkipProofOfWork {
-		mine.SolveBlock(domainBlock)
+		_, powHash = mine.SolveBlock(domainBlock)
 	}
 
-	return client.SubmitBlockAlsoIfNonDAA(domainBlock)
+	return client.SubmitBlockAlsoIfNonDAA(domainBlock, powHash)
 }

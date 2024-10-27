@@ -2,6 +2,7 @@ package daa
 
 import (
 	"math"
+	"math/big"
 	"math/rand"
 	"os"
 	"testing"
@@ -205,10 +206,12 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 		// Try hashes until we find a valid block
 		miningStartTime := time.Now()
 		minerState.Nonce = rand.Uint64()
+		var powNum = new(big.Int)
+		var powHash = new(externalapi.DomainHash)
 		for {
 			hashStartTime := time.Now()
-
-			if minerState.CheckProofOfWork() {
+			powNum, powHash = minerState.CalculateProofOfWorkValue()
+			if powNum.Cmp(&minerState.Target) <= 0 {
 				headerForMining.SetNonce(minerState.Nonce)
 				templateBlock.Header = headerForMining.ToImmutable()
 				break
@@ -240,7 +243,7 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 			return
 		}
 
-		submitMinedBlock(t, rpcClient, templateBlock)
+		submitMinedBlock(t, rpcClient, templateBlock, powHash)
 	})
 
 	averageMiningDurationInSeconds := averageMiningDuration.toDuration().Seconds()
@@ -297,8 +300,8 @@ func logMinedBlockStatsAndUpdateStatFields(t *testing.T, rpcClient *rpcclient.RP
 		miningDuration, averageMiningDurationAsDuration, averageHashesPerSecond, difficultyDelta, time.Since(startTime), *blocksMined)
 }
 
-func submitMinedBlock(t *testing.T, rpcClient *rpcclient.RPCClient, block *externalapi.DomainBlock) {
-	_, err := rpcClient.SubmitBlockAlsoIfNonDAA(block)
+func submitMinedBlock(t *testing.T, rpcClient *rpcclient.RPCClient, block *externalapi.DomainBlock, powHash *externalapi.DomainHash) {
+	_, err := rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
 	if err != nil {
 		t.Fatalf("SubmitBlock: %s", err)
 	}

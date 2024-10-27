@@ -22,9 +22,9 @@ func mineNextBlock(t *testing.T, harness *appHarness) *externalapi.DomainBlock {
 	}
 
 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
-	mining.SolveBlock(block, rd)
+	_, powHash := mining.SolveBlock(block, rd)
 
-	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block)
+	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
 	if err != nil {
 		t.Fatalf("Error submitting block: %s", err)
 	}

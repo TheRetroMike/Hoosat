@@ -1,10 +1,15 @@
 package appmessage
 
+import (
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
+)
+
 // SubmitBlockRequestMessage is an appmessage corresponding to
 // its respective RPC message
 type SubmitBlockRequestMessage struct {
 	baseMessage
 	Block             *RPCBlock
+	powHash           *externalapi.DomainHash
 	AllowNonDAABlocks bool
 }
 
@@ -14,9 +19,10 @@ func (msg *SubmitBlockRequestMessage) Command() MessageCommand {
 }
 
 // NewSubmitBlockRequestMessage returns a instance of the message
-func NewSubmitBlockRequestMessage(block *RPCBlock, allowNonDAABlocks bool) *SubmitBlockRequestMessage {
+func NewSubmitBlockRequestMessage(block *RPCBlock, powHash *externalapi.DomainHash, allowNonDAABlocks bool) *SubmitBlockRequestMessage {
 	return &SubmitBlockRequestMessage{
 		Block:             block,
+		powHash:           powHash,
 		AllowNonDAABlocks: allowNonDAABlocks,
 	}
 }
