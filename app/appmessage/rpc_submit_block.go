@@ -10,7 +10,7 @@ type SubmitBlockRequestMessage struct {
 	baseMessage
 	Block             *RPCBlock
 	AllowNonDAABlocks bool
-	powHash           *externalapi.DomainHash
+	PowHash           string
 }
 
 // Command returns the protocol command string for the message
@@ -23,7 +23,7 @@ func NewSubmitBlockRequestMessage(block *RPCBlock, allowNonDAABlocks bool, powHa
 	return &SubmitBlockRequestMessage{
 		Block:             block,
 		AllowNonDAABlocks: allowNonDAABlocks,
-		powHash:           powHash,
+		PowHash:           powHash.String(),
 	}
 }
 

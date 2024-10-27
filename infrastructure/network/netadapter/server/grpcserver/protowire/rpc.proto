@@ -133,7 +133,7 @@ message GetCurrentNetworkResponseMessage{
 message SubmitBlockRequestMessage{
   RpcBlock block = 2;
   bool allowNonDAABlocks = 3;
-  bytes pow_hash = 4;
+  string powHash = 4;
 }
 
 message SubmitBlockResponseMessage{

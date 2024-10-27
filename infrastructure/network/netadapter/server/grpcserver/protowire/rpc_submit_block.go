@@ -17,6 +17,7 @@ func (x *HoosatdMessage_SubmitBlockRequest) toAppMessage() (appmessage.Message, 
 func (x *HoosatdMessage_SubmitBlockRequest) fromAppMessage(message *appmessage.SubmitBlockRequestMessage) error {
 	x.SubmitBlockRequest = &SubmitBlockRequestMessage{Block: &RpcBlock{}}
 	x.SubmitBlockRequest.AllowNonDAABlocks = message.AllowNonDAABlocks
+	x.SubmitBlockRequest.PowHash = message.PowHash
 	return x.SubmitBlockRequest.Block.fromAppMessage(message.Block)
 }
 
@@ -31,6 +32,7 @@ func (x *SubmitBlockRequestMessage) toAppMessage() (appmessage.Message, error) {
 	return &appmessage.SubmitBlockRequestMessage{
 		Block:             blockAppMessage,
 		AllowNonDAABlocks: x.GetAllowNonDAABlocks(),
+		PowHash:           x.GetPowHash(),
 	}, nil
 }
 

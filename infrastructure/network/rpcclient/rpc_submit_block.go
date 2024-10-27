@@ -1,13 +1,18 @@
 package rpcclient
 
 import (
+	"encoding/json"
+	"fmt"
+
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 )
 
 func (c *RPCClient) submitBlock(block *externalapi.DomainBlock, powHash *externalapi.DomainHash, allowNonDAABlocks bool) (appmessage.RejectReason, error) {
-	err := c.rpcRouter.outgoingRoute().Enqueue(
-		appmessage.NewSubmitBlockRequestMessage(appmessage.DomainBlockToRPCBlock(block), allowNonDAABlocks, powHash))
+	submitBlockRequest := appmessage.NewSubmitBlockRequestMessage(appmessage.DomainBlockToRPCBlock(block), allowNonDAABlocks, powHash)
+	submitBlockRequestJson, _ := json.MarshalIndent(submitBlockRequest, "", "    ")
+	fmt.Printf("\r\nSending SubmitBlockRequestMessage: \r\n%s\r\n", submitBlockRequestJson)
+	err := c.rpcRouter.outgoingRoute().Enqueue(submitBlockRequest)
 	if err != nil {
 		return appmessage.RejectReasonNone, err
 	}
