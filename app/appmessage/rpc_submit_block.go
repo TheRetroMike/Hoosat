@@ -9,8 +9,8 @@ import (
 type SubmitBlockRequestMessage struct {
 	baseMessage
 	Block             *RPCBlock
-	powHash           *externalapi.DomainHash
 	AllowNonDAABlocks bool
+	powHash           *externalapi.DomainHash
 }
 
 // Command returns the protocol command string for the message
@@ -19,11 +19,11 @@ func (msg *SubmitBlockRequestMessage) Command() MessageCommand {
 }
 
 // NewSubmitBlockRequestMessage returns a instance of the message
-func NewSubmitBlockRequestMessage(block *RPCBlock, powHash *externalapi.DomainHash, allowNonDAABlocks bool) *SubmitBlockRequestMessage {
+func NewSubmitBlockRequestMessage(block *RPCBlock, allowNonDAABlocks bool, powHash *externalapi.DomainHash) *SubmitBlockRequestMessage {
 	return &SubmitBlockRequestMessage{
 		Block:             block,
-		powHash:           powHash,
 		AllowNonDAABlocks: allowNonDAABlocks,
+		powHash:           powHash,
 	}
 }
 

@@ -7,7 +7,7 @@ import (
 
 func (c *RPCClient) submitBlock(block *externalapi.DomainBlock, powHash *externalapi.DomainHash, allowNonDAABlocks bool) (appmessage.RejectReason, error) {
 	err := c.rpcRouter.outgoingRoute().Enqueue(
-		appmessage.NewSubmitBlockRequestMessage(appmessage.DomainBlockToRPCBlock(block), powHash, allowNonDAABlocks))
+		appmessage.NewSubmitBlockRequestMessage(appmessage.DomainBlockToRPCBlock(block), allowNonDAABlocks, powHash))
 	if err != nil {
 		return appmessage.RejectReasonNone, err
 	}
