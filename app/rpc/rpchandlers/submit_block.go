@@ -6,6 +6,7 @@ import (
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
 	"github.com/Hoosat-Oy/HTND/app/rpc/rpccontext"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
@@ -15,8 +16,20 @@ import (
 // HandleSubmitBlock handles the respectively named RPC command
 func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request appmessage.Message) (appmessage.Message, error) {
 	submitBlockRequest := request.(*appmessage.SubmitBlockRequestMessage)
-
 	var err error
+	if submitBlockRequest.PowHash == "" {
+		return &appmessage.SubmitBlockResponseMessage{
+			Error:        appmessage.RPCErrorf("Block not submitted, proof of work missing!"),
+			RejectReason: appmessage.RejectReasonIsInIBD,
+		}, nil
+	}
+	powHash, err := externalapi.NewDomainHashFromString(submitBlockRequest.PowHash)
+	if err != nil {
+		return &appmessage.SubmitBlockResponseMessage{
+			Error:        appmessage.RPCErrorf("Block not submitted, proof of work is not valid data!"),
+			RejectReason: appmessage.RejectReasonIsInIBD,
+		}, nil
+	}
 	isSynced := false
 	// The node is considered synced if it has peers and consensus state is nearly synced
 	if context.ProtocolManager.Context().HasPeers() {
@@ -57,8 +70,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 			}, nil
 		}
 	}
-
-	err = context.ProtocolManager.AddBlock(domainBlock)
+	err = context.ProtocolManager.AddBlock(domainBlock, powHash)
 	if err != nil {
 		isProtocolOrRuleError := errors.As(err, &ruleerrors.RuleError{}) || errors.As(err, &protocolerrors.ProtocolError{})
 		if !isProtocolOrRuleError {
