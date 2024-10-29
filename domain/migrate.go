@@ -170,7 +170,8 @@ func syncConsensuses(syncer, syncee externalapi.Consensus) error {
 		if !found {
 			return errors.Errorf("block %s is missing", blocksHash)
 		}
-		err = syncee.ValidateAndInsertBlock(block, false)
+
+		err = syncee.ValidateAndInsertBlock(block, false, new(externalapi.DomainHash))
 		if err != nil {
 			return err
 		}

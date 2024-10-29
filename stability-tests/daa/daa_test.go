@@ -168,7 +168,7 @@ func measureMachineHashNanoseconds(t *testing.T) int64 {
 	hashes := int64(0)
 	state.Nonce = rand.Uint64()
 	loopForDuration(machineHashesPerSecondMeasurementDuration, func(isFinished *bool) {
-		state.CheckProofOfWork()
+		state.CheckProofOfWork(new(externalapi.DomainHash))
 		hashes++
 		state.IncrementNonce()
 	})

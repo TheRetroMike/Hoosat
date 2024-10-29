@@ -102,12 +102,12 @@ func (f *FlowContext) SharedRequestedBlocks() *SharedRequestedBlocks {
 }
 
 // AddBlock adds the given block to the DAG and propagates it.
-func (f *FlowContext) AddBlock(block *externalapi.DomainBlock) error {
+func (f *FlowContext) AddBlock(block *externalapi.DomainBlock, powHash *externalapi.DomainHash) error {
 	if len(block.Transactions) == 0 {
 		return protocolerrors.Errorf(false, "cannot add header only block")
 	}
 
-	err := f.Domain().Consensus().ValidateAndInsertBlock(block, true)
+	err := f.Domain().Consensus().ValidateAndInsertBlock(block, true, powHash)
 	if err != nil {
 		if errors.As(err, &ruleerrors.RuleError{}) {
 			log.Warnf("Validation failed for block %s: %s", consensushashing.BlockHash(block), err)

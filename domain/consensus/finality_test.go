@@ -34,7 +34,7 @@ func TestFinality(t *testing.T) {
 				return nil, err
 			}
 
-			err = consensus.ValidateAndInsertBlock(block, true)
+			err = consensus.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 			if err != nil {
 				return nil, err
 			}
@@ -202,7 +202,7 @@ func TestBoundedMergeDepth(t *testing.T) {
 				return nil, false // fo some reason go doesn't recognize that t.Fatalf never returns
 			}
 
-			err = consensus.ValidateAndInsertBlock(block, true)
+			err = consensus.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 			if err == nil {
 				return block, false
 			} else if errors.Is(err, ruleerrors.ErrViolatingBoundedMergeDepth) {
@@ -214,7 +214,8 @@ func TestBoundedMergeDepth(t *testing.T) {
 		}
 
 		processBlock := func(consensus testapi.TestConsensus, block *externalapi.DomainBlock, name string) {
-			err := consensus.ValidateAndInsertBlock(block, true)
+
+			err := consensus.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("TestBoundedMergeDepth: %s got unexpected error from ProcessBlock: %+v", name, err)
 
@@ -226,7 +227,8 @@ func TestBoundedMergeDepth(t *testing.T) {
 			if err != nil {
 				t.Fatalf("TestBoundedMergeDepth: Failed building block: %+v", err)
 			}
-			err = consensus.ValidateAndInsertBlock(block, true)
+
+			err = consensus.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("TestBoundedMergeDepth: Failed Inserting block to consensus: %v", err)
 			}
@@ -269,7 +271,7 @@ func TestBoundedMergeDepth(t *testing.T) {
 					t.Fatalf("GetBlockHeader: %+v", err)
 				}
 
-				err = tcSyncee.ValidateAndInsertBlock(block, true)
+				err = tcSyncee.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 				if err != nil {
 					t.Fatalf("ValidateAndInsertBlock %d: %+v", i, err)
 				}
@@ -557,7 +559,7 @@ func TestFinalityResolveVirtual(t *testing.T) {
 				block.Header = mutableHeader.ToImmutable()
 			}
 
-			err = tcAttacker.ValidateAndInsertBlock(block, true)
+			err = tcAttacker.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 			if err != nil {
 				panic(err)
 			}
@@ -584,7 +586,8 @@ func TestFinalityResolveVirtual(t *testing.T) {
 		t.Logf("Side chain tip (%s) blue score %d", sideChainTipHash, sideChainTipGHOSTDAGData.BlueScore())
 
 		for _, block := range sideChain {
-			err := tc.ValidateAndInsertBlock(block, false)
+
+			err := tc.ValidateAndInsertBlock(block, false, new(externalapi.DomainHash))
 			if err != nil {
 				panic(err)
 			}

@@ -69,8 +69,8 @@ func (m *Manager) AddTransaction(tx *externalapi.DomainTransaction, allowOrphan 
 }
 
 // AddBlock adds the given block to the DAG and propagates it.
-func (m *Manager) AddBlock(block *externalapi.DomainBlock) error {
-	return m.context.AddBlock(block)
+func (m *Manager) AddBlock(block *externalapi.DomainBlock, powHash *externalapi.DomainHash) error {
+	return m.context.AddBlock(block, powHash)
 }
 
 // Context returns the manager's flow context

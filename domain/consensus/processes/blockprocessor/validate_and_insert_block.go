@@ -78,10 +78,10 @@ func (bp *blockProcessor) updateVirtualAcceptanceDataAfterImportingPruningPoint(
 }
 
 func (bp *blockProcessor) validateAndInsertBlock(stagingArea *model.StagingArea, block *externalapi.DomainBlock,
-	isPruningPoint bool, shouldValidateAgainstUTXO bool, isBlockWithTrustedData bool) (*externalapi.VirtualChangeSet, externalapi.BlockStatus, error) {
+	isPruningPoint bool, shouldValidateAgainstUTXO bool, isBlockWithTrustedData bool, powHash *externalapi.DomainHash) (*externalapi.VirtualChangeSet, externalapi.BlockStatus, error) {
 
 	blockHash := consensushashing.HeaderHash(block.Header)
-	err := bp.validateBlock(stagingArea, block, isBlockWithTrustedData)
+	err := bp.validateBlock(stagingArea, block, isBlockWithTrustedData, powHash)
 	if err != nil {
 		return nil, externalapi.StatusInvalid, err
 	}

@@ -11,5 +11,5 @@ type BlockValidator interface {
 	ValidateBodyInIsolation(stagingArea *StagingArea, blockHash *externalapi.DomainHash) error
 	ValidateHeaderInContext(stagingArea *StagingArea, blockHash *externalapi.DomainHash, isBlockWithTrustedData bool) error
 	ValidateBodyInContext(stagingArea *StagingArea, blockHash *externalapi.DomainHash, isBlockWithTrustedData bool) error
-	ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea *StagingArea, blockHash *externalapi.DomainHash, isBlockWithTrustedData bool) error
+	ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea *StagingArea, blockHash *externalapi.DomainHash, isBlockWithTrustedData bool, powHash *externalapi.DomainHash) error
 }

@@ -84,7 +84,7 @@ func TestConsensusStateManager_pickVirtualParents(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Failed building a block: %v", err)
 			}
-			err = tc.ValidateAndInsertBlock(block, true)
+			err = tc.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("Failed Inserting block to tc: %v", err)
 			}

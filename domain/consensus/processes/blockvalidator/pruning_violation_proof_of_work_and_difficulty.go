@@ -12,7 +12,7 @@ import (
 )
 
 func (v *blockValidator) ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea *model.StagingArea,
-	blockHash *externalapi.DomainHash, isBlockWithTrustedData bool) error {
+	blockHash *externalapi.DomainHash, isBlockWithTrustedData bool, powHash *externalapi.DomainHash) error {
 
 	onEnd := logger.LogAndMeasureExecutionTime(log, "ValidatePruningPointViolationAndProofOfWorkAndDifficulty")
 	defer onEnd()
@@ -50,7 +50,7 @@ func (v *blockValidator) ValidatePruningPointViolationAndProofOfWorkAndDifficult
 	}
 
 	if !blockHash.Equal(v.genesisHash) {
-		err = v.checkProofOfWork(header)
+		err = v.checkProofOfWork(header, powHash)
 		if err != nil {
 			return err
 		}
@@ -148,7 +148,7 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 // The flags modify the behavior of this function as follows:
 //   - BFNoPoWCheck: The check to ensure the block hash is less than the target
 //     difficulty is not performed.
-func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader) error {
+func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHash *externalapi.DomainHash) error {
 	// The target difficulty must be larger than zero.
 	state := pow.NewState(header.ToMutable())
 	target := &state.Target
@@ -165,7 +165,7 @@ func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader) error 
 
 	// The block pow must be valid unless the flag to avoid proof of work checks is set.
 	if !v.skipPoW {
-		valid := state.CheckProofOfWork()
+		valid := state.CheckProofOfWork(powHash)
 		if !valid {
 			return errors.Wrap(ruleerrors.ErrInvalidPoW, "block has invalid proof of work")
 		}

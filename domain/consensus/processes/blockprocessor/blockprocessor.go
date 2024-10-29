@@ -144,12 +144,12 @@ func New(
 // ValidateAndInsertBlock validates the given block and, if valid, applies it
 // to the current state
 func (bp *blockProcessor) ValidateAndInsertBlock(block *externalapi.DomainBlock,
-	shouldValidateAgainstUTXO bool) (*externalapi.VirtualChangeSet, externalapi.BlockStatus, error) {
+	shouldValidateAgainstUTXO bool, powHash *externalapi.DomainHash) (*externalapi.VirtualChangeSet, externalapi.BlockStatus, error) {
 	onEnd := logger.LogAndMeasureExecutionTime(log, "ValidateAndInsertBlock")
 	defer onEnd()
 
 	stagingArea := model.NewStagingArea()
-	return bp.validateAndInsertBlock(stagingArea, block, false, shouldValidateAgainstUTXO, false)
+	return bp.validateAndInsertBlock(stagingArea, block, false, shouldValidateAgainstUTXO, false, powHash)
 }
 
 func (bp *blockProcessor) ValidateAndInsertImportedPruningPoint(newPruningPoint *externalapi.DomainHash) error {

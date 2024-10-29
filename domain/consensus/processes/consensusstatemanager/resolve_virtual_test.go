@@ -50,7 +50,7 @@ func TestAddBlockBetweenResolveVirtualCalls(t *testing.T) {
 			hashes = append(hashes, previousBlockHash)
 
 			// Do not UTXO validate in order to resolve virtual later
-			err = tc.ValidateAndInsertBlock(previousBlock, false)
+			err = tc.ValidateAndInsertBlock(previousBlock, false, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("Error mining block no. %d in re-org chain: %+v", i, err)
 			}
@@ -82,7 +82,7 @@ func TestAddBlockBetweenResolveVirtualCalls(t *testing.T) {
 		}
 
 		// Add the mined block (now virtual was modified)
-		err = tc.ValidateAndInsertBlock(blockTemplate.Block, true)
+		err = tc.ValidateAndInsertBlock(blockTemplate.Block, true, new(externalapi.DomainHash))
 		if err != nil {
 			t.Fatalf("Error mining block during virtual resolution of reorg: %+v", err)
 		}
@@ -136,7 +136,7 @@ func TestAddGenesisChildAfterOneResolveVirtualCall(t *testing.T) {
 			hashes = append(hashes, previousBlockHash)
 
 			// Do not UTXO validate in order to resolve virtual later
-			err = tc.ValidateAndInsertBlock(previousBlock, false)
+			err = tc.ValidateAndInsertBlock(previousBlock, false, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("Error mining block no. %d in re-org chain: %+v", i, err)
 			}
@@ -201,7 +201,7 @@ func TestAddGenesisChildAfterTwoResolveVirtualCalls(t *testing.T) {
 			hashes = append(hashes, previousBlockHash)
 
 			// Do not UTXO validate in order to resolve virtual later
-			err = tc.ValidateAndInsertBlock(previousBlock, false)
+			err = tc.ValidateAndInsertBlock(previousBlock, false, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("Error mining block no. %d in re-org chain: %+v", i, err)
 			}
@@ -286,7 +286,7 @@ func TestResolveVirtualBackAndForthReorgs(t *testing.T) {
 			printfDebug("B_%d: %s\n", i, previousBlockHash)
 
 			// Do not UTXO validate in order to resolve virtual later
-			err = tc.ValidateAndInsertBlock(previousBlock, false)
+			err = tc.ValidateAndInsertBlock(previousBlock, false, new(externalapi.DomainHash))
 			if err != nil {
 				t.Fatalf("Error mining block no. %d in re-org chain: %+v", i, err)
 			}
