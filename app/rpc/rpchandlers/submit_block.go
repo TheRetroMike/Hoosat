@@ -2,6 +2,7 @@ package rpchandlers
 
 import (
 	"encoding/json"
+	"strings"
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
@@ -23,7 +24,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 			RejectReason: appmessage.RejectReasonIsInIBD,
 		}, nil
 	}
-	powHash, err := externalapi.NewDomainHashFromString(submitBlockRequest.PowHash)
+	powHash, err := externalapi.NewDomainHashFromString(strings.Replace(submitBlockRequest.PowHash, "0x", "", 1))
 	if err != nil {
 		return &appmessage.SubmitBlockResponseMessage{
 			Error:        appmessage.RPCErrorf("Block not submitted, proof of work is not valid data!"),
