@@ -362,7 +362,7 @@ func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *ex
 		for j := 0; j < 64; j++ {
 			// Transform Matrix values with complex non linear equations and sum into product.
 			forComplex := float64(mat[i][j]) * vector[j]
-			for forComplex > 16 {
+			for forComplex > 14 {
 				forComplex = forComplex * 0.1
 			}
 			product[i] += ComplexNonLinear(forComplex)
