@@ -1,3 +1,8 @@
+HTND v1.1.0 - 2024-08-17
+===========================
+* Real Proof of Work hash validation in block version 3.
+* Hoohash v1.0.1 into use with block version 3. Hoohash update brings more precision to floating point rounding calculations.
+
 HTND v1.0.6 - 2024-08-17
 ===========================
 
