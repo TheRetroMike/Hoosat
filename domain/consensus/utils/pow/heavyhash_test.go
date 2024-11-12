@@ -32,7 +32,7 @@ func BenchmarkMatrixHoohashRev2(b *testing.B) {
 		combined := append(memoryHardResult, vdfResult...)
 		combined = append(combined, byte(tradeoffResult))
 		matrix := GenerateHoohashMatrix(hash)
-		hash = matrix.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
+		hash = matrix.HoohashMatrixMultiplicationV1(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
 	}
 }
 

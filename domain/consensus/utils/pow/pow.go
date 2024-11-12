@@ -140,7 +140,7 @@ func (state *State) CalculateProofOfWorkValue() (*big.Int, *externalapi.DomainHa
 	} else if state.blockVersion == 2 {
 		return state.CalculateProofOfWorkValueHoohashV1()
 	} else if state.blockVersion == 3 {
-		return state.CalculateProofOfWorkValueHoohashV2()
+		return state.CalculateProofOfWorkValueHoohashV101()
 	} else {
 		return state.CalculateProofOfWorkValuePyrinhash() // default to the oldest version.
 	}
@@ -166,7 +166,7 @@ func (state *State) CalculateProofOfWorkValueHoohashV2() (*big.Int, *externalapi
 	vdfResult := verifiableDelayFunction(memoryHardResult)
 	combined := append(memoryHardResult, vdfResult...)
 	combined = append(combined, byte(tradeoffResult))
-	hash := state.mat.HoohashMatrixMultiplication(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
+	hash := state.mat.HoohashMatrixMultiplicationV101(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
 	return toBig(hash), hash
 }
 
@@ -185,7 +185,26 @@ func (state *State) CalculateProofOfWorkValueHoohashV1() (*big.Int, *externalapi
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
 	powHash := writer.Finalize()
-	multiplied := state.mat.HoohashMatrixMultiplication(powHash)
+	multiplied := state.mat.HoohashMatrixMultiplicationV1(powHash)
+	return toBig(multiplied), multiplied
+}
+
+func (state *State) CalculateProofOfWorkValueHoohashV101() (*big.Int, *externalapi.DomainHash) {
+	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+	writer := hashes.Blake3HashWriter()
+	writer.InfallibleWrite(state.prePowHash.ByteSlice())
+	err := serialization.WriteElement(writer, state.Timestamp)
+	if err != nil {
+		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
+	}
+	zeroes := [32]byte{}
+	writer.InfallibleWrite(zeroes[:])
+	err = serialization.WriteElement(writer, state.Nonce)
+	if err != nil {
+		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
+	}
+	powHash := writer.Finalize()
+	multiplied := state.mat.HoohashMatrixMultiplicationV101(powHash)
 	return toBig(multiplied), multiplied
 }
 
@@ -219,15 +238,16 @@ func (state *State) IncrementNonce() {
 func (state *State) CheckProofOfWork(powHash *externalapi.DomainHash) bool {
 	// The block pow must be less than the claimed target
 	powNum, _ := state.CalculateProofOfWorkValue()
-	if !powHash.Equal(new(externalapi.DomainHash)) { // Check that PowHash is not empty default.
-		submittedPowNum := toBig(powHash)
-		if submittedPowNum.Cmp(powNum) == 0 {
-			// The block hash must be less or equal than the claimed target, powHash was valid.
-			return powNum.Cmp(&state.Target) <= 0
-		}
-	} else {
-		// The block hash must be less or equal than the claimed target, could not check powHash
+	if state.blockVersion <= 2 {
 		return powNum.Cmp(&state.Target) <= 0
+	} else if state.blockVersion > 3 {
+		if !powHash.Equal(new(externalapi.DomainHash)) { // Check that PowHash is not empty default.
+			submittedPowNum := toBig(powHash)
+			if submittedPowNum.Cmp(powNum) == 0 {
+				// The block hash must be less or equal than the claimed target, powHash was valid.
+				return powNum.Cmp(&state.Target) <= 0
+			}
+		}
 	}
 	return false
 }

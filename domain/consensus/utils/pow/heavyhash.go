@@ -346,7 +346,45 @@ func (mat *matrix) computeRank() int {
 	return rank
 }
 
-func (mat *matrix) HoohashMatrixMultiplication(hash *externalapi.DomainHash) *externalapi.DomainHash {
+func (mat *matrix) HoohashMatrixMultiplicationV1(hash *externalapi.DomainHash) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]float64
+	var product [64]float64
+
+	// Populate the vector with floating-point values
+	for i := 0; i < 32; i++ {
+		vector[2*i] = float64(hashBytes[i] >> 4)
+		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
+	}
+
+	// Matrix-vector multiplication with floating point operations
+	for i := 0; i < 64; i++ {
+		for j := 0; j < 64; j++ {
+			// Transform Matrix values with complex non linear equations and sum into product.
+			forComplex := float64(mat[i][j]) * vector[j]
+			for forComplex > 16 {
+				forComplex = forComplex * 0.1
+			}
+			product[i] += ComplexNonLinear(forComplex)
+		}
+	}
+
+	// Convert product back to uint16 and then to byte array
+	var res [32]byte
+	for i := range res {
+		high := uint32(product[2*i] * 0.00000001)
+		low := uint32(product[2*i+1] * 0.00000001)
+		// Combine high and low into a single byte
+		combined := (high ^ low) & 0xFF
+		res[i] = hashBytes[i] ^ byte(combined)
+	}
+	// Hash again
+	writer := hashes.Blake3HashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+
+func (mat *matrix) HoohashMatrixMultiplicationV101(hash *externalapi.DomainHash) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()
 	var vector [64]float64
 	var product [64]float64
