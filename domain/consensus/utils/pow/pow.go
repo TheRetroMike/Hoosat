@@ -240,7 +240,7 @@ func (state *State) CheckProofOfWork(powHash *externalapi.DomainHash) bool {
 	powNum, _ := state.CalculateProofOfWorkValue()
 	if state.blockVersion <= 2 {
 		return powNum.Cmp(&state.Target) <= 0
-	} else if state.blockVersion > 3 {
+	} else if state.blockVersion >= 3 {
 		if !powHash.Equal(new(externalapi.DomainHash)) { // Check that PowHash is not empty default.
 			submittedPowNum := toBig(powHash)
 			if submittedPowNum.Cmp(powNum) == 0 {
