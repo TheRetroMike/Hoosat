@@ -2,6 +2,7 @@ package rpchandlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
@@ -30,15 +31,17 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 	constants.BlockVersion = version
 	if submitBlockRequest.Block.Header.Version >= 3 && constants.BlockVersion >= 3 {
 		if submitBlockRequest.PowHash == "" {
+			submitBlockRequestJSON, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
 			return &appmessage.SubmitBlockResponseMessage{
-				Error:        appmessage.RPCErrorf("Block not submitted, proof of work missing!"),
+				Error:        appmessage.RPCErrorf(fmt.Sprintf("Block not submitted, proof of work missing! %s", string(submitBlockRequestJSON))),
 				RejectReason: appmessage.RejectReasonBlockInvalid,
 			}, nil
 		}
 		powHash, err = externalapi.NewDomainHashFromString(strings.Replace(submitBlockRequest.PowHash, "0x", "", 1))
 		if err != nil {
+			submitBlockRequestJSON, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
 			return &appmessage.SubmitBlockResponseMessage{
-				Error:        appmessage.RPCErrorf("Block not submitted, proof of work is not valid data!"),
+				Error:        appmessage.RPCErrorf(fmt.Sprintf("lock not submitted, proof of work is not valid data! %s", string(submitBlockRequestJSON))),
 				RejectReason: appmessage.RejectReasonBlockInvalid,
 			}, nil
 		}
@@ -90,10 +93,10 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 			return nil, err
 		}
 
-		jsonBytes, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
-		if jsonBytes != nil {
+		submitBlockRequestJSON, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
+		if submitBlockRequestJSON != nil {
 			log.Warnf("The RPC submitted block triggered a rule/protocol error (%s), printing "+
-				"the full block for debug purposes: \n%s", err, string(jsonBytes))
+				"the full block for debug purposes: \n%s", err, string(submitBlockRequestJSON))
 		}
 
 		return &appmessage.SubmitBlockResponseMessage{

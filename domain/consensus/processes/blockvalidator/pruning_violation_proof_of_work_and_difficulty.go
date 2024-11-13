@@ -1,6 +1,8 @@
 package blockvalidator
 
 import (
+	"fmt"
+
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
@@ -167,7 +169,7 @@ func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHas
 	if !v.skipPoW {
 		valid := state.CheckProofOfWork(powHash)
 		if !valid {
-			return errors.Wrap(ruleerrors.ErrInvalidPoW, "block has invalid proof of work")
+			return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
 		}
 	}
 	return nil
