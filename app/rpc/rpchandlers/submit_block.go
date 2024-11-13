@@ -10,6 +10,7 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
@@ -18,18 +19,29 @@ import (
 func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request appmessage.Message) (appmessage.Message, error) {
 	submitBlockRequest := request.(*appmessage.SubmitBlockRequestMessage)
 	var err error
-	if submitBlockRequest.PowHash == "" {
-		return &appmessage.SubmitBlockResponseMessage{
-			Error:        appmessage.RPCErrorf("Block not submitted, proof of work missing!"),
-			RejectReason: appmessage.RejectReasonIsInIBD,
-		}, nil
+	var powHash *externalapi.DomainHash
+	daaScore := submitBlockRequest.Block.Header.DAAScore
+	var version uint16 = 1
+	for _, powScore := range context.Config.ActiveNetParams.POWScores {
+		if daaScore >= powScore {
+			version = version + 1
+		}
 	}
-	powHash, err := externalapi.NewDomainHashFromString(strings.Replace(submitBlockRequest.PowHash, "0x", "", 1))
-	if err != nil {
-		return &appmessage.SubmitBlockResponseMessage{
-			Error:        appmessage.RPCErrorf("Block not submitted, proof of work is not valid data!"),
-			RejectReason: appmessage.RejectReasonIsInIBD,
-		}, nil
+	constants.BlockVersion = version
+	if submitBlockRequest.Block.Header.Version != uint32(constants.BlockVersion) {
+		if submitBlockRequest.PowHash == "" {
+			return &appmessage.SubmitBlockResponseMessage{
+				Error:        appmessage.RPCErrorf("Block not submitted, proof of work missing!"),
+				RejectReason: appmessage.RejectReasonBlockInvalid,
+			}, nil
+		}
+		powHash, err = externalapi.NewDomainHashFromString(strings.Replace(submitBlockRequest.PowHash, "0x", "", 1))
+		if err != nil {
+			return &appmessage.SubmitBlockResponseMessage{
+				Error:        appmessage.RPCErrorf("Block not submitted, proof of work is not valid data!"),
+				RejectReason: appmessage.RejectReasonBlockInvalid,
+			}, nil
+		}
 	}
 	isSynced := false
 	// The node is considered synced if it has peers and consensus state is nearly synced
