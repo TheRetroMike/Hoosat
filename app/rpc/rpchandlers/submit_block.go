@@ -28,7 +28,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 		}
 	}
 	constants.BlockVersion = version
-	if submitBlockRequest.Block.Header.Version != uint32(constants.BlockVersion) {
+	if submitBlockRequest.Block.Header.Version >= 3 && constants.BlockVersion >= 3 {
 		if submitBlockRequest.PowHash == "" {
 			return &appmessage.SubmitBlockResponseMessage{
 				Error:        appmessage.RPCErrorf("Block not submitted, proof of work missing!"),
