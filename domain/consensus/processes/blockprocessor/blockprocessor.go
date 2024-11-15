@@ -149,7 +149,7 @@ func (bp *blockProcessor) ValidateAndInsertBlock(block *externalapi.DomainBlock,
 	defer onEnd()
 
 	stagingArea := model.NewStagingArea()
-	return bp.validateAndInsertBlock(stagingArea, block, false, shouldValidateAgainstUTXO, false, powHash)
+	return bp.validateAndInsertBlock(stagingArea, block, false, shouldValidateAgainstUTXO, false, powHash, false)
 }
 
 func (bp *blockProcessor) ValidateAndInsertImportedPruningPoint(newPruningPoint *externalapi.DomainHash) error {

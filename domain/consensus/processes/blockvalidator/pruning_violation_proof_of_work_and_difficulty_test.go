@@ -334,7 +334,7 @@ func TestValidateDifficulty(t *testing.T) {
 		wrongTestDifficulty := mocDifficulty.testDifficulty + uint32(5)
 		mocDifficulty.testDifficulty = wrongTestDifficulty
 
-		err = tc.BlockValidator().ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea, blockHash, false, new(externalapi.DomainHash))
+		err = tc.BlockValidator().ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea, blockHash, false, new(externalapi.DomainHash), false)
 		if err == nil || !errors.Is(err, ruleerrors.ErrUnexpectedDifficulty) {
 			t.Fatalf("Expected block to be invalid with err: %v, instead found: %v", ruleerrors.ErrUnexpectedDifficulty, err)
 		}
