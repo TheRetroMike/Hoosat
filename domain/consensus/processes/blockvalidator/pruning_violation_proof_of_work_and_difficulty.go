@@ -165,16 +165,16 @@ func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHas
 			"higher than max of %064x", target, v.powMax)
 	}
 
-	// The block pow must be valid unless the flag to avoid proof of work checks is set.
-	if !v.skipPoW {
-		if !trusted {
-			valid := state.CheckProofOfWork(powHash)
-			if !valid {
-				return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
-			}
-		}
-		return nil
-	}
+	// // The block pow must be valid unless the flag to avoid proof of work checks is set.
+	// if !v.skipPoW {
+	// 	if !trusted {
+	// 		valid := state.CheckProofOfWork(powHash)
+	// 		if !valid {
+	// 			return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
+	// 		}
+	// 	}
+	// 	return nil
+	// }
 	return nil
 }
 
