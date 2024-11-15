@@ -166,11 +166,14 @@ func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHas
 	}
 
 	// The block pow must be valid unless the flag to avoid proof of work checks is set.
-	if !v.skipPoW && !trusted {
-		valid := state.CheckProofOfWork(powHash)
-		if !valid {
-			return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
+	if !v.skipPoW {
+		if !trusted {
+			valid := state.CheckProofOfWork(powHash)
+			if !valid {
+				return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
+			}
 		}
+		return nil
 	}
 	return nil
 }
