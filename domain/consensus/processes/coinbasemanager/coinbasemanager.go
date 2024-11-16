@@ -83,7 +83,7 @@ func (c *coinbaseManager) ExpectedCoinbaseTransaction(stagingArea *model.Staging
 		if hasRedReward {
 			txOuts = append(txOuts, txOut)
 		}
-	} else if constants.BlockVersion == 2 {
+	} else if constants.BlockVersion >= 2 {
 		for _, blue := range ghostdagData.MergeSetBlues() {
 			txOut, devTx, hasReward, err := c.coinbaseOutputForBlueBlockV2(stagingArea, blue, acceptanceDataMap[*blue], daaAddedBlocksSet)
 			if err != nil {
