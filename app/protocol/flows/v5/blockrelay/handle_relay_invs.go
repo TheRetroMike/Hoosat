@@ -340,27 +340,10 @@ func (flow *handleRelayInvsFlow) readMsgBlock() (msgBlock *appmessage.MsgBlock, 
 
 func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock) ([]*externalapi.DomainHash, error) {
 	blockHash := consensushashing.BlockHash(block)
-	blacklist := []string{
-		"6a19e5a0891985a411730b40d1277e17e1a6f31efdb74ca4a455d51777ca1099",
-		"8341e50017bcf0d62acc1a625321581b7eb85eed960f51006c8e2794f369f4ac",
-		"a68ae167dca28c4164d2aec67185f7405ddd7712b725a6b34ed5cd78aa59f103",
-		"cf7210d22694322b02639942ec90a7ef3eba924efe23ecb8b4b80941421ce87a",
-	}
-	found := false
-	for _, hash := range blacklist {
-		if hash == blockHash.String() {
-			found = true
-			break
-		}
-	}
-	if found {
-		return nil, nil
-	}
 	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {
-			log.Warnf("Failed to process block %s", blockHash)
-			return nil, nil
+			return nil, errors.Wrapf(err, "failed to process block %s", blockHash)
 		}
 
 		missingParentsError := &ruleerrors.ErrMissingParents{}
