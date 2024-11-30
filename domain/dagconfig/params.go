@@ -219,6 +219,9 @@ var MainnetParams = Params{
 	DNSSeeds: []string{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
+		// These DNS seeders are run by Cryptonoob
+		"mainnet-dnsseed-1.hoosat.org",
+		"mainnet-dnsseed-2.hoosat.org",
 	},
 
 	// DAG parameters
@@ -287,7 +290,11 @@ var TestnetParams = Params{
 	RPCPort:     "42422",
 	DefaultPort: "42423",
 	DNSSeeds: []string{
+		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
+		// These DNS seeders are run by Cryptonoob
+		"mainnet-dnsseed-1.hoosat.org",
+		"mainnet-dnsseed-2.hoosat.org",
 	},
 
 	// DAG parameters
