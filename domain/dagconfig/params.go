@@ -220,8 +220,10 @@ var MainnetParams = Params{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
 		// These DNS seeders are run by Cryptonoob
-		"mainnet-dnsseed-1.hoosat.org",
-		"mainnet-dnsseed-2.hoosat.org",
+		"mainnet-node-1.hoosat.org",
+		"mainnet-node-2.hoosat.org",
+		"mainnet-node-3.hoosat.org",
+		"mainnet-node-4.hoosat.org",
 	},
 
 	// DAG parameters
@@ -293,8 +295,10 @@ var TestnetParams = Params{
 		// This DNS seeder is run by Toni Lukkaroinen
 		"mainnet-dnsseed.hoosat.fi",
 		// These DNS seeders are run by Cryptonoob
-		"mainnet-dnsseed-1.hoosat.org",
-		"mainnet-dnsseed-2.hoosat.org",
+		"mainnet-node-1.hoosat.org",
+		"mainnet-node-2.hoosat.org",
+		"mainnet-node-3.hoosat.org",
+		"mainnet-node-4.hoosat.org",
 	},
 
 	// DAG parameters
