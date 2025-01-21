@@ -102,12 +102,14 @@ func mineBlockAndGetCoinbaseTransaction(t *testing.T, rpcClient *rpcclient.RPCCl
 	if err != nil {
 		t.Fatalf("GetBlockTemplate: %+v", err)
 	}
-	templateBlock, err := appmessage.RPCBlockToDomainBlock(getBlockTemplateResponse.Block)
+	powHash, _ := externalapi.NewDomainHashFromString("MINE_BLOCK_POW_HASH")
+	templateBlock, err := appmessage.RPCBlockToDomainBlock(getBlockTemplateResponse.Block, powHash)
 	if err != nil {
 		t.Fatalf("RPCBlockToDomainBlock: %+v", err)
 	}
-	_, powHash := mine.SolveBlock(templateBlock)
-	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(templateBlock, powHash)
+	_, powHash = mine.SolveBlock(templateBlock)
+	templateBlock.PoWHash = powHash
+	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(templateBlock, templateBlock.PoWHash)
 	if err != nil {
 		t.Fatalf("SubmitBlock: %+v", err)
 	}

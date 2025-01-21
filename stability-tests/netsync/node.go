@@ -192,15 +192,15 @@ func mineOnTips(client *rpc.Client) (appmessage.RejectReason, error) {
 		return appmessage.RejectReasonNone, err
 	}
 
-	domainBlock, err := appmessage.RPCBlockToDomainBlock(template.Block)
+	powHash, _ := externalapi.NewDomainHashFromString("MINE_TIPS_POW_HASH")
+	domainBlock, err := appmessage.RPCBlockToDomainBlock(template.Block, powHash)
 	if err != nil {
 		return appmessage.RejectReasonNone, err
 	}
 
-	var powHash = new(externalapi.DomainHash)
 	if !activeConfig().NetParams().SkipProofOfWork {
 		_, powHash = mine.SolveBlock(domainBlock)
 	}
-
-	return client.SubmitBlockAlsoIfNonDAA(domainBlock, powHash)
+	domainBlock.PoWHash = powHash
+	return client.SubmitBlockAlsoIfNonDAA(domainBlock, domainBlock.PoWHash)
 }

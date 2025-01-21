@@ -25,6 +25,7 @@ func DomainBlockToMsgBlock(domainBlock *externalapi.DomainBlock) *MsgBlock {
 	return &MsgBlock{
 		Header:       *DomainBlockHeaderToBlockHeader(domainBlock.Header),
 		Transactions: msgTxs,
+		PoWHash:      domainBlock.PoWHash,
 	}
 }
 
@@ -56,6 +57,7 @@ func MsgBlockToDomainBlock(msgBlock *MsgBlock) *externalapi.DomainBlock {
 	return &externalapi.DomainBlock{
 		Header:       BlockHeaderToDomainBlockHeader(&msgBlock.Header),
 		Transactions: transactions,
+		PoWHash:      msgBlock.PoWHash,
 	}
 }
 
@@ -376,7 +378,7 @@ func DomainBlockToRPCBlock(block *externalapi.DomainBlock) *RPCBlock {
 }
 
 // RPCBlockToDomainBlock converts `block` into a DomainBlock
-func RPCBlockToDomainBlock(block *RPCBlock) (*externalapi.DomainBlock, error) {
+func RPCBlockToDomainBlock(block *RPCBlock, powHash *externalapi.DomainHash) (*externalapi.DomainBlock, error) {
 	parents := make([]externalapi.BlockLevelParents, len(block.Header.Parents))
 	for i, blockLevelParents := range block.Header.Parents {
 		parents[i] = make(externalapi.BlockLevelParents, len(blockLevelParents.ParentHashes))
@@ -432,6 +434,7 @@ func RPCBlockToDomainBlock(block *RPCBlock) (*externalapi.DomainBlock, error) {
 	return &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: transactions,
+		PoWHash:      powHash,
 	}, nil
 }
 
@@ -452,7 +455,6 @@ func BlockWithTrustedDataToDomainBlockWithTrustedData(block *MsgBlockWithTrusted
 			GHOSTDAGData: ghostdagDataToDomainGHOSTDAGData(datum.GHOSTDAGData),
 		}
 	}
-
 	return &externalapi.BlockWithTrustedData{
 		Block:        MsgBlockToDomainBlock(block.Block),
 		DAAWindow:    daaWindow,
@@ -530,7 +532,6 @@ func DomainBlockWithTrustedDataToBlockWithTrustedData(block *externalapi.BlockWi
 			GHOSTDAGData: domainGHOSTDAGDataGHOSTDAGData(datum.GHOSTDAGData),
 		}
 	}
-
 	return &MsgBlockWithTrustedData{
 		Block:        DomainBlockToMsgBlock(block.Block),
 		DAAScore:     block.Block.Header.DAAScore(),

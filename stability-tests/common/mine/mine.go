@@ -70,13 +70,13 @@ func mineBlocks(consensusConfig *consensus.Config, rpcClient *rpc.Client, blockC
 			}
 		}
 
-		block, powHash, err := mineOrFetchBlock(blockData, mdb, testConsensus)
+		block, err := mineOrFetchBlock(blockData, mdb, testConsensus)
 		if err != nil {
 			return err
 		}
 
 		beforeSubmitBlockTime := time.Now()
-		rejectReason, err := rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
+		rejectReason, err := rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 		if err != nil {
 			return errors.Wrap(err, "error in SubmitBlock")
 		}
@@ -103,19 +103,19 @@ func mineBlocks(consensusConfig *consensus.Config, rpcClient *rpc.Client, blockC
 	return nil
 }
 
-func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.TestConsensus) (*externalapi.DomainBlock, *externalapi.DomainHash, error) {
+func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.TestConsensus) (*externalapi.DomainBlock, error) {
 	hash := mdb.hashByID(blockData.ID)
 	if mdb.hashByID(blockData.ID) != nil {
 		block, found, err := testConsensus.GetBlock(hash)
 		if err != nil {
-			return nil, new(externalapi.DomainHash), err
+			return nil, err
 		}
 
 		if !found {
-			return nil, new(externalapi.DomainHash), errors.Errorf("block %s is missing", hash)
+			return nil, errors.Errorf("block %s is missing", hash)
 		}
 
-		return block, new(externalapi.DomainHash), nil
+		return block, nil
 	}
 
 	parentHashes := make([]*externalapi.DomainHash, len(blockData.Parents))
@@ -125,30 +125,30 @@ func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.
 	block, _, err := testConsensus.BuildBlockWithParents(parentHashes,
 		&externalapi.DomainCoinbaseData{ScriptPublicKey: &externalapi.ScriptPublicKey{}}, []*externalapi.DomainTransaction{})
 	if err != nil {
-		return nil, new(externalapi.DomainHash), errors.Wrap(err, "error in BuildBlockWithParents")
+		return nil, errors.Wrap(err, "error in BuildBlockWithParents")
 	}
 	var powHash = new(externalapi.DomainHash)
 	if !testConsensus.DAGParams().SkipProofOfWork {
 		_, powHash = SolveBlock(block)
 	}
 
-	err = testConsensus.ValidateAndInsertBlock(block, true, powHash)
+	err = testConsensus.ValidateAndInsertBlock(block, true)
 	if err != nil {
-		return nil, new(externalapi.DomainHash), errors.Wrap(err, "error in ValidateAndInsertBlock")
+		return nil, errors.Wrap(err, "error in ValidateAndInsertBlock")
 	}
 
 	blockHash := consensushashing.BlockHash(block)
 	err = mdb.putID(blockData.ID, blockHash)
 	if err != nil {
-		return nil, new(externalapi.DomainHash), err
+		return nil, err
 	}
 
 	err = mdb.updateLastMinedBlock(blockData.ID)
 	if err != nil {
-		return nil, new(externalapi.DomainHash), err
+		return nil, err
 	}
-
-	return block, powHash, nil
+	block.PoWHash = powHash
+	return block, nil
 }
 
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))

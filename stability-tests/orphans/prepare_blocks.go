@@ -49,7 +49,7 @@ func prepareBlocks() (blocks []*externalapi.DomainBlock, topBlock *externalapi.D
 		}
 
 		mine.SolveBlock(block)
-		err = testConsensus.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+		err = testConsensus.ValidateAndInsertBlock(block, true)
 		if err != nil {
 			return nil, nil, errors.Wrap(err, "error in ValidateAndInsertBlock")
 		}

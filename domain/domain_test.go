@@ -75,7 +75,7 @@ func TestCreateStagingConsensus(t *testing.T) {
 			t.Fatalf("BuildBlock: %+v", err)
 		}
 
-		err = domainInstance.StagingConsensus().ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+		err = domainInstance.StagingConsensus().ValidateAndInsertBlock(block, true)
 		if err != nil {
 			t.Fatalf("ValidateAndInsertBlock: %+v", err)
 		}
@@ -121,7 +121,7 @@ func TestCreateStagingConsensus(t *testing.T) {
 		}
 
 		addGenesisToStagingConsensus()
-		err = domainInstance.StagingConsensus().ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+		err = domainInstance.StagingConsensus().ValidateAndInsertBlock(block, true)
 		if err != nil {
 			t.Fatalf("ValidateAndInsertBlock: %+v", err)
 		}

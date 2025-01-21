@@ -86,7 +86,7 @@ func testReorg(cfg *configFlags) {
 			block.Header = mutableHeader.ToImmutable()
 		}
 
-		err = tcAttacker.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+		err = tcAttacker.ValidateAndInsertBlock(block, true)
 		if err != nil {
 			panic(err)
 		}
@@ -122,7 +122,7 @@ func testReorg(cfg *configFlags) {
 			if i%100 == 0 {
 				log.Infof("Validated %d blocks from the attacker chain", i)
 			}
-			err := tc.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+			err := tc.ValidateAndInsertBlock(block, true)
 			if err != nil {
 				panic(err)
 			}

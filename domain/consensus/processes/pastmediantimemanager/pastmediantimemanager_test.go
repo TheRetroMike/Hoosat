@@ -34,7 +34,7 @@ func TestPastMedianTime(t *testing.T) {
 			newHeader := block.Header.ToMutable()
 			newHeader.SetTimeInMilliseconds(blockTime)
 			block.Header = newHeader.ToImmutable()
-			err = tc.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+			err = tc.ValidateAndInsertBlock(block, true)
 			if err != nil {
 				t.Fatalf("ValidateAndInsertBlock: %+v", err)
 			}

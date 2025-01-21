@@ -189,6 +189,7 @@ func (flow *handleRelayInvsFlow) start() error {
 		if err != nil {
 			return err
 		}
+		// We need the PoW hash for processBlock from P2P.
 		missingParents, err := flow.processBlock(block)
 		if err != nil {
 			if errors.Is(err, ruleerrors.ErrPrunedBlock) {
@@ -307,7 +308,6 @@ func (flow *handleRelayInvsFlow) requestBlock(requestHash *externalapi.DomainHas
 	if err != nil {
 		return nil, false, err
 	}
-
 	block := appmessage.MsgBlockToDomainBlock(msgBlock)
 	blockHash := consensushashing.BlockHash(block)
 	if !blockHash.Equal(requestHash) {
@@ -340,7 +340,7 @@ func (flow *handleRelayInvsFlow) readMsgBlock() (msgBlock *appmessage.MsgBlock, 
 
 func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock) ([]*externalapi.DomainHash, error) {
 	blockHash := consensushashing.BlockHash(block)
-	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true)
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {
 			err = flow.processOrphan(block)

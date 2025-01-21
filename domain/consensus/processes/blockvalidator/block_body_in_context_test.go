@@ -62,7 +62,7 @@ func TestCheckBlockIsNotPruned(t *testing.T) {
 			}
 		}
 
-		err = tc.ValidateAndInsertBlock(beforePruningBlock, true, new(externalapi.DomainHash))
+		err = tc.ValidateAndInsertBlock(beforePruningBlock, true)
 		if !errors.Is(err, ruleerrors.ErrPrunedBlock) {
 			t.Fatalf("Unexpected error: %+v", err)
 		}
@@ -120,7 +120,7 @@ func TestCheckParentBlockBodiesExist(t *testing.T) {
 		err = tc.ValidateAndInsertBlock(&externalapi.DomainBlock{
 			Header:       anticonePruningBlock.Header,
 			Transactions: nil,
-		}, true, new(externalapi.DomainHash))
+		}, true)
 		if err != nil {
 			t.Fatalf("ValidateAndInsertBlock: %+v", err)
 		}
@@ -143,7 +143,7 @@ func TestCheckParentBlockBodiesExist(t *testing.T) {
 
 		// Add anticonePruningBlock's body and check that it's valid to point to
 		// a header only block in the past of the pruning point.
-		err = tc.ValidateAndInsertBlock(anticonePruningBlock, true, new(externalapi.DomainHash))
+		err = tc.ValidateAndInsertBlock(anticonePruningBlock, true)
 		if err != nil {
 			t.Fatalf("ValidateAndInsertBlock: %+v", err)
 		}
@@ -189,7 +189,7 @@ func TestIsFinalizedTransaction(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Error getting block: %+v", err)
 		}
-		err = tc.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+		err = tc.ValidateAndInsertBlock(block, true)
 		if err != nil {
 			t.Fatalf("Error Inserting block: %+v", err)
 		}

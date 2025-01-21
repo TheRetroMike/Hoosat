@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
@@ -36,7 +37,8 @@ func TestIntegrationBasicSync(t *testing.T) {
 	case <-time.After(defaultTimeout):
 		t.Fatalf("Timeout waiting for block added notification on node directly connected to miner")
 	}
-	domainBlockFromRPC, err := appmessage.RPCBlockToDomainBlock(rpcBlock)
+	powHash, _ := externalapi.NewDomainHashFromString("BASIC_SYNC_TEST_POW_HASH")
+	domainBlockFromRPC, err := appmessage.RPCBlockToDomainBlock(rpcBlock, powHash)
 	if err != nil {
 		t.Fatalf("Could not convert RPC block: %s", err)
 	}
@@ -52,7 +54,7 @@ func TestIntegrationBasicSync(t *testing.T) {
 	case <-time.After(defaultTimeout):
 		t.Fatalf("Timeout waiting for block added notification on node indirectly connected to miner")
 	}
-	domainBlockFromRPC, err = appmessage.RPCBlockToDomainBlock(rpcBlock)
+	domainBlockFromRPC, err = appmessage.RPCBlockToDomainBlock(rpcBlock, powHash)
 	if err != nil {
 		t.Fatalf("Could not convert RPC block: %s", err)
 	}

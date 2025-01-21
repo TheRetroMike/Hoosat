@@ -216,7 +216,8 @@ func mineNextBlockWithMockTimestamps(t *testing.T, harness *appHarness, rd *rand
 		t.Fatalf("Error getting block template: %+v", err)
 	}
 
-	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block)
+	powHash, _ := externalapi.NewDomainHashFromString("MINE_BLOCK_POW_HASH")
+	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, powHash)
 	if err != nil {
 		t.Fatalf("Error converting block: %s", err)
 	}
@@ -231,8 +232,8 @@ func mineNextBlockWithMockTimestamps(t *testing.T, harness *appHarness, rd *rand
 	block.Header = mutableHeader.ToImmutable()
 
 	_, powhash := mining.SolveBlock(block, rd)
-
-	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block, powhash)
+	block.PoWHash = powhash
+	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 	if err != nil {
 		t.Fatalf("Error submitting block: %s", err)
 	}

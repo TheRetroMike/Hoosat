@@ -276,7 +276,6 @@ func (flow *handleIBDFlow) syncPruningPointsAndPruningPointAnticone(proofPruning
 
 func (flow *handleIBDFlow) processBlockWithTrustedData(
 	consensus externalapi.Consensus, block *appmessage.MsgBlockWithTrustedDataV4, data *appmessage.MsgTrustedData) error {
-
 	blockWithTrustedData := &externalapi.BlockWithTrustedData{
 		Block:        appmessage.MsgBlockToDomainBlock(block.Block),
 		DAAWindow:    make([]*externalapi.TrustedDataDataDAAHeader, 0, len(block.DAAWindowIndices)),

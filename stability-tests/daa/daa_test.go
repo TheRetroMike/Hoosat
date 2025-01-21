@@ -214,6 +214,7 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 			if powNum.Cmp(&minerState.Target) <= 0 {
 				headerForMining.SetNonce(minerState.Nonce)
 				templateBlock.Header = headerForMining.ToImmutable()
+				templateBlock.PoWHash = powHash
 				break
 			}
 
@@ -243,7 +244,7 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 			return
 		}
 
-		submitMinedBlock(t, rpcClient, templateBlock, powHash)
+		submitMinedBlock(t, rpcClient, templateBlock)
 	})
 
 	averageMiningDurationInSeconds := averageMiningDuration.toDuration().Seconds()
@@ -260,7 +261,8 @@ func fetchBlockForMining(t *testing.T, rpcClient *rpcclient.RPCClient) *external
 	if err != nil {
 		t.Fatalf("GetBlockTemplate: %s", err)
 	}
-	templateBlock, err := appmessage.RPCBlockToDomainBlock(getBlockTemplateResponse.Block)
+	fetchBlockForMiningPow, _ := externalapi.NewDomainHashFromString("FETCH_BLOCK_FOR_MINING_POW_HASH")
+	templateBlock, err := appmessage.RPCBlockToDomainBlock(getBlockTemplateResponse.Block, fetchBlockForMiningPow)
 	if err != nil {
 		t.Fatalf("RPCBlockToDomainBlock: %s", err)
 	}
@@ -300,8 +302,8 @@ func logMinedBlockStatsAndUpdateStatFields(t *testing.T, rpcClient *rpcclient.RP
 		miningDuration, averageMiningDurationAsDuration, averageHashesPerSecond, difficultyDelta, time.Since(startTime), *blocksMined)
 }
 
-func submitMinedBlock(t *testing.T, rpcClient *rpcclient.RPCClient, block *externalapi.DomainBlock, powHash *externalapi.DomainHash) {
-	_, err := rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
+func submitMinedBlock(t *testing.T, rpcClient *rpcclient.RPCClient, block *externalapi.DomainBlock) {
+	_, err := rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 	if err != nil {
 		t.Fatalf("SubmitBlock: %s", err)
 	}

@@ -1025,14 +1025,14 @@ func CheckBlockHashMerkleRoot(t *testing.T, tc testapi.TestConsensus, consensusC
 	blockWithInvalidMerkleRoot := block.Clone()
 	blockWithInvalidMerkleRoot.Transactions[0].Version += 1
 
-	err = tc.ValidateAndInsertBlock(blockWithInvalidMerkleRoot, true, new(externalapi.DomainHash))
+	err = tc.ValidateAndInsertBlock(blockWithInvalidMerkleRoot, true)
 	if !errors.Is(err, ruleerrors.ErrBadMerkleRoot) {
 		t.Fatalf("Unexpected error: %+v", err)
 	}
 
 	// Check that a block with invalid merkle root is not marked as invalid
 	// and can be re-added with the right transactions.
-	err = tc.ValidateAndInsertBlock(block, true, new(externalapi.DomainHash))
+	err = tc.ValidateAndInsertBlock(block, true)
 	if err != nil {
 		t.Fatalf("ValidateAndInsertBlock: %+v", err)
 	}

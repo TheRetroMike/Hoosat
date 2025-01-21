@@ -38,7 +38,7 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 	// a high chance we'll get disconnected from the node, so we make the channel
 	// capacity router.DefaultMaxMessages/2 (we give some slack for getBlockTemplate
 	// requests)
-	foundBlockChan := make(chan *PowTransfer, router.DefaultMaxMessages/2)
+	foundBlockChan := make(chan *externalapi.DomainBlock, router.DefaultMaxMessages/2)
 
 	spawn("templatesLoop", func() {
 		templatesLoop(client, miningAddr, errChan)
@@ -83,8 +83,8 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 
 	spawn("handleFoundBlock", func() {
 		for i := uint64(0); numberOfBlocks == 0 || i < numberOfBlocks; i++ {
-			powTransfer := <-foundBlockChan
-			err := handleFoundBlock(client, powTransfer.Block, powTransfer.PowHash)
+			block := <-foundBlockChan
+			err := handleFoundBlock(client, block)
 			if err != nil {
 				errChan <- err
 				return
@@ -119,11 +119,11 @@ func logHashRate() {
 	})
 }
 
-func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock, powHash *externalapi.DomainHash) error {
+func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error {
 	blockHash := consensushashing.BlockHash(block)
 	log.Infof("Submitting block %s to %s", blockHash, client.Address())
 
-	rejectReason, err := client.SubmitBlock(block, powHash)
+	rejectReason, err := client.SubmitBlock(block, block.PoWHash)
 	if err != nil {
 		if nativeerrors.Is(err, router.ErrTimeout) {
 			log.Warnf("Got timeout while submitting block %s to %s: %s", blockHash, client.Address(), err)
@@ -145,7 +145,7 @@ func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock, powHa
 	return nil
 }
 
-func mineNextBlock(mineWhenNotSynced bool) *PowTransfer {
+func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
 	nonce := rand.Uint64() // Use the global concurrent-safe random source.
 	for {
 		nonce++
@@ -161,12 +161,10 @@ func mineNextBlock(mineWhenNotSynced bool) *PowTransfer {
 		if powNum.Cmp(&state.Target) <= 0 {
 			mutHeader := block.Header.ToMutable()
 			mutHeader.SetNonce(nonce)
+			block.PoWHash = hash
 			block.Header = mutHeader.ToImmutable()
 			log.Infof("Found block %s with parents %s", consensushashing.BlockHash(block), block.Header.DirectParents())
-			return &PowTransfer{
-				Block:   block,
-				PowHash: hash,
-			}
+			return block
 		}
 	}
 }

@@ -62,7 +62,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 		}, nil
 	}
 
-	domainBlock, err := appmessage.RPCBlockToDomainBlock(submitBlockRequest.Block)
+	domainBlock, err := appmessage.RPCBlockToDomainBlock(submitBlockRequest.Block, powHash)
 	if err != nil {
 		return &appmessage.SubmitBlockResponseMessage{
 			Error:        appmessage.RPCErrorf("Could not parse block: %s", err),
@@ -86,7 +86,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 			}, nil
 		}
 	}
-	err = context.ProtocolManager.AddBlock(domainBlock, powHash)
+	err = context.ProtocolManager.AddBlock(domainBlock)
 	if err != nil {
 		isProtocolOrRuleError := errors.As(err, &ruleerrors.RuleError{}) || errors.As(err, &protocolerrors.ProtocolError{})
 		if !isProtocolOrRuleError {

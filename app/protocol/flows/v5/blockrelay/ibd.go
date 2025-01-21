@@ -503,9 +503,11 @@ func (flow *handleIBDFlow) receiveHeaders() (msgIBDBlock *appmessage.BlockHeader
 
 func (flow *handleIBDFlow) processHeader(consensus externalapi.Consensus, msgBlockHeader *appmessage.MsgBlockHeader) error {
 	header := appmessage.BlockHeaderToDomainBlockHeader(msgBlockHeader)
+	PoWHash, err := externalapi.NewDomainHashFromString("PROCESSIN_HEADER")
 	block := &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: nil,
+		PoWHash:      PoWHash,
 	}
 
 	blockHash := consensushashing.BlockHash(block)
@@ -518,7 +520,7 @@ func (flow *handleIBDFlow) processHeader(consensus externalapi.Consensus, msgBlo
 		return nil
 	}
 
-	err = consensus.ValidateAndInsertBlock(block, false, new(externalapi.DomainHash))
+	err = consensus.ValidateAndInsertBlock(block, false)
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {
 			return errors.Wrapf(err, "failed to process header %s during IBD", blockHash)
@@ -690,7 +692,7 @@ func (flow *handleIBDFlow) syncMissingBlockBodies(highHash *externalapi.DomainHa
 				return err
 			}
 
-			err = flow.Domain().Consensus().ValidateAndInsertBlock(block, updateVirtual, new(externalapi.DomainHash))
+			err = flow.Domain().Consensus().ValidateAndInsertBlock(block, updateVirtual)
 			if err != nil {
 				if errors.Is(err, ruleerrors.ErrDuplicateBlock) {
 					log.Debugf("Skipping IBD Block %s as it has already been added to the DAG", blockHash)

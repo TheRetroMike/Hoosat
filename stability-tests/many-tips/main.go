@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/mining"
 	"github.com/Hoosat-Oy/HTND/util"
 	"github.com/kaspanet/go-secp256k1"
@@ -69,7 +70,8 @@ func realMain() error {
 	if err != nil {
 		return err
 	}
-	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block)
+	powHash, _ := externalapi.NewDomainHashFromString("REAL_MAIN_POW_HASH")
+	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, powHash)
 	if err != nil {
 		return err
 	}
@@ -77,8 +79,9 @@ func realMain() error {
 	genesisTimestamp := activeConfig().NetParams().GenesisBlock.Header.TimeInMilliseconds()
 	mutableHeader.SetTimeInMilliseconds(genesisTimestamp + 1000)
 	block.Header = mutableHeader.ToImmutable()
-	_, powHash := mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
-	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
+	_, powHash = mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
+	block.PoWHash = powHash
+	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 	if err != nil {
 		return err
 	}
@@ -179,12 +182,14 @@ func mineBlock(rpcClient *rpc.Client, miningAddress util.Address) error {
 	if err != nil {
 		return err
 	}
-	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block)
+	powHash, _ := externalapi.NewDomainHashFromString("MINE_BLOCK_POW_HASH")
+	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, powHash)
 	if err != nil {
 		return err
 	}
-	_, powHash := mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
-	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
+	_, powHash = mining.SolveBlock(block, rand.New(rand.NewSource(time.Now().UnixNano())))
+	block.PoWHash = powHash
+	_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 	if err != nil {
 		return err
 	}
@@ -196,14 +201,16 @@ func mineTips(numOfTips int, miningAddress util.Address, rpcClient *rpc.Client) 
 	if err != nil {
 		return err
 	}
-	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block)
+	powHash, _ := externalapi.NewDomainHashFromString("MINE_TIPS_POW_HASH")
+	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, powHash)
 	if err != nil {
 		return err
 	}
 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < numOfTips; i++ {
-		_, powHash := mining.SolveBlock(block, rd)
-		_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, powHash)
+		_, powHash = mining.SolveBlock(block, rd)
+		block.PoWHash = powHash
+		_, err = rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 		if err != nil {
 			return err
 		}

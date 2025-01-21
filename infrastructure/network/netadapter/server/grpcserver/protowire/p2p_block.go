@@ -2,6 +2,7 @@ package protowire
 
 import (
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 
@@ -35,9 +36,11 @@ func (x *BlockMessage) toAppMessage() (*appmessage.MsgBlock, error) {
 		transactions[i] = msgTx.(*appmessage.MsgTx)
 	}
 
+	powHash, _ := externalapi.NewDomainHashFromString(x.PowHash)
 	return &appmessage.MsgBlock{
 		Header:       *header,
 		Transactions: transactions,
+		PoWHash:      powHash,
 	}, nil
 }
 
@@ -54,9 +57,11 @@ func (x *BlockMessage) fromAppMessage(msgBlock *appmessage.MsgBlock) error {
 		protoTx.fromAppMessage(tx)
 		protoTransactions[i] = protoTx
 	}
+	protoPowHash, _ := externalapi.NewDomainHashFromString("PROTO_POW_HASH")
 	*x = BlockMessage{
 		Header:       protoHeader,
 		Transactions: protoTransactions,
+		PowHash:      protoPowHash.String(),
 	}
 	return nil
 }
