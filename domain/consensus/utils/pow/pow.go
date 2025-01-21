@@ -3,7 +3,6 @@ package pow
 import (
 	"crypto/sha256"
 	"encoding/binary"
-	"fmt"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
