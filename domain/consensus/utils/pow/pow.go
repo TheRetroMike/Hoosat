@@ -3,6 +3,7 @@ package pow
 import (
 	"crypto/sha256"
 	"encoding/binary"
+	"fmt"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
@@ -115,25 +116,20 @@ func memoryHardFunction(input []byte) []byte {
 }
 
 func verifiableDelayFunction(input []byte) []byte {
-	const iterations = 1000 // Adjust based on desired delay
-
+	const iterations = 10000000 // Adjust based on desired delay
+	// 1000 = 350µs
 	// Create a prime field
 	p, _ := new(big.Int).SetString("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F", 16)
-
 	// Convert input to big.Int
 	x := new(big.Int).SetBytes(input)
-
 	// Perform repeated squaring
 	for i := 0; i < iterations; i++ {
 		x.Mul(x, x)
 		x.Mod(x, p)
 	}
-
-	// Hash the result to get final output
 	hash := sha256.Sum256(x.Bytes())
 	return hash[:]
 }
-
 func (state *State) CalculateProofOfWorkValue() (*big.Int, *externalapi.DomainHash) {
 	if state.blockVersion == 1 {
 		return state.CalculateProofOfWorkValuePyrinhash()

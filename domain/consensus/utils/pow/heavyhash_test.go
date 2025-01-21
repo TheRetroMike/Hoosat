@@ -2,9 +2,9 @@ package pow
 
 import (
 	"bytes"
-	"encoding/binary"
 	"encoding/hex"
 	"fmt"
+	"math"
 	"math/rand"
 	"testing"
 
@@ -19,6 +19,8 @@ func BenchmarkBasicComplexNonlinear(b *testing.B) {
 	}
 }
 
+type matrixFloat [64][64]float64
+
 func BenchmarkMatrixHoohashRev2(b *testing.B) {
 	input := []byte("BenchmarkMatrix_HeavyHash")
 	generateHoohashLookupTable()
@@ -26,14 +28,29 @@ func BenchmarkMatrixHoohashRev2(b *testing.B) {
 		firstPass := hashes.Blake3HashWriter()
 		firstPass.InfallibleWrite(input)
 		hash := firstPass.Finalize()
-		memoryHardResult := memoryHardFunction(hash.ByteSlice())
-		tradeoffResult := timeMemoryTradeoff(binary.BigEndian.Uint64(memoryHardResult))
-		vdfResult := verifiableDelayFunction(memoryHardResult)
-		combined := append(memoryHardResult, vdfResult...)
-		combined = append(combined, byte(tradeoffResult))
-		matrix := GenerateHoohashMatrix(hash)
-		hash = matrix.HoohashMatrixMultiplicationV1(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
+		// memoryHardResult := memoryHardFunction(hash.ByteSlice())
+		// tradeoffResult := timeMemoryTradeoff(binary.BigEndian.Uint64(memoryHardResult))
+		verifiableDelayFunction(hash.ByteSlice())
+		// combined := append(memoryHardResult, vdfResult...)
+
+		// matrix := GenerateHoohashMatrix(hash)
+		// hash = matrix.HoohashMatrixMultiplicationV1(externalapi.NewDomainHashFromByteArray((*[32]byte)(combined)))
 	}
+}
+
+func BenchmarkCreatLUT(b *testing.B) {
+	forComplexMap := map[int]float64{}
+	fmt.Println("forComplexMap := map[float64]float64 {")
+	for i := 0; i < 256; i++ {
+		forComplex := float64(i)
+		for forComplex > 14 {
+			forComplex = forComplex * 0.1
+		}
+		forComplexMap[i] = ComplexNonLinear(forComplex)
+		fmt.Printf("\t%d: %f,\n", i, forComplexMap[i])
+	}
+	fmt.Println("}")
+	b.Fail()
 }
 
 func GenerateHoohashMatrixTest(hash *externalapi.DomainHash, t *testing.T) *matrix {
@@ -72,109 +89,131 @@ func GenerateHoohashMatrixTest(hash *externalapi.DomainHash, t *testing.T) *matr
 	}
 }
 
-func (mat *matrix) HoohashMatrixMultiplicationTest(hash *externalapi.DomainHash, t *testing.T) *externalapi.DomainHash {
+func TestGenerateMatrix102(t *testing.T) {
+	prePowHash, _ := hex.DecodeString("82b1d17c5e2200a0565956b711485a2cba6da909e588261582c2f465ec2e3d3f")
+	matrix := GenerateHoohashMatrix102Test(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
+	fmt.Printf("Matrix: %v\n", matrix)
+	t.Fail()
+}
+
+func GenerateHoohashMatrix102Test(hash *externalapi.DomainHash, t *testing.T) *matrixFloat {
+	var mat matrixFloat
+	generator := newxoShiRo256PlusPlus(hash)
+	const normalize float64 = 100000000
+
+	for i := 0; i < 64; i++ {
+		for j := 0; j < 64; j++ {
+			val := generator.Uint64()
+			lower4Bytes := uint32(val & 0xFFFFFFFF)
+			matrixVal := float64(lower4Bytes)/float64(math.MaxUint32)*(normalize*2) - normalize
+			mat[i][j] = matrixVal
+		}
+	}
+	return &mat
+}
+
+const COMPLEX_OUTPUT_CLAMP = 100000
+const PRODUCT_VALUE_SCALE_MULTIPLIER = 0.00001
+
+func ForComplex(forComplex float64) float64 {
+	var complex float64
+	complex = ComplexNonLinear(forComplex)
+	for complex >= COMPLEX_OUTPUT_CLAMP {
+		forComplex *= 0.1
+		complex = ComplexNonLinear(forComplex)
+	}
+	return complex
+}
+
+func (mat *matrixFloat) HoohashMatrixMultiplication102Test(hash *externalapi.DomainHash, t *testing.T) *externalapi.DomainHash {
 	hashBytes := hash.ByteArray()
 	var vector [64]float64
 	var product [64]float64
 
-	// Populate the vector with floating-point values
+	// Populate the vector with floating-point values from the hash bytes
 	for i := 0; i < 32; i++ {
-		vector[2*i] = float64(hashBytes[i] >> 4)
-		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
+		vector[2*i] = float64(hashBytes[i] >> 4)     // Upper 4 bits
+		vector[2*i+1] = float64(hashBytes[i] & 0x0F) // Lower 4 bits
 	}
-	fmt.Printf("Vector: ")
-	for i := 0; i < 64; i++ {
-		fmt.Printf("%f, ", vector[i])
-	}
-	fmt.Printf("\n")
 
-	fmt.Printf("Matrix first 64: ")
-	for i := 0; i < 64; i++ {
-		fmt.Printf("%d, ", mat[0][i])
-	}
-	fmt.Printf("\n")
+	fmt.Printf("Vector: %v\n\n", vector)
 
-	// Matrix-vector multiplication with floating point operations
-	fmt.Printf("Product: ")
+	// Perform the matrix-vector multiplication with nonlinear adjustments
 	for i := 0; i < 64; i++ {
 		for j := 0; j < 64; j++ {
-			// Transform Matrix values with complex non linear equations and sum into product.
-			forComplex := float64(mat[i][j]) * vector[j]
-			for forComplex > 16 {
-				forComplex = forComplex * 0.1
+			switch (i * j) % 20 {
+			case 0: // Complex non-linear function
+				product[i] += ForComplex(mat[i][j] * vector[j])
+			case 1, 5, 9, 13, 17: // Division
+				if vector[j] != 0 {
+					product[i] += mat[i][j] / vector[j]
+				} else {
+					product[i] += mat[i][j] / 1.0 // Safeguard against division by zero
+				}
+			case 2, 6, 10, 14, 18: // Multiplication
+				product[i] += mat[i][j] * vector[j] * PRODUCT_VALUE_SCALE_MULTIPLIER
+			case 3, 7, 11, 15, 19: // Addition
+				product[i] += mat[i][j] + vector[j]
+			case 4, 8, 12, 16: // Subtraction
+				product[i] += mat[i][j] - vector[j]
+			default: // Fallback multiplication
+				product[i] += mat[i][j] * vector[j] * PRODUCT_VALUE_SCALE_MULTIPLIER
 			}
-			product[i] += ComplexNonLinear(forComplex)
 		}
-		fmt.Printf("%.20f, ", product[i])
 	}
-	fmt.Printf("\n")
 
-	// Convert product back to uint16 and then to byte array
-	var res [32]byte
-	fmt.Printf("Hi/low: ")
-	for i := range res {
-		high := uint32(product[2*i] * 0.00000001)
-		low := uint32(product[2*i+1] * 0.00000001)
-		fmt.Printf("%d - %d, ", high, low)
-		// Combine high and low into a single byte
-		combined := (high ^ low) & 0xFF
-		res[i] = hashBytes[i] ^ byte(combined)
+	fmt.Printf("Product: [")
+	for i, v := range product {
+		// Print each element with 2 decimal places
+		fmt.Printf("%.6f", v)
+		if i < len(product)-1 {
+			fmt.Printf(" ")
+		}
 	}
-	fmt.Printf("\n")
-	fmt.Printf("Res: ")
-	for i := range res {
+	fmt.Printf("]\n")
+
+	// Generate the result bytes
+	fmt.Printf("Final pass: [")
+	var res [32]uint8
+	var scaledValues [32]uint8
+	for i := 0; i < 64; i += 2 {
+		scaledValues[i/2] = uint8((product[i] + product[i+1]) * PRODUCT_VALUE_SCALE_MULTIPLIER)
+	}
+	for i := 0; i < 32; i++ {
+		res[i] = hashBytes[i] ^ scaledValues[i]
 		fmt.Printf("%d, ", res[i])
 	}
-	fmt.Printf("\n")
-	// Hash again
+	fmt.Printf("]\n")
 	writer := hashes.Blake3HashWriter()
-	writer.InfallibleWrite(res[:])
+	writer.InfallibleWrite(res[:32])
 	return writer.Finalize()
 }
-func TestMatrixHoohashRev1(t *testing.T) {
 
-	hexStrings := []string{
-		"a49dbc7d44ae83253823592fd388f219f3cb83639d54c9e4c3154db36f2b5157",
-		"c6342bcdf1e7aee531c42cf9d2e5aafe598d39fe4cdc226c45bcc953fef375ff",
-		"b7c8f43d8a99aecdd37912c9ad4f2e51c8009f7ce1cdf6e3be2767972cc68a1c",
-	}
-	var prePowHashes [][]byte
-
-	for _, hexStr := range hexStrings {
-		bytes, err := hex.DecodeString(hexStr)
-		if err != nil {
-			fmt.Printf("Error decoding hex string %s: %s\n", hexStr, err)
-			return
-		}
-		prePowHashes = append(prePowHashes, bytes)
-	}
-
-	for i := 0; i < 3; i++ {
-		for Nonce := int64(0); Nonce < 5; Nonce++ {
-			fmt.Printf("------------------------------\n")
-			fmt.Printf("Test %d\n", Nonce)
-			prePowHash := prePowHashes[i]
-			Timestamp := int64(1725374568455)
-			// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
-			writer := hashes.Blake3HashWriter()
-			fmt.Printf("PRE_POW_HASH: %v\n", hex.EncodeToString(prePowHash))
-			writer.InfallibleWrite(prePowHash)
-			fmt.Printf("TIME: %d\n", Timestamp)
-			serialization.WriteElement(writer, Timestamp)
-			zeroes := [32]byte{}
-			writer.InfallibleWrite(zeroes[:])
-			fmt.Printf("Nonce: %d\n", Nonce)
-			serialization.WriteElement(writer, Nonce)
-			powHash := writer.Finalize()
-			// fmt.Printf("Powhash finalized: %v\n", powHash)
-			matrix := GenerateHoohashMatrixTest(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
-			multiplied := matrix.HoohashMatrixMultiplicationTest(powHash, t)
-			fmt.Printf("POW HASH: %v\n", multiplied)
-		}
+func TestMatrixHoohashRev102(t *testing.T) {
+	for i := 0; i < 10000; i++ {
+		fmt.Printf("------------------------------\n")
+		Nonce := int64(i)
+		fmt.Printf("Test %d\n", int64(i))
+		prePowHash, _ := hex.DecodeString("82b1d17c5e2200a0565956b711485a2cba6da909e588261582c2f465ec2e3d3f")
+		Timestamp := int64(1727011258677)
+		// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+		writer := hashes.Blake3HashWriter()
+		fmt.Printf("PRE_POW_HASH: %v\n", hex.EncodeToString(prePowHash))
+		writer.InfallibleWrite(prePowHash)
+		fmt.Printf("TIME: %d\n", Timestamp)
+		serialization.WriteElement(writer, Timestamp)
+		zeroes := [32]byte{}
+		writer.InfallibleWrite(zeroes[:])
+		fmt.Printf("Nonce: %d\n", Nonce)
+		serialization.WriteElement(writer, Nonce)
+		powHash := writer.Finalize()
+		matrix := GenerateHoohashMatrix102Test(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
+		//fmt.Printf("Matrix: %v\n", matrix)
+		multiplied := matrix.HoohashMatrixMultiplication102Test(powHash, t)
+		fmt.Printf("POW HASH: %v\n", multiplied)
 	}
 	fmt.Printf("------------------------------\n")
 	Nonce := int64(7794931619413402210)
-	fmt.Printf("Test %d\n", Nonce)
 	prePowHash, _ := hex.DecodeString("82b1d17c5e2200a0565956b711485a2cba6da909e588261582c2f465ec2e3d3f")
 	Timestamp := int64(1727011258677)
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
@@ -188,10 +227,366 @@ func TestMatrixHoohashRev1(t *testing.T) {
 	fmt.Printf("Nonce: %d\n", Nonce)
 	serialization.WriteElement(writer, Nonce)
 	powHash := writer.Finalize()
-	// fmt.Printf("Powhash finalized: %v\n", powHash)
-	matrix := GenerateHoohashMatrixTest(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
-	multiplied := matrix.HoohashMatrixMultiplicationTest(powHash, t)
+	matrix := GenerateHoohashMatrix102Test(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
+	fmt.Printf("Matrix: %v\n\n", matrix[0])
+	multiplied := matrix.HoohashMatrixMultiplication102Test(powHash, t)
 	fmt.Printf("POW HASH: %v\n", multiplied)
+	t.Fail()
+}
+
+func (mat *matrix) HoohashMatrixMultiplicationTest(hash *externalapi.DomainHash, t *testing.T) *externalapi.DomainHash {
+	hashBytes := hash.ByteArray()
+	var vector [64]float64
+	var product [64]float64
+
+	// Populate the vector with floating-point values
+	for i := 0; i < 32; i++ {
+		vector[2*i] = float64(hashBytes[i] >> 4)
+		vector[2*i+1] = float64(hashBytes[i] & 0x0F)
+	}
+	// fmt.Printf("Vector: ")
+	// for i := 0; i < 64; i++ {
+	// 	fmt.Printf("%f, ", vector[i])
+	// }
+	// fmt.Printf("\n")
+
+	// fmt.Printf("Matrix first 64: ")
+	// for i := 0; i < 64; i++ {
+	// 	fmt.Printf("%d, ", mat[0][i])
+	// }
+	// fmt.Printf("\n")
+
+	// forComplexMap := map[int]float64{
+	// 	0:   3.981957,
+	// 	1:   0.061209,
+	// 	2:   0.019915,
+	// 	3:   0.979552,
+	// 	4:   0.919536,
+	// 	5:   0.326682,
+	// 	6:   0.169842,
+	// 	7:   0.572750,
+	// 	8:   0.169842,
+	// 	9:   0.989227,
+	// 	10:  9063640.699722,
+	// 	11:  1066.133994,
+	// 	12:  1167554.304901,
+	// 	13:  322655.148236,
+	// 	14:  4076515423.444545,
+	// 	15:  0.015544,
+	// 	16:  0.039470,
+	// 	17:  0.073738,
+	// 	18:  0.117579,
+	// 	19:  0.170008,
+	// 	20:  0.019915,
+	// 	21:  0.003705,
+	// 	22:  0.070329,
+	// 	23:  0.213984,
+	// 	24:  0.413447,
+	// 	25:  0.633856,
+	// 	26:  0.831949,
+	// 	27:  0.964373,
+	// 	28:  0.997735,
+	// 	29:  0.918170,
+	// 	30:  0.979552,
+	// 	31:  0.969452,
+	// 	32:  0.957767,
+	// 	33:  0.944682,
+	// 	34:  0.930368,
+	// 	35:  0.914985,
+	// 	36:  0.898682,
+	// 	37:  0.881594,
+	// 	38:  0.863847,
+	// 	39:  0.845554,
+	// 	40:  0.919536,
+	// 	41:  0.839197,
+	// 	42:  0.737768,
+	// 	43:  0.621557,
+	// 	44:  0.497787,
+	// 	45:  0.374155,
+	// 	46:  0.258348,
+	// 	47:  0.157565,
+	// 	48:  0.078073,
+	// 	49:  0.024815,
+	// 	50:  0.326682,
+	// 	51:  0.398715,
+	// 	52:  0.473022,
+	// 	53:  0.547935,
+	// 	54:  0.621772,
+	// 	55:  0.692874,
+	// 	56:  0.759644,
+	// 	57:  0.820584,
+	// 	58:  0.874323,
+	// 	59:  0.919657,
+	// 	60:  0.169842,
+	// 	61:  0.014878,
+	// 	62:  0.033917,
+	// 	63:  0.227935,
+	// 	64:  0.529806,
+	// 	65:  0.823883,
+	// 	66:  0.988895,
+	// 	67:  0.949383,
+	// 	68:  0.713849,
+	// 	69:  0.379665,
+	// 	70:  0.572750,
+	// 	71:  0.572750,
+	// 	72:  0.572750,
+	// 	73:  0.572750,
+	// 	74:  0.572750,
+	// 	75:  0.572750,
+	// 	76:  0.572750,
+	// 	77:  0.572750,
+	// 	78:  0.572750,
+	// 	79:  0.572750,
+	// 	80:  0.169842,
+	// 	81:  0.087207,
+	// 	82:  0.030238,
+	// 	83:  0.002476,
+	// 	84:  0.005648,
+	// 	85:  0.039556,
+	// 	86:  0.102093,
+	// 	87:  0.189369,
+	// 	88:  0.295959,
+	// 	89:  0.415235,
+	// 	90:  0.989227,
+	// 	91:  0.999160,
+	// 	92:  0.997884,
+	// 	93:  0.985426,
+	// 	94:  0.962066,
+	// 	95:  0.928330,
+	// 	96:  0.884974,
+	// 	97:  0.832972,
+	// 	98:  0.773493,
+	// 	99:  0.707871,
+	// 	100: 9063640.699722,
+	// 	101: 13676676.345494,
+	// 	102: 20737135.188099,
+	// 	103: 31594405.686592,
+	// 	104: 48369060.948050,
+	// 	105: 74408715.515206,
+	// 	106: 115022066.608368,
+	// 	107: 178666088.921568,
+	// 	108: 278874615.048666,
+	// 	109: 437405159.250589,
+	// 	110: 1066.133994,
+	// 	111: 1030.056271,
+	// 	112: 996.137256,
+	// 	113: 964.206073,
+	// 	114: 934.108346,
+	// 	115: 905.704340,
+	// 	116: 878.867343,
+	// 	117: 853.482243,
+	// 	118: 829.444288,
+	// 	119: 806.657993,
+	// 	120: 1167554.304901,
+	// 	121: 1327468.562041,
+	// 	122: 1509224.002327,
+	// 	123: 1715796.780501,
+	// 	124: 1950567.800298,
+	// 	125: 2217377.667536,
+	// 	126: 2520589.093506,
+	// 	127: 2865157.757474,
+	// 	128: 3256712.773579,
+	// 	129: 3701648.062254,
+	// 	130: 322655.148236,
+	// 	131: 348586.196256,
+	// 	132: 376594.236118,
+	// 	133: 406845.171793,
+	// 	134: 439518.129005,
+	// 	135: 474806.506913,
+	// 	136: 512919.113319,
+	// 	137: 554081.390007,
+	// 	138: 598536.735370,
+	// 	139: 646547.932043,
+	// 	140: 4076515423.444545,
+	// 	141: 0.003303,
+	// 	142: 0.004219,
+	// 	143: 0.005247,
+	// 	144: 0.006386,
+	// 	145: 0.007637,
+	// 	146: 0.008998,
+	// 	147: 0.010470,
+	// 	148: 0.012051,
+	// 	149: 0.013743,
+	// 	150: 0.015544,
+	// 	151: 0.017454,
+	// 	152: 0.019472,
+	// 	153: 0.021599,
+	// 	154: 0.023833,
+	// 	155: 0.026175,
+	// 	156: 0.028623,
+	// 	157: 0.031177,
+	// 	158: 0.033836,
+	// 	159: 0.036601,
+	// 	160: 0.039470,
+	// 	161: 0.042442,
+	// 	162: 0.045517,
+	// 	163: 0.048695,
+	// 	164: 0.051974,
+	// 	165: 0.055354,
+	// 	166: 0.058834,
+	// 	167: 0.062413,
+	// 	168: 0.066090,
+	// 	169: 0.069866,
+	// 	170: 0.073738,
+	// 	171: 0.077706,
+	// 	172: 0.081769,
+	// 	173: 0.085926,
+	// 	174: 0.090176,
+	// 	175: 0.094518,
+	// 	176: 0.098952,
+	// 	177: 0.103476,
+	// 	178: 0.108089,
+	// 	179: 0.112790,
+	// 	180: 0.117579,
+	// 	181: 0.122453,
+	// 	182: 0.127413,
+	// 	183: 0.132456,
+	// 	184: 0.137582,
+	// 	185: 0.142789,
+	// 	186: 0.148077,
+	// 	187: 0.153444,
+	// 	188: 0.158889,
+	// 	189: 0.164411,
+	// 	190: 0.170008,
+	// 	191: 0.175680,
+	// 	192: 0.181424,
+	// 	193: 0.187241,
+	// 	194: 0.193127,
+	// 	195: 0.199083,
+	// 	196: 0.205106,
+	// 	197: 0.211196,
+	// 	198: 0.217350,
+	// 	199: 0.223568,
+	// 	200: 0.019915,
+	// 	201: 0.014706,
+	// 	202: 0.010265,
+	// 	203: 0.006606,
+	// 	204: 0.003740,
+	// 	205: 0.001677,
+	// 	206: 0.000428,
+	// 	207: 0.000000,
+	// 	208: 0.000400,
+	// 	209: 0.001634,
+	// 	210: 0.003705,
+	// 	211: 0.006617,
+	// 	212: 0.010369,
+	// 	213: 0.014963,
+	// 	214: 0.020397,
+	// 	215: 0.026666,
+	// 	216: 0.033767,
+	// 	217: 0.041692,
+	// 	218: 0.050434,
+	// 	219: 0.059984,
+	// 	220: 0.070329,
+	// 	221: 0.081458,
+	// 	222: 0.093356,
+	// 	223: 0.106007,
+	// 	224: 0.119393,
+	// 	225: 0.133497,
+	// 	226: 0.148296,
+	// 	227: 0.163768,
+	// 	228: 0.179891,
+	// 	229: 0.196638,
+	// 	230: 0.213984,
+	// 	231: 0.231899,
+	// 	232: 0.250354,
+	// 	233: 0.269318,
+	// 	234: 0.288759,
+	// 	235: 0.308643,
+	// 	236: 0.328936,
+	// 	237: 0.349600,
+	// 	238: 0.370599,
+	// 	239: 0.391895,
+	// 	240: 0.413447,
+	// 	241: 0.435217,
+	// 	242: 0.457162,
+	// 	243: 0.479240,
+	// 	244: 0.501409,
+	// 	245: 0.523625,
+	// 	246: 0.545845,
+	// 	247: 0.568023,
+	// 	248: 0.590114,
+	// 	249: 0.612074,
+	// 	250: 0.633856,
+	// 	251: 0.655416,
+	// 	252: 0.676707,
+	// 	253: 0.697684,
+	// 	254: 0.718301,
+	// 	255: 0.738513,
+	// }
+
+	// Matrix-vector multiplication with floating point operations
+	// fmt.Printf("Product: ")
+	for i := 0; i < 64; i++ {
+		for j := 0; j < 64; j++ {
+			// Transform Matrix values with complex non linear equations and sum into product.
+			forComplex := float64(mat[i][j]) * vector[j]
+			for forComplex > 14 {
+				forComplex = forComplex * 0.1
+			}
+			product[i] += ComplexNonLinear(forComplex)
+			// d := float64(mat[i][j]) * vector[j]
+			// forComplex := d
+			// for forComplex > 14 {
+			// 	forComplex = forComplex * 0.1
+			// }
+			// complexOutput, exists := forComplexMap[int(d)]
+			// if exists {
+			// 	product[i] += complexOutput
+			// } else {
+			// 	product[i] += ComplexNonLinear(forComplex)
+			// }
+		}
+		// fmt.Printf("%.20f, ", product[i])
+	}
+	// fmt.Printf("\n")
+
+	// Convert product back to uint16 and then to byte array
+	var res [32]byte
+	// fmt.Printf("Hi/low: ")
+	for i := range res {
+		high := uint32(product[2*i] * 0.00000001)
+		low := uint32(product[2*i+1] * 0.00000001)
+		// fmt.Printf("%d - %d, ", high, low)
+		// Combine high and low into a single byte
+		combined := (high ^ low) & 0xFF
+		res[i] = hashBytes[i] ^ byte(combined)
+	}
+	// fmt.Printf("\n")
+	// fmt.Printf("Res: ")
+	// for i := range res {
+	// 	fmt.Printf("%d, ", res[i])
+	// }
+	// fmt.Printf("\n")
+	// Hash again
+	writer := hashes.Blake3HashWriter()
+	writer.InfallibleWrite(res[:])
+	return writer.Finalize()
+}
+
+func TestMatrixHoohashRev1(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+		fmt.Printf("------------------------------\n")
+		Nonce := int64(i)
+		fmt.Printf("Test %d\n", int64(i))
+		prePowHash, _ := hex.DecodeString("82b1d17c5e2200a0565956b711485a2cba6da909e588261582c2f465ec2e3d3f")
+		Timestamp := int64(1727011258677)
+		// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
+		writer := hashes.Blake3HashWriter()
+		// fmt.Printf("PRE_POW_HASH: %v\n", hex.EncodeToString(prePowHash))
+		writer.InfallibleWrite(prePowHash)
+		// fmt.Printf("TIME: %d\n", Timestamp)
+		serialization.WriteElement(writer, Timestamp)
+		zeroes := [32]byte{}
+		writer.InfallibleWrite(zeroes[:])
+		// fmt.Printf("Nonce: %d\n", Nonce)
+		serialization.WriteElement(writer, Nonce)
+		powHash := writer.Finalize()
+		// fmt.Printf("Powhash finalized: %v\n", powHash)
+		matrix := GenerateHoohashMatrixTest(externalapi.NewDomainHashFromByteArray((*[32]byte)(prePowHash)), t)
+		multiplied := matrix.HoohashMatrixMultiplicationTest(powHash, t)
+		fmt.Printf("POW HASH: %v\n", multiplied)
+	}
 
 	t.Fail()
 }
