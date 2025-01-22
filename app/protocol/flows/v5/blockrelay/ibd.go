@@ -506,7 +506,7 @@ func (flow *handleIBDFlow) processHeader(consensus externalapi.Consensus, msgBlo
 	block := &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: nil,
-		PoWHash:      "VALIDATE_HEADER_ONLY",
+		PoWHash:      "VALIDATE_HEADER_ONLYVALIDATE_HEADER_ONLYVALIDATE_HEADER_ONLYVALI",
 	}
 	blockHash := consensushashing.BlockHash(block)
 	blockInfo, err := consensus.GetBlockInfo(blockHash)
