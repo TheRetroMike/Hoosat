@@ -25,7 +25,7 @@ func DomainBlockToMsgBlock(domainBlock *externalapi.DomainBlock) *MsgBlock {
 	return &MsgBlock{
 		Header:       *DomainBlockHeaderToBlockHeader(domainBlock.Header),
 		Transactions: msgTxs,
-		PoWHash:      domainBlock.PoWHash,
+		PoWHash:      domainBlock.PoWHash.String(),
 	}
 }
 
@@ -53,11 +53,11 @@ func MsgBlockToDomainBlock(msgBlock *MsgBlock) *externalapi.DomainBlock {
 	for _, msgTx := range msgBlock.Transactions {
 		transactions = append(transactions, MsgTxToDomainTransaction(msgTx))
 	}
-
+	powHash, _ := externalapi.NewDomainHashFromString(msgBlock.PoWHash)
 	return &externalapi.DomainBlock{
 		Header:       BlockHeaderToDomainBlockHeader(&msgBlock.Header),
 		Transactions: transactions,
-		PoWHash:      msgBlock.PoWHash,
+		PoWHash:      powHash,
 	}
 }
 

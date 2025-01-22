@@ -29,7 +29,7 @@ type MsgBlock struct {
 	baseMessage
 	Header       MsgBlockHeader
 	Transactions []*MsgTx
-	PoWHash      *externalapi.DomainHash
+	PoWHash      string
 }
 
 // AddTransaction adds a transaction to the message.
@@ -72,6 +72,6 @@ func NewMsgBlock(blockHeader *MsgBlockHeader) *MsgBlock {
 	return &MsgBlock{
 		Header:       *blockHeader,
 		Transactions: make([]*MsgTx, 0, defaultTransactionAlloc),
-		PoWHash:      skipPoWHash,
+		PoWHash:      skipPoWHash.String(),
 	}
 }
