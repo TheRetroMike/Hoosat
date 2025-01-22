@@ -16,14 +16,13 @@ func mineNextBlock(t *testing.T, harness *appHarness) *externalapi.DomainBlock {
 		t.Fatalf("Error getting block template: %+v", err)
 	}
 
-	powHash, _ := externalapi.NewDomainHashFromString("REAL_MAIN_POW_HASH")
-	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, powHash)
+	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, "REAL_MAIN_POW_HASH")
 	if err != nil {
 		t.Fatalf("Error converting block: %s", err)
 	}
 
 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
-	_, powHash = mining.SolveBlock(block, rd)
+	_, powHash := mining.SolveBlock(block, rd)
 	block.PoWHash = powHash
 	_, err = harness.rpcClient.SubmitBlockAlsoIfNonDAA(block, block.PoWHash)
 	if err != nil {

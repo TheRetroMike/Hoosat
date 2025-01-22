@@ -2,7 +2,6 @@ package daa
 
 import (
 	"math"
-	"math/big"
 	"math/rand"
 	"os"
 	"testing"
@@ -206,15 +205,13 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 		// Try hashes until we find a valid block
 		miningStartTime := time.Now()
 		minerState.Nonce = rand.Uint64()
-		var powNum = new(big.Int)
-		var powHash = new(externalapi.DomainHash)
 		for {
 			hashStartTime := time.Now()
-			powNum, powHash = minerState.CalculateProofOfWorkValue()
+			powNum, powHash := minerState.CalculateProofOfWorkValue()
 			if powNum.Cmp(&minerState.Target) <= 0 {
 				headerForMining.SetNonce(minerState.Nonce)
 				templateBlock.Header = headerForMining.ToImmutable()
-				templateBlock.PoWHash = powHash
+				templateBlock.PoWHash = powHash.String()
 				break
 			}
 
@@ -261,8 +258,7 @@ func fetchBlockForMining(t *testing.T, rpcClient *rpcclient.RPCClient) *external
 	if err != nil {
 		t.Fatalf("GetBlockTemplate: %s", err)
 	}
-	fetchBlockForMiningPow, _ := externalapi.NewDomainHashFromString("FETCH_BLOCK_FOR_MINING_POW_HASH")
-	templateBlock, err := appmessage.RPCBlockToDomainBlock(getBlockTemplateResponse.Block, fetchBlockForMiningPow)
+	templateBlock, err := appmessage.RPCBlockToDomainBlock(getBlockTemplateResponse.Block, "FETCH_BLOCK_FOR_MINING_POW_HASH")
 	if err != nil {
 		t.Fatalf("RPCBlockToDomainBlock: %s", err)
 	}

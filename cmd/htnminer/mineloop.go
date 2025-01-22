@@ -123,7 +123,7 @@ func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error
 	blockHash := consensushashing.BlockHash(block)
 	log.Infof("Submitting block %s to %s", blockHash, client.Address())
 
-	rejectReason, err := client.SubmitBlock(block, &block.PoWHash)
+	rejectReason, err := client.SubmitBlock(block, block.PoWHash)
 	if err != nil {
 		if nativeerrors.Is(err, router.ErrTimeout) {
 			log.Warnf("Got timeout while submitting block %s to %s: %s", blockHash, client.Address(), err)
@@ -161,7 +161,7 @@ func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
 		if powNum.Cmp(&state.Target) <= 0 {
 			mutHeader := block.Header.ToMutable()
 			mutHeader.SetNonce(nonce)
-			block.PoWHash = *hash
+			block.PoWHash = hash.String()
 			block.Header = mutHeader.ToImmutable()
 			log.Infof("Found block %s with parents %s", consensushashing.BlockHash(block), block.Header.DirectParents())
 			return block

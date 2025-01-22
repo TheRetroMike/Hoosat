@@ -503,11 +503,10 @@ func (flow *handleIBDFlow) receiveHeaders() (msgIBDBlock *appmessage.BlockHeader
 
 func (flow *handleIBDFlow) processHeader(consensus externalapi.Consensus, msgBlockHeader *appmessage.MsgBlockHeader) error {
 	header := appmessage.BlockHeaderToDomainBlockHeader(msgBlockHeader)
-	PoWHash, err := externalapi.NewDomainHashFromString("PROCESSIN_HEADER")
 	block := &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: nil,
-		PoWHash:      *PoWHash,
+		PoWHash:      "",
 	}
 
 	blockHash := consensushashing.BlockHash(block)

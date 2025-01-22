@@ -98,7 +98,7 @@ func initTestTwoTransactions() []*externalapi.DomainTransaction {
 }
 
 func initTestBlockStructsForClone() []*externalapi.DomainBlock {
-	powHash, _ := externalapi.NewDomainHashFromString("TEST_CLONE")
+	powHash := "TEST_CLONE"
 	tests := []*externalapi.DomainBlock{
 		{
 			blockheader.NewImmutableBlockHeader(
@@ -116,7 +116,7 @@ func initTestBlockStructsForClone() []*externalapi.DomainBlock {
 				externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{10}),
 			),
 			initTestBaseTransactions(),
-			*powHash,
+			powHash,
 		}, {
 			blockheader.NewImmutableBlockHeader(
 				0,
@@ -133,7 +133,7 @@ func initTestBlockStructsForClone() []*externalapi.DomainBlock {
 				externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{10}),
 			),
 			initTestBaseTransactions(),
-			*powHash,
+			powHash,
 		},
 	}
 
@@ -141,7 +141,7 @@ func initTestBlockStructsForClone() []*externalapi.DomainBlock {
 }
 
 func initTestBlockStructsForEqual() *[]TestBlockStruct {
-	powHash, _ := externalapi.NewDomainHashFromString("TEST_CLONE")
+	powHash := "TEST_CLONE"
 	tests := []TestBlockStruct{
 		{
 			baseBlock: nil,
@@ -167,7 +167,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{10}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				},
@@ -189,7 +189,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 					externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 				),
 				initTestBaseTransactions(),
-				*powHash,
+				powHash,
 			},
 			blocksToCompareTo: []blockToCompare{
 				{
@@ -213,7 +213,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestAnotherTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -233,7 +233,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: true,
 				}, {
@@ -256,7 +256,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -276,7 +276,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestTwoTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -296,7 +296,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -316,7 +316,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -336,7 +336,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -356,7 +356,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -376,7 +376,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -396,7 +396,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -416,7 +416,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -436,7 +436,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -456,7 +456,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{11}),
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				}, {
@@ -476,7 +476,7 @@ func initTestBlockStructsForEqual() *[]TestBlockStruct {
 							externalapi.NewDomainHashFromByteArray(&[externalapi.DomainHashSize]byte{100}), // Changed
 						),
 						initTestBaseTransactions(),
-						*powHash,
+						powHash,
 					},
 					expectedResult: false,
 				},

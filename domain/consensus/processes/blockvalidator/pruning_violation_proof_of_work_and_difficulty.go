@@ -14,7 +14,7 @@ import (
 )
 
 func (v *blockValidator) ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea *model.StagingArea,
-	blockHash *externalapi.DomainHash, isBlockWithTrustedData bool, powHash *externalapi.DomainHash, trusted bool) error {
+	blockHash *externalapi.DomainHash, isBlockWithTrustedData bool, powHash string, trusted bool) error {
 
 	onEnd := logger.LogAndMeasureExecutionTime(log, "ValidatePruningPointViolationAndProofOfWorkAndDifficulty")
 	defer onEnd()
@@ -150,7 +150,7 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 // The flags modify the behavior of this function as follows:
 //   - BFNoPoWCheck: The check to ensure the block hash is less than the target
 //     difficulty is not performed.
-func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHash *externalapi.DomainHash, trusted bool) error {
+func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHash string, trusted bool) error {
 	// The target difficulty must be larger than zero.
 	state := pow.NewState(header.ToMutable())
 	target := &state.Target
@@ -167,10 +167,10 @@ func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHas
 
 	// The block pow must be valid unless the flag to avoid proof of work checks is set.
 	// We need the PoW hash for processBlock from P2P, so we don't need to skip here.
-	skipPoWHash, _ := externalapi.NewDomainHashFromString("SKIP_POW_BLOCK_FOR_NOW")
-	if !v.skipPoW || powHash.Equal(skipPoWHash) {
+	if !v.skipPoW || powHash == "SKIP_POW_BLOCK_FOR_NOW" {
 		if !trusted {
-			valid := state.CheckProofOfWork(powHash)
+			PoWDomainHash, _ := externalapi.NewDomainHashFromString(powHash)
+			valid := state.CheckProofOfWork(PoWDomainHash)
 			if !valid {
 				return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
 			}

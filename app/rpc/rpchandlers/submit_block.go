@@ -8,7 +8,6 @@ import (
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
 	"github.com/Hoosat-Oy/HTND/app/rpc/rpccontext"
-	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
@@ -20,7 +19,7 @@ import (
 func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request appmessage.Message) (appmessage.Message, error) {
 	submitBlockRequest := request.(*appmessage.SubmitBlockRequestMessage)
 	var err error
-	var powHash *externalapi.DomainHash
+	var powHash string
 	daaScore := submitBlockRequest.Block.Header.DAAScore
 	var version uint16 = 1
 	for _, powScore := range context.Config.ActiveNetParams.POWScores {
@@ -37,7 +36,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 				RejectReason: appmessage.RejectReasonBlockInvalid,
 			}, nil
 		}
-		powHash, err = externalapi.NewDomainHashFromString(strings.Replace(submitBlockRequest.PowHash, "0x", "", 1))
+		powHash = strings.Replace(submitBlockRequest.PowHash, "0x", "", 1)
 		if err != nil {
 			submitBlockRequestJSON, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
 			return &appmessage.SubmitBlockResponseMessage{

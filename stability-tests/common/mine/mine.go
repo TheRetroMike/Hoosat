@@ -127,9 +127,9 @@ func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.
 	if err != nil {
 		return nil, errors.Wrap(err, "error in BuildBlockWithParents")
 	}
-	var powHash = new(externalapi.DomainHash)
 	if !testConsensus.DAGParams().SkipProofOfWork {
-		_, powHash = SolveBlock(block)
+		_, powHash := SolveBlock(block)
+		block.PoWHash = powHash
 	}
 
 	err = testConsensus.ValidateAndInsertBlock(block, true)
@@ -147,13 +147,12 @@ func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.
 	if err != nil {
 		return nil, err
 	}
-	block.PoWHash = powHash
 	return block, nil
 }
 
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 // SolveBlock increments the given block's nonce until it matches the difficulty requirements in its bits field
-func SolveBlock(block *externalapi.DomainBlock) (*big.Int, *externalapi.DomainHash) {
+func SolveBlock(block *externalapi.DomainBlock) (*big.Int, string) {
 	return mining.SolveBlock(block, random)
 }

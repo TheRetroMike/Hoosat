@@ -25,7 +25,7 @@ func DomainBlockToMsgBlock(domainBlock *externalapi.DomainBlock) *MsgBlock {
 	return &MsgBlock{
 		Header:       *DomainBlockHeaderToBlockHeader(domainBlock.Header),
 		Transactions: msgTxs,
-		PoWHash:      domainBlock.PoWHash.String(),
+		PoWHash:      domainBlock.PoWHash,
 	}
 }
 
@@ -53,11 +53,10 @@ func MsgBlockToDomainBlock(msgBlock *MsgBlock) *externalapi.DomainBlock {
 	for _, msgTx := range msgBlock.Transactions {
 		transactions = append(transactions, MsgTxToDomainTransaction(msgTx))
 	}
-	powHash, _ := externalapi.NewDomainHashFromString(msgBlock.PoWHash)
 	return &externalapi.DomainBlock{
 		Header:       BlockHeaderToDomainBlockHeader(&msgBlock.Header),
 		Transactions: transactions,
-		PoWHash:      *powHash,
+		PoWHash:      msgBlock.PoWHash,
 	}
 }
 
@@ -378,7 +377,7 @@ func DomainBlockToRPCBlock(block *externalapi.DomainBlock) *RPCBlock {
 }
 
 // RPCBlockToDomainBlock converts `block` into a DomainBlock
-func RPCBlockToDomainBlock(block *RPCBlock, powHash *externalapi.DomainHash) (*externalapi.DomainBlock, error) {
+func RPCBlockToDomainBlock(block *RPCBlock, powHash string) (*externalapi.DomainBlock, error) {
 	parents := make([]externalapi.BlockLevelParents, len(block.Header.Parents))
 	for i, blockLevelParents := range block.Header.Parents {
 		parents[i] = make(externalapi.BlockLevelParents, len(blockLevelParents.ParentHashes))
@@ -434,7 +433,7 @@ func RPCBlockToDomainBlock(block *RPCBlock, powHash *externalapi.DomainHash) (*e
 	return &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: transactions,
-		PoWHash:      *powHash,
+		PoWHash:      powHash,
 	}, nil
 }
 

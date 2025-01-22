@@ -216,8 +216,7 @@ func mineNextBlockWithMockTimestamps(t *testing.T, harness *appHarness, rd *rand
 		t.Fatalf("Error getting block template: %+v", err)
 	}
 
-	powHash, _ := externalapi.NewDomainHashFromString("MINE_BLOCK_POW_HASH")
-	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, powHash)
+	block, err := appmessage.RPCBlockToDomainBlock(blockTemplate.Block, "")
 	if err != nil {
 		t.Fatalf("Error converting block: %s", err)
 	}
