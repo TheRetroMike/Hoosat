@@ -6,7 +6,7 @@ import "math/big"
 type DomainBlock struct {
 	Header       BlockHeader
 	Transactions []*DomainTransaction
-	PoWHash      *DomainHash
+	PoWHash      DomainHash // Change to value type
 }
 
 // Clone returns a clone of DomainBlock
@@ -19,13 +19,13 @@ func (block *DomainBlock) Clone() *DomainBlock {
 	return &DomainBlock{
 		Header:       block.Header,
 		Transactions: transactionClone,
-		PoWHash:      block.PoWHash,
+		PoWHash:      block.PoWHash, // No need for dereferencing or creating a new pointer
 	}
 }
 
 // If this doesn't compile, it means the type definition has been changed, so it's
 // an indication to update Equal and Clone accordingly.
-var _ = DomainBlock{nil, []*DomainTransaction{}, nil}
+var _ = DomainBlock{nil, []*DomainTransaction{}, DomainHash{}}
 
 // Equal returns whether block equals to other
 func (block *DomainBlock) Equal(other *DomainBlock) bool {
@@ -47,8 +47,8 @@ func (block *DomainBlock) Equal(other *DomainBlock) bool {
 		}
 	}
 
-	if !block.PoWHash.Equal(other.PoWHash) {
-		return false
+	if block.PoWHash != other.PoWHash {
+		return false // Direct value comparison
 	}
 
 	return true

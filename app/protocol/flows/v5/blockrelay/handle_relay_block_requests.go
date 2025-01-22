@@ -1,6 +1,9 @@
 package blockrelay
 
 import (
+	"encoding/json"
+	"fmt"
+
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
 	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
@@ -29,6 +32,8 @@ func HandleRelayBlockRequests(context RelayBlockRequestsContext, incomingRoute *
 		for _, hash := range getRelayBlocksMessage.Hashes {
 			// Fetch the block from the database.
 			block, found, err := context.Domain().Consensus().GetBlock(hash)
+			blckjson, _ := json.Marshal(block)
+			fmt.Printf("Block: %s", blckjson)
 			if err != nil {
 				return errors.Wrapf(err, "unable to fetch requested block hash %s", hash)
 			}

@@ -57,7 +57,7 @@ func MsgBlockToDomainBlock(msgBlock *MsgBlock) *externalapi.DomainBlock {
 	return &externalapi.DomainBlock{
 		Header:       BlockHeaderToDomainBlockHeader(&msgBlock.Header),
 		Transactions: transactions,
-		PoWHash:      powHash,
+		PoWHash:      *powHash,
 	}
 }
 
@@ -434,7 +434,7 @@ func RPCBlockToDomainBlock(block *RPCBlock, powHash *externalapi.DomainHash) (*e
 	return &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: transactions,
-		PoWHash:      powHash,
+		PoWHash:      *powHash,
 	}, nil
 }
 
