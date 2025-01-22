@@ -3,7 +3,6 @@ package blockprocessor
 import (
 	// we need to embed the utxoset of mainnet genesis here
 	_ "embed"
-	"encoding/json"
 	"fmt"
 
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model"
@@ -325,8 +324,8 @@ func (bp *blockProcessor) validatePostProofOfWork(stagingArea *model.StagingArea
 
 	isHeaderOnlyBlock := isHeaderOnlyBlock(block)
 	if !isHeaderOnlyBlock {
-		blockjson, _ := json.MarshalIndent(block, "", "  ")
-		fmt.Printf("Block: %s", blockjson)
+		// blockjson, _ := json.MarshalIndent(block, "", "  ")
+		// fmt.Printf("Block: %s", blockjson)
 		bp.blockStore.Stage(stagingArea, blockHash, block)
 		err := bp.blockValidator.ValidateBodyInIsolation(stagingArea, blockHash)
 		if err != nil {
