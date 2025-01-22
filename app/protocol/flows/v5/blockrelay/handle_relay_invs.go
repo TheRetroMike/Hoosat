@@ -356,6 +356,9 @@ func (flow *handleRelayInvsFlow) readMsgBlock() (msgBlock *appmessage.MsgBlock, 
 
 func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock) ([]*externalapi.DomainHash, error) {
 	blockHash := consensushashing.BlockHash(block)
+	if block.PoWHash == "VALIDATE_HEADER_ONLY" {
+		return nil, errors.New(fmt.Sprintf("failed to process block %s", blockHash))
+	}
 	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true)
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {

@@ -506,9 +506,8 @@ func (flow *handleIBDFlow) processHeader(consensus externalapi.Consensus, msgBlo
 	block := &externalapi.DomainBlock{
 		Header:       header,
 		Transactions: nil,
-		PoWHash:      "",
+		PoWHash:      "VALIDATE_HEADER_ONLY",
 	}
-
 	blockHash := consensushashing.BlockHash(block)
 	blockInfo, err := consensus.GetBlockInfo(blockHash)
 	if err != nil {
@@ -518,7 +517,6 @@ func (flow *handleIBDFlow) processHeader(consensus externalapi.Consensus, msgBlo
 		log.Debugf("Block header %s is already in the DAG. Skipping...", blockHash)
 		return nil
 	}
-
 	err = consensus.ValidateAndInsertBlock(block, false)
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {
