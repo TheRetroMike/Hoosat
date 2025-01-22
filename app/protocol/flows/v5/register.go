@@ -10,6 +10,7 @@ import (
 	"github.com/Hoosat-Oy/HTND/app/protocol/flows/v5/rejects"
 	"github.com/Hoosat-Oy/HTND/app/protocol/flows/v5/transactionrelay"
 	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 	routerpkg "github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 )
 
@@ -25,9 +26,9 @@ type protocolManager interface {
 }
 
 // Register is used in order to register all the protocol flows to the given router.
-func Register(m protocolManager, router *routerpkg.Router, errChan chan error, isStopping *uint32) (flows []*common.Flow) {
+func Register(m protocolManager, netConnection *netadapter.NetConnection, router *routerpkg.Router, errChan chan error, isStopping *uint32) (flows []*common.Flow) {
 	flows = registerAddressFlows(m, router, isStopping, errChan)
-	flows = append(flows, registerBlockRelayFlows(m, router, isStopping, errChan)...)
+	flows = append(flows, registerBlockRelayFlows(m, netConnection, router, isStopping, errChan)...)
 	flows = append(flows, registerPingFlows(m, router, isStopping, errChan)...)
 	flows = append(flows, registerTransactionRelayFlow(m, router, isStopping, errChan)...)
 	flows = append(flows, registerRejectsFlow(m, router, isStopping, errChan)...)
@@ -53,7 +54,7 @@ func registerAddressFlows(m protocolManager, router *routerpkg.Router, isStoppin
 	}
 }
 
-func registerBlockRelayFlows(m protocolManager, router *routerpkg.Router, isStopping *uint32, errChan chan error) []*common.Flow {
+func registerBlockRelayFlows(m protocolManager, netConnecion *netadapter.NetConnection, router *routerpkg.Router, isStopping *uint32, errChan chan error) []*common.Flow {
 	outgoingRoute := router.OutgoingRoute()
 
 	return []*common.Flow{
@@ -66,7 +67,7 @@ func registerBlockRelayFlows(m protocolManager, router *routerpkg.Router, isStop
 			appmessage.CmdInvRelayBlock, appmessage.CmdBlock, appmessage.CmdBlockLocator,
 		},
 			isStopping, errChan, func(incomingRoute *routerpkg.Route, peer *peerpkg.Peer) error {
-				return blockrelay.HandleRelayInvs(m.Context(), incomingRoute,
+				return blockrelay.HandleRelayInvs(m.Context(), m.Context().ConnectionManager(), netConnecion, incomingRoute,
 					outgoingRoute, peer)
 			},
 		),

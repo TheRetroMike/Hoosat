@@ -1,6 +1,8 @@
 package blockrelay
 
 import (
+	"fmt"
+
 	"github.com/Hoosat-Oy/HTND/app/appmessage"
 	"github.com/Hoosat-Oy/HTND/app/protocol/common"
 	"github.com/Hoosat-Oy/HTND/app/protocol/flowcontext"
@@ -14,6 +16,8 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashset"
 	"github.com/Hoosat-Oy/HTND/infrastructure/config"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/connmanager"
+	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
@@ -49,25 +53,35 @@ type handleRelayInvsFlow struct {
 	RelayInvsContext
 	incomingRoute, outgoingRoute *router.Route
 	peer                         *peerpkg.Peer
+	connectionManager            *connmanager.ConnectionManager
+	netConnecion                 *netadapter.NetConnection
 	invsQueue                    []invRelayBlock
 }
 
 // HandleRelayInvs listens to appmessage.MsgInvRelayBlock messages, requests their corresponding blocks if they
 // are missing, adds them to the DAG and propagates them to the rest of the network.
-func HandleRelayInvs(context RelayInvsContext, incomingRoute *router.Route, outgoingRoute *router.Route,
+func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.ConnectionManager, netConnecion *netadapter.NetConnection, incomingRoute *router.Route, outgoingRoute *router.Route,
 	peer *peerpkg.Peer) error {
 
 	flow := &handleRelayInvsFlow{
-		RelayInvsContext: context,
-		incomingRoute:    incomingRoute,
-		outgoingRoute:    outgoingRoute,
-		peer:             peer,
-		invsQueue:        make([]invRelayBlock, 0),
+		RelayInvsContext:  context,
+		incomingRoute:     incomingRoute,
+		outgoingRoute:     outgoingRoute,
+		peer:              peer,
+		connectionManager: connectionManager,
+		netConnecion:      netConnecion,
+		invsQueue:         make([]invRelayBlock, 0),
 	}
 	err := flow.start()
 	// Currently, HandleRelayInvs flow is the only place where IBD is triggered, so the channel can be closed now
 	close(peer.IBDRequestChannel())
 	return err
+}
+
+func (flow *handleRelayInvsFlow) banConnection() error {
+	ip := flow.netConnecion.NetAddress().IP
+	fmt.Printf("Banning connection: %s", ip)
+	return flow.connectionManager.BanByIP(ip)
 }
 
 func (flow *handleRelayInvsFlow) start() error {
@@ -196,11 +210,11 @@ func (flow *handleRelayInvsFlow) start() error {
 				log.Infof("Ignoring pruned block %s", inv.Hash)
 				continue
 			}
-
 			if errors.Is(err, ruleerrors.ErrDuplicateBlock) {
 				log.Infof("Ignoring duplicate block %s", inv.Hash)
 				continue
 			}
+			flow.banConnection()
 			return err
 		}
 		if len(missingParents) > 0 {
@@ -262,6 +276,7 @@ func (flow *handleRelayInvsFlow) start() error {
 
 func (flow *handleRelayInvsFlow) banIfBlockIsHeaderOnly(block *externalapi.DomainBlock) error {
 	if len(block.Transactions) == 0 {
+		flow.banConnection()
 		return protocolerrors.Errorf(true, "sent header of %s block where expected block with body",
 			consensushashing.BlockHash(block))
 	}
