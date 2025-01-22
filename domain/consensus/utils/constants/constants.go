@@ -7,7 +7,8 @@ var (
 	// 1 Pyrinhash
 	// 2 HoohashV1
 	// 3 HoohashV2
-	BlockVersion uint16 = 1
+	BlockVersion           uint16 = 1
+	PoWIntegrityMinVersion uint16 = 3
 )
 
 const (

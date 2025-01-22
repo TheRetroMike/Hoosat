@@ -230,12 +230,19 @@ func (state *State) IncrementNonce() {
 
 // CheckProofOfWork check's if the block has a valid PoW according to the provided target
 // it does not check if the difficulty itself is valid or less than the maximum for the appropriate network
-func (state *State) CheckProofOfWork(powHash *externalapi.DomainHash) bool {
+func (state *State) CheckProofOfWork(powString string) bool {
 	// The block pow must be less than the claimed target
 	powNum, _ := state.CalculateProofOfWorkValue()
 	if state.blockVersion <= 2 {
 		return powNum.Cmp(&state.Target) <= 0
 	} else if state.blockVersion >= 3 {
+		if powString == "SKIP_POW" {
+			return powNum.Cmp(&state.Target) <= 0
+		}
+		powHash, err := externalapi.NewDomainHashFromString(powString)
+		if err != nil {
+			return false
+		}
 		if !powHash.Equal(new(externalapi.DomainHash)) { // Check that PowHash is not empty default.
 			submittedPowNum := toBig(powHash)
 			if submittedPowNum.Cmp(powNum) == 0 {
@@ -249,7 +256,7 @@ func (state *State) CheckProofOfWork(powHash *externalapi.DomainHash) bool {
 
 // CheckProofOfWorkByBits check's if the block has a valid PoW according to its Bits field
 // it does not check if the difficulty itself is valid or less than the maximum for the appropriate network
-func CheckProofOfWorkByBits(header externalapi.MutableBlockHeader, powHash *externalapi.DomainHash) bool {
+func CheckProofOfWorkByBits(header externalapi.MutableBlockHeader, powHash string) bool {
 	return NewState(header).CheckProofOfWork(powHash)
 }
 

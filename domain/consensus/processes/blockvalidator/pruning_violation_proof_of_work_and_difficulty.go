@@ -167,16 +167,9 @@ func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader, powHas
 
 	// The block pow must be valid unless the flag to avoid proof of work checks is set.
 	// We need the PoW hash for processBlock from P2P, so we don't need to skip here.
-	if !v.skipPoW && powHash != "VALIDATE_HEADER_ONLYVALIDATE_HEADER_ONLYVALIDATE_HEADER_ONLYVALI" {
+	if !v.skipPoW {
 		if !trusted {
-			if len(powHash) == 0 {
-				return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has empty proof of work %s", powHash))
-			}
-			PoWDomainHash, err := externalapi.NewDomainHashFromString(powHash)
-			if err != nil {
-				return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s, %s", powHash, err))
-			}
-			valid := state.CheckProofOfWork(PoWDomainHash)
+			valid := state.CheckProofOfWork(powHash)
 			if !valid {
 				return errors.Wrap(ruleerrors.ErrInvalidPoW, fmt.Sprintf("block has invalid proof of work %s", powHash))
 			}
