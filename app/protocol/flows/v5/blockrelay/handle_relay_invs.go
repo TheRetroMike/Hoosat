@@ -199,9 +199,9 @@ func (flow *handleRelayInvsFlow) start() error {
 			}
 		}
 		powSkip := false
-		if inv.IsOrphanRoot {
+		if inv.IsOrphanRoot || block.PoWHash == "POW_SKIP_ORPHANROOT" {
 			if block.PoWHash == "" {
-				block.PoWHash = "POW_SKIP_ORPHAN"
+				block.PoWHash = "POW_SKIP_ORPHANROOT"
 			}
 			powSkip = true
 		}
