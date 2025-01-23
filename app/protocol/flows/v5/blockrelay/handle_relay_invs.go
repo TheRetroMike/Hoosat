@@ -79,9 +79,8 @@ func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.Co
 }
 
 func (flow *handleRelayInvsFlow) banConnection() error {
-	ip := flow.netConnecion.NetAddress().IP
-	fmt.Printf("Banning connection: %s", ip)
-	return flow.connectionManager.BanByIP(ip)
+	fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().IP)
+	return flow.connectionManager.Ban(flow.netConnecion)
 }
 
 func (flow *handleRelayInvsFlow) start() error {
@@ -214,7 +213,9 @@ func (flow *handleRelayInvsFlow) start() error {
 				log.Infof("Ignoring duplicate block %s", inv.Hash)
 				continue
 			}
-			flow.banConnection()
+			if errors.Is(err, ruleerrors.ErrInvalidPoW) {
+				log.Infof("Ignoring invalid PoW, consider banning.")
+			}
 			return err
 		}
 		if len(missingParents) > 0 {
