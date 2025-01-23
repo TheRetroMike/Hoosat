@@ -214,7 +214,7 @@ func (flow *handleRelayInvsFlow) start() error {
 				continue
 			}
 			if errors.Is(err, ruleerrors.ErrInvalidPoW) {
-				log.Infof("Ignoring invalid PoW, consider banning.")
+				log.Infof(fmt.Sprintf("Ignoring invalid PoW %s, consider banning: %s", block.PoWHash, flow.netConnecion.NetAddress().String()))
 				continue
 			}
 			return err
