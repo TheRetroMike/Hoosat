@@ -79,7 +79,8 @@ func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.Co
 }
 
 func (flow *handleRelayInvsFlow) banConnection() error {
-	fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().IP)
+	defer flow.connectionManager.RemoveConnection(flow.netConnecion.NetAddress().String())
+	fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().String())
 	return flow.connectionManager.Ban(flow.netConnecion)
 }
 
@@ -200,7 +201,7 @@ func (flow *handleRelayInvsFlow) start() error {
 		powSkip := false
 		if inv.IsOrphanRoot {
 			if block.PoWHash == "" {
-				block.PoWHash = "POW_SKIP"
+				block.PoWHash = "POW_SKIP_ORPHAN"
 			}
 			powSkip = true
 		}
