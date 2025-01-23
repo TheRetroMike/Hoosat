@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func (bp *blockProcessor) validateBlock(stagingArea *model.StagingArea, block *externalapi.DomainBlock, isBlockWithTrustedData bool, trusted bool) error {
+func (bp *blockProcessor) validateBlock(stagingArea *model.StagingArea, block *externalapi.DomainBlock, isBlockWithTrustedData bool, trusted bool, powSkip bool) error {
 	blockHash := consensushashing.HeaderHash(block.Header)
 	log.Debugf("Validating block %s", blockHash)
 
@@ -47,9 +47,9 @@ func (bp *blockProcessor) validateBlock(stagingArea *model.StagingArea, block *e
 
 	if !hasValidatedHeader {
 		if block.Header.Version() >= constants.PoWIntegrityMinVersion {
-			err = bp.blockValidator.ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea, blockHash, isBlockWithTrustedData, block.PoWHash, trusted)
+			err = bp.blockValidator.ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea, blockHash, isBlockWithTrustedData, block.PoWHash, trusted, powSkip)
 		} else {
-			err = bp.blockValidator.ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea, blockHash, isBlockWithTrustedData, "SKIP_POWHASH", trusted)
+			err = bp.blockValidator.ValidatePruningPointViolationAndProofOfWorkAndDifficulty(stagingArea, blockHash, isBlockWithTrustedData, "SKIP_POWHASH", trusted, powSkip)
 		}
 		if err != nil {
 			return err

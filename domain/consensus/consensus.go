@@ -200,7 +200,7 @@ func (s *consensus) BuildBlockTemplate(coinbaseData *externalapi.DomainCoinbaseD
 
 // ValidateAndInsertBlock validates the given block and, if valid, applies it
 // to the current state
-func (s *consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, updateVirtual bool) error {
+func (s *consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, updateVirtual bool, powSkip bool) error {
 	if updateVirtual {
 		s.lock.Lock()
 		if s.virtualNotUpdated {
@@ -214,7 +214,7 @@ func (s *consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, updat
 				if isCompletelyResolved {
 					// Make sure we enter the block insertion function w/o releasing the lock.
 					// Otherwise, we might actually enter it in `s.virtualNotUpdated == true` state
-					_, err = s.validateAndInsertBlockNoLock(block, updateVirtual)
+					_, err = s.validateAndInsertBlockNoLock(block, updateVirtual, powSkip)
 					// Finally, unlock for the last iteration and return
 					s.lock.Unlock()
 					if err != nil {
@@ -228,7 +228,7 @@ func (s *consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, updat
 				s.lock.Lock()
 			}
 		}
-		_, err := s.validateAndInsertBlockNoLock(block, updateVirtual)
+		_, err := s.validateAndInsertBlockNoLock(block, updateVirtual, powSkip)
 		s.lock.Unlock()
 		if err != nil {
 			return err
@@ -236,22 +236,22 @@ func (s *consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, updat
 		return nil
 	}
 
-	return s.validateAndInsertBlockWithLock(block, updateVirtual)
+	return s.validateAndInsertBlockWithLock(block, updateVirtual, powSkip)
 }
 
-func (s *consensus) validateAndInsertBlockWithLock(block *externalapi.DomainBlock, updateVirtual bool) error {
+func (s *consensus) validateAndInsertBlockWithLock(block *externalapi.DomainBlock, updateVirtual bool, powSkip bool) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	_, err := s.validateAndInsertBlockNoLock(block, updateVirtual)
+	_, err := s.validateAndInsertBlockNoLock(block, updateVirtual, powSkip)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *consensus) validateAndInsertBlockNoLock(block *externalapi.DomainBlock, updateVirtual bool) (*externalapi.VirtualChangeSet, error) {
-	virtualChangeSet, blockStatus, err := s.blockProcessor.ValidateAndInsertBlock(block, updateVirtual)
+func (s *consensus) validateAndInsertBlockNoLock(block *externalapi.DomainBlock, updateVirtual bool, powSkip bool) (*externalapi.VirtualChangeSet, error) {
+	virtualChangeSet, blockStatus, err := s.blockProcessor.ValidateAndInsertBlock(block, updateVirtual, powSkip)
 	if err != nil {
 		return nil, err
 	}

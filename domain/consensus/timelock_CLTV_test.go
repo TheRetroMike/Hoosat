@@ -319,7 +319,7 @@ func TestCheckLockTimeVerifyConditionedByAbsoluteTime(t *testing.T) {
 			blockHeader.SetTimeInMilliseconds(timeStampBlockE + i*1000)
 			tipBlock.Header = blockHeader.ToImmutable()
 
-			err = testConsensus.ValidateAndInsertBlock(tipBlock, true)
+			err = testConsensus.ValidateAndInsertBlock(tipBlock, true, true)
 			if err != nil {
 				t.Fatalf("Error validating and inserting tip block: %v", err)
 			}
@@ -441,7 +441,7 @@ func TestCheckLockTimeVerifyConditionedByAbsoluteTimeWithWrongLockTime(t *testin
 			blockHeader.SetTimeInMilliseconds(timeStampBlockE + i*1000)
 			tipBlock.Header = blockHeader.ToImmutable()
 
-			err = testConsensus.ValidateAndInsertBlock(tipBlock, true)
+			err = testConsensus.ValidateAndInsertBlock(tipBlock, true, true)
 			if err != nil {
 				t.Fatalf("Error validating and inserting tip block: %v", err)
 			}

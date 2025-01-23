@@ -94,6 +94,7 @@ func (flow *handleRelayInvsFlow) start() error {
 		log.Debugf("Got relay inv for block %s", inv.Hash)
 
 		blockInfo, err := flow.Domain().Consensus().GetBlockInfo(inv.Hash)
+
 		if err != nil {
 			return err
 		}
@@ -196,14 +197,20 @@ func (flow *handleRelayInvsFlow) start() error {
 				}
 			}
 		}
-
+		powSkip := false
+		if inv.IsOrphanRoot {
+			if block.PoWHash == "" {
+				block.PoWHash = "POW_SKIP"
+			}
+			powSkip = true
+		}
 		log.Debugf("Processing block %s", inv.Hash)
 		oldVirtualInfo, err := flow.Domain().Consensus().GetVirtualInfo()
 		if err != nil {
 			return err
 		}
 		// We need the PoW hash for processBlock from P2P.
-		missingParents, err := flow.processBlock(block)
+		missingParents, err := flow.processBlock(block, powSkip)
 		if err != nil {
 			if errors.Is(err, ruleerrors.ErrPrunedBlock) {
 				log.Infof("Ignoring pruned block %s", inv.Hash)
@@ -356,12 +363,9 @@ func (flow *handleRelayInvsFlow) readMsgBlock() (msgBlock *appmessage.MsgBlock, 
 	}
 }
 
-func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock) ([]*externalapi.DomainHash, error) {
+func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock, powSkip bool) ([]*externalapi.DomainHash, error) {
 	blockHash := consensushashing.BlockHash(block)
-	if block.PoWHash == "SKIP_POW" && block.Header.Version() >= 3 {
-		return nil, errors.New(fmt.Sprintf("failed to process block %s", blockHash))
-	}
-	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true)
+	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true, powSkip)
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {
 			err = flow.processOrphan(block)

@@ -79,7 +79,7 @@ func TestBlockStatus(t *testing.T) {
 			disqualifiedBlock.Header.PruningPoint(),
 		)
 
-		err = tc.ValidateAndInsertBlock(disqualifiedBlock, true)
+		err = tc.ValidateAndInsertBlock(disqualifiedBlock, true, true)
 		if err != nil {
 			t.Fatalf("ValidateAndInsertBlock: %+v", err)
 		}
@@ -106,7 +106,7 @@ func TestBlockStatus(t *testing.T) {
 			disqualifiedBlock.Header.PruningPoint(),
 		)
 
-		err = tc.ValidateAndInsertBlock(invalidBlock, true)
+		err = tc.ValidateAndInsertBlock(invalidBlock, true, true)
 		if err == nil {
 			t.Fatalf("block is expected to be invalid")
 		}
@@ -140,11 +140,11 @@ func TestValidateAndInsertErrors(t *testing.T) {
 			t.Fatalf("AddBlock: %+v", err)
 		}
 
-		err = tc.ValidateAndInsertBlock(blockWithStatusInvalid, true)
+		err = tc.ValidateAndInsertBlock(blockWithStatusInvalid, true, true)
 		if err == nil {
 			t.Fatalf("Test ValidateAndInsertBlock: Expected an error, because the block is invalid.")
 		}
-		err = tc.ValidateAndInsertBlock(blockWithStatusInvalid, true)
+		err = tc.ValidateAndInsertBlock(blockWithStatusInvalid, true, true)
 		if err == nil || !errors.Is(err, ruleerrors.ErrKnownInvalid) {
 			t.Fatalf("Expected block to be invalid with err: %v, instead found: %v", ruleerrors.ErrKnownInvalid, err)
 		}
@@ -156,12 +156,12 @@ func TestValidateAndInsertErrors(t *testing.T) {
 		if err != nil {
 			t.Fatalf("AddBlock: %+v", err)
 		}
-		err = tc.ValidateAndInsertBlock(block, true)
+		err = tc.ValidateAndInsertBlock(block, true, true)
 		if err != nil {
 			t.Fatalf("ValidateAndInsertBlock: %+v", err)
 		}
 		// resend the same block.
-		err = tc.ValidateAndInsertBlock(block, true)
+		err = tc.ValidateAndInsertBlock(block, true, true)
 		if err == nil || !errors.Is(err, ruleerrors.ErrDuplicateBlock) {
 			t.Fatalf("Expected block to be invalid with err: %v, instead found: %v", ruleerrors.ErrDuplicateBlock, err)
 		}
@@ -174,12 +174,12 @@ func TestValidateAndInsertErrors(t *testing.T) {
 			t.Fatalf("AddBlock: %+v", err)
 		}
 		onlyHeader.Transactions = []*externalapi.DomainTransaction{}
-		err = tc.ValidateAndInsertBlock(onlyHeader, true)
+		err = tc.ValidateAndInsertBlock(onlyHeader, true, true)
 		if err != nil {
 			t.Fatalf("AddBlock: %+v", err)
 		}
 		// resend the same header.
-		err = tc.ValidateAndInsertBlock(onlyHeader, true)
+		err = tc.ValidateAndInsertBlock(onlyHeader, true, true)
 		if err == nil || !errors.Is(err, ruleerrors.ErrDuplicateBlock) {
 			t.Fatalf("Expected block to be invalid with err: %v, instead found: %v", ruleerrors.ErrDuplicateBlock, err)
 		}

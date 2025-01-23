@@ -107,7 +107,7 @@ func (f *FlowContext) AddBlock(block *externalapi.DomainBlock) error {
 		return protocolerrors.Errorf(false, "cannot add header only block")
 	}
 
-	err := f.Domain().Consensus().ValidateAndInsertBlock(block, true)
+	err := f.Domain().Consensus().ValidateAndInsertBlock(block, true, false)
 	if err != nil {
 		if errors.As(err, &ruleerrors.RuleError{}) {
 			log.Warnf("Validation failed for block %s with powhash %s: %s", consensushashing.BlockHash(block), block.PoWHash, err)

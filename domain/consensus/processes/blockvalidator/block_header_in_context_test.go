@@ -35,7 +35,7 @@ func TestValidateMedianTime(t *testing.T) {
 			newHeader := block.Header.ToMutable()
 			newHeader.SetTimeInMilliseconds(blockTime)
 			block.Header = newHeader.ToImmutable()
-			err = tc.ValidateAndInsertBlock(block, true)
+			err = tc.ValidateAndInsertBlock(block, true, true)
 			if !errors.Is(err, expectedErr) {
 				t.Fatalf("expected error %s but got %+v", expectedErr, err)
 			}
@@ -127,7 +127,7 @@ func TestCheckParentsIncest(t *testing.T) {
 			Transactions: nil,
 		}
 
-		err = tc.ValidateAndInsertBlock(directParentsRelationBlock, true)
+		err = tc.ValidateAndInsertBlock(directParentsRelationBlock, true, true)
 		if !errors.Is(err, ruleerrors.ErrInvalidParentsRelation) {
 			t.Fatalf("unexpected error %+v", err)
 		}
@@ -150,7 +150,7 @@ func TestCheckParentsIncest(t *testing.T) {
 			Transactions: nil,
 		}
 
-		err = tc.ValidateAndInsertBlock(indirectParentsRelationBlock, true)
+		err = tc.ValidateAndInsertBlock(indirectParentsRelationBlock, true, true)
 		if !errors.Is(err, ruleerrors.ErrInvalidParentsRelation) {
 			t.Fatalf("unexpected error %+v", err)
 		}

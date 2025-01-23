@@ -132,7 +132,7 @@ func mineOrFetchBlock(blockData JSONBlock, mdb *miningDB, testConsensus testapi.
 		block.PoWHash = powHash
 	}
 
-	err = testConsensus.ValidateAndInsertBlock(block, true)
+	err = testConsensus.ValidateAndInsertBlock(block, true, true)
 	if err != nil {
 		return nil, errors.Wrap(err, "error in ValidateAndInsertBlock")
 	}
