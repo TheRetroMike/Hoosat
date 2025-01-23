@@ -19,14 +19,16 @@ type NetConnection struct {
 	router                *routerpkg.Router
 	onDisconnectedHandler server.OnDisconnectedHandler
 	isRouterClosed        uint32
+	shouldBanCounter      uint32
 }
 
 func newNetConnection(connection server.Connection, routerInitializer RouterInitializer, name string) *NetConnection {
 	router := routerpkg.NewRouter(name)
 
 	netConnection := &NetConnection{
-		connection: connection,
-		router:     router,
+		connection:       connection,
+		router:           router,
+		shouldBanCounter: 0,
 	}
 
 	netConnection.connection.SetOnDisconnectedHandler(func() {
@@ -95,4 +97,12 @@ func (c *NetConnection) Disconnect() {
 // SetOnInvalidMessageHandler sets the invalid message handler for this connection
 func (c *NetConnection) SetOnInvalidMessageHandler(onInvalidMessageHandler server.OnInvalidMessageHandler) {
 	c.connection.SetOnInvalidMessageHandler(onInvalidMessageHandler)
+}
+
+func (c *NetConnection) ShouldWeBan(banLimit uint32) bool {
+	if c.shouldBanCounter > banLimit {
+		return true
+	}
+	c.shouldBanCounter += 1
+	return false
 }

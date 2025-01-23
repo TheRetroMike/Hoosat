@@ -78,10 +78,16 @@ func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.Co
 	return err
 }
 
-func (flow *handleRelayInvsFlow) banConnection() error {
-	defer flow.connectionManager.RemoveConnection(flow.netConnecion.NetAddress().String())
-	fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().String())
-	return flow.connectionManager.Ban(flow.netConnecion)
+func (flow *handleRelayInvsFlow) banConnection() {
+	if flow.netConnecion.ShouldWeBan(5) {
+		err := flow.connectionManager.Ban(flow.netConnecion)
+		if err != nil {
+			fmt.Printf("Failed banning connection: %s (%s)", flow.netConnecion.NetAddress().String(), err)
+			return
+		}
+		flow.connectionManager.RemoveConnection(flow.netConnecion.NetAddress().String())
+		fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().String())
+	}
 }
 
 func (flow *handleRelayInvsFlow) start() error {
@@ -223,6 +229,7 @@ func (flow *handleRelayInvsFlow) start() error {
 			}
 			if errors.Is(err, ruleerrors.ErrInvalidPoW) {
 				log.Infof(fmt.Sprintf("Ignoring invalid PoW %s, consider banning: %s", block.PoWHash, flow.netConnecion.NetAddress().String()))
+				flow.banConnection()
 				continue
 			}
 			return err

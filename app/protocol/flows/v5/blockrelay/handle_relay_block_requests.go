@@ -5,6 +5,7 @@ import (
 	peerpkg "github.com/Hoosat-Oy/HTND/app/protocol/peer"
 	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
 	"github.com/Hoosat-Oy/HTND/domain"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
@@ -32,13 +33,12 @@ func HandleRelayBlockRequests(context RelayBlockRequestsContext, incomingRoute *
 			if err != nil {
 				return errors.Wrapf(err, "unable to fetch requested block hash %s", hash)
 			}
-
 			if !found {
 				return protocolerrors.Errorf(false, "Relay block %s not found", hash)
 			}
-
-			// TODO (Partial nodes): Convert block to partial block if needed
-
+			if block.PoWHash == "" && block.Header.Version() >= constants.PoWIntegrityMinVersion {
+				return protocolerrors.Errorf(false, "Relay block %s PoW hash not found", hash)
+			}
 			err = outgoingRoute.Enqueue(appmessage.DomainBlockToMsgBlock(block))
 			if err != nil {
 				return err
