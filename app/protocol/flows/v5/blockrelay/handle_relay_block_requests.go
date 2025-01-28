@@ -36,9 +36,9 @@ func HandleRelayBlockRequests(context RelayBlockRequestsContext, incomingRoute *
 			if !found {
 				return protocolerrors.Errorf(false, "Relay block %s not found", hash)
 			}
-			// if block.PoWHash == "" && block.Header.Version() >= constants.PoWIntegrityMinVersion {
-			// 	return protocolerrors.Errorf(false, "Relay block %s PoW hash not found", hash)
-			// }
+			if block.PoWHash == "" && block.Header.Version() >= constants.PoWIntegrityMinVersion {
+				break
+			}
 			if block.Header.Version() != constants.BlockVersion {
 				break
 			}
