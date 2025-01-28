@@ -85,7 +85,6 @@ func (flow *handleRelayInvsFlow) banConnection() {
 			fmt.Printf("Failed banning connection: %s (%s)", flow.netConnecion.NetAddress().String(), err)
 			return
 		}
-		flow.connectionManager.RemoveConnection(flow.netConnecion.NetAddress().String())
 		fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().String())
 	}
 }
