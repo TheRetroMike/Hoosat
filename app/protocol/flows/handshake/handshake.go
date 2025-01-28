@@ -5,7 +5,6 @@ import (
 
 	"github.com/Hoosat-Oy/HTND/domain"
 
-	"github.com/Hoosat-Oy/HTND/app/protocol/common"
 	"github.com/Hoosat-Oy/HTND/app/protocol/protocolerrors"
 	"github.com/Hoosat-Oy/HTND/infrastructure/network/addressmanager"
 
@@ -26,6 +25,7 @@ type HandleHandshakeContext interface {
 	AddressManager() *addressmanager.AddressManager
 	AddToPeers(peer *peerpkg.Peer) error
 	HasPeer(peer *peerpkg.Peer) bool
+	RemoveFromPeers(peer *peerpkg.Peer)
 	HandleError(err error, flowName string, isStopping *uint32, errChan chan<- error)
 }
 
@@ -80,12 +80,9 @@ func HandleHandshake(context HandleHandshakeContext, netConnection *netadapter.N
 		return nil, nil
 	case <-doneChan:
 	}
-	err := context.AddToPeers(peer)
-	if err != nil {
-		if errors.Is(err, common.ErrPeerWithSameIDExists) {
-			return nil, protocolerrors.Wrap(false, err, "peer already exists")
-		}
-		return nil, err
+	exists := context.HasPeer(peer)
+	if exists {
+		context.RemoveFromPeers(peer)
 	}
 
 	if peerAddress != nil {
