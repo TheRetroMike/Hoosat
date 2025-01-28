@@ -121,12 +121,12 @@ func logHashRate() {
 
 func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error {
 	blockHash := consensushashing.BlockHash(block)
-	log.Infof("Submitting block %s to %s", blockHash, client.Address())
+	log.Infof("Submitting block: %s\n with PoW Hash: %s", blockHash, block.PoWHash)
 
 	rejectReason, err := client.SubmitBlock(block, block.PoWHash)
 	if err != nil {
 		if nativeerrors.Is(err, router.ErrTimeout) {
-			log.Warnf("Got timeout while submitting block %s to %s: %s", blockHash, client.Address(), err)
+			log.Warnf("Got timeout while submitting block: %s\n with PoW Hash: %s\n%s", blockHash, block.PoWHash, err)
 			return client.Reconnect()
 		}
 		if nativeerrors.Is(err, router.ErrRouteClosed) {
@@ -163,7 +163,7 @@ func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
 			mutHeader.SetNonce(nonce)
 			block.PoWHash = hash.String()
 			block.Header = mutHeader.ToImmutable()
-			log.Infof("Found block %s with parents %s", consensushashing.BlockHash(block), block.Header.DirectParents())
+			log.Infof("Found block %s\n with parents %s", consensushashing.BlockHash(block), block.Header.DirectParents())
 			return block
 		}
 	}

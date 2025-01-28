@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/client"
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/daemon/pb"
@@ -13,6 +14,9 @@ import (
 	"github.com/Hoosat-Oy/HTND/cmd/htnwallet/utils"
 	"github.com/pkg/errors"
 )
+
+const maxRetries = 3
+const retryDelay = 2 * time.Second
 
 func send(conf *sendConfig) error {
 	keysFile, err := keys.ReadKeysFile(conf.NetParams(), conf.KeysFile)
@@ -36,7 +40,6 @@ func send(conf *sendConfig) error {
 	var sendAmountSompi uint64
 	if !conf.IsSendAll {
 		sendAmountSompi, err = utils.KasToSompi(conf.SendAmount)
-
 		if err != nil {
 			return err
 		}
@@ -89,14 +92,23 @@ func send(conf *sendConfig) error {
 		}
 
 		chunk := signedTransactions[offset:end]
-		response, err := daemonClient.Broadcast(broadcastCtx, &pb.BroadcastRequest{Transactions: chunk})
-		if err != nil {
-			return err
-		}
-		fmt.Printf("Broadcasted %d transaction(s) (broadcasted %.2f%% of the transactions so far)\n", len(chunk), 100*float64(end)/float64(len(signedTransactions)))
-		fmt.Println("Broadcasted Transaction ID(s): ")
-		for _, txID := range response.TxIDs {
-			fmt.Printf("\t%s\n", txID)
+		for attempt := 1; attempt <= maxRetries; attempt++ {
+			response, err := daemonClient.Broadcast(broadcastCtx, &pb.BroadcastRequest{Transactions: chunk})
+			if err != nil {
+				if attempt < maxRetries {
+					fmt.Printf("Broadcast attempt %d failed. Retrying in %s...\n", attempt, retryDelay)
+					time.Sleep(retryDelay)
+					continue
+				}
+				return fmt.Errorf("failed to broadcast transactions after %d attempts: %w", maxRetries, err)
+			}
+
+			fmt.Printf("Broadcasted %d transaction(s) (broadcasted %.2f%% of the transactions so far)\n", len(chunk), 100*float64(end)/float64(len(signedTransactions)))
+			fmt.Println("Broadcasted Transaction ID(s): ")
+			for _, txID := range response.TxIDs {
+				fmt.Printf("\t%s\n", txID)
+			}
+			break
 		}
 	}
 
