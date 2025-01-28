@@ -80,12 +80,8 @@ func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.Co
 
 func (flow *handleRelayInvsFlow) banConnection() {
 	if flow.netConnecion.ShouldWeBan(5) {
-		err := flow.connectionManager.Ban(flow.netConnecion)
-		if err != nil {
-			fmt.Printf("Failed banning connection: %s (%s)", flow.netConnecion.NetAddress().String(), err)
-			return
-		}
-		fmt.Printf("Banning connection: %s", flow.netConnecion.NetAddress().String())
+
+		fmt.Printf("You should be banning connection: %s", flow.netConnecion.NetAddress().String())
 	}
 }
 
