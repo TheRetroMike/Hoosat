@@ -394,8 +394,11 @@ func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock, po
 }
 
 func (flow *handleRelayInvsFlow) relayBlock(block *externalapi.DomainBlock) error {
-	blockHash := consensushashing.BlockHash(block)
-	return flow.Broadcast(appmessage.NewMsgInvBlock(blockHash))
+	if block.PoWHash != "" {
+		blockHash := consensushashing.BlockHash(block)
+		return flow.Broadcast(appmessage.NewMsgInvBlock(blockHash))
+	}
+	return nil
 }
 
 func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) error {
