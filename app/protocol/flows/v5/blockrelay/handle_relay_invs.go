@@ -199,20 +199,13 @@ func (flow *handleRelayInvsFlow) start() error {
 				}
 			}
 		}
-		powSkip := false
-		if inv.IsOrphanRoot || block.PoWHash == "POW_SKIP_ORPHANROOT" {
-			if block.PoWHash == "" {
-				block.PoWHash = "POW_SKIP_ORPHANROOT"
-			}
-			powSkip = true
-		}
 		log.Debugf("Processing block %s", inv.Hash)
 		oldVirtualInfo, err := flow.Domain().Consensus().GetVirtualInfo()
 		if err != nil {
 			return err
 		}
 		// We need the PoW hash for processBlock from P2P.
-		missingParents, err := flow.processBlock(block, powSkip)
+		missingParents, err := flow.processBlock(block, false)
 		if err != nil {
 			if errors.Is(err, ruleerrors.ErrPrunedBlock) {
 				log.Infof("Ignoring pruned block %s", inv.Hash)
