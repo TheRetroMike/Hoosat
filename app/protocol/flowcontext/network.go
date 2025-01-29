@@ -28,6 +28,16 @@ func (f *FlowContext) HasPeer(peer *peerpkg.Peer) bool {
 	return false
 }
 
+func (f *FlowContext) GetPeer(peer *peerpkg.Peer) *peerpkg.Peer {
+	f.peersMutex.Lock()
+	defer f.peersMutex.Unlock()
+	peer, ok := f.peers[*peer.ID()]
+	if !ok {
+		return nil
+	}
+	return peer
+}
+
 // AddToPeers marks this peer as ready and adds it to the ready peers list.
 func (f *FlowContext) AddToPeers(peer *peerpkg.Peer) error {
 	f.peersMutex.Lock()
