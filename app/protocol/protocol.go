@@ -68,10 +68,6 @@ func (m *Manager) routerInitializer(router *routerpkg.Router, netConnection *net
 	isStopping := uint32(0)
 	errChan := make(chan error, 1)
 
-	if isLocalAddress(netConnection.Address()) {
-		return // No error message, not to confuse node runners.
-	}
-
 	receiveVersionRoute, sendVersionRoute, receiveReadyRoute := registerHandshakeRoutes(router)
 
 	// After flows were registered - spawn a new thread that will wait for connection to finish initializing
