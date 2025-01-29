@@ -37,10 +37,10 @@ func HandleRelayBlockRequests(context RelayBlockRequestsContext, incomingRoute *
 				return protocolerrors.Errorf(false, "Relay block %s not found", hash)
 			}
 			if block.PoWHash == "" && block.Header.Version() >= constants.PoWIntegrityMinVersion {
-				break
+				continue
 			}
 			if block.Header.Version() != constants.BlockVersion {
-				break
+				continue
 			}
 			err = outgoingRoute.Enqueue(appmessage.DomainBlockToMsgBlock(block))
 			if err != nil {

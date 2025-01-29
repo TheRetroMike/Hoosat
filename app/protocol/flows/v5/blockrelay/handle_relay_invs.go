@@ -224,7 +224,6 @@ func (flow *handleRelayInvsFlow) start() error {
 			}
 			if errors.Is(err, ruleerrors.ErrInvalidPoW) {
 				log.Infof(fmt.Sprintf("Ignoring invalid PoW %s, consider banning: %s", block.PoWHash, flow.netConnecion.NetAddress().String()))
-				flow.banConnection()
 				continue
 			}
 			return err
@@ -288,7 +287,6 @@ func (flow *handleRelayInvsFlow) start() error {
 
 func (flow *handleRelayInvsFlow) banIfBlockIsHeaderOnly(block *externalapi.DomainBlock) error {
 	if len(block.Transactions) == 0 {
-		flow.banConnection()
 		return protocolerrors.Errorf(true, "sent header of %s block where expected block with body",
 			consensushashing.BlockHash(block))
 	}
