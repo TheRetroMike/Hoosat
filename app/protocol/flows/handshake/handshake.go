@@ -81,16 +81,20 @@ func HandleHandshake(context HandleHandshakeContext, netConnection *netadapter.N
 		return nil, nil
 	case <-doneChan:
 	}
-	err := context.AddToPeers(peer)
-	if err != nil {
-		if !errors.Is(err, common.ErrPeerWithSameIDExists) {
+	if !context.HasPeer(peer) {
+		err := context.AddToPeers(peer)
+		if err != nil {
+			if errors.Is(err, common.ErrPeerWithSameIDExists) {
+				return nil, protocolerrors.Wrap(false, err, "peer already exists")
+			}
 			return nil, err
 		}
-	}
-	if peerAddress != nil {
-		err := context.AddressManager().AddAddresses(peerAddress)
-		if err != nil {
-			return nil, err
+
+		if peerAddress != nil {
+			err := context.AddressManager().AddAddresses(peerAddress)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 	return peer, nil
