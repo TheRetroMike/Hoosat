@@ -104,7 +104,6 @@ func (m *Manager) routerInitializer(router *routerpkg.Router, netConnection *net
 
 		peer, err := handshake.HandleHandshake(m.context, netConnection, receiveVersionRoute,
 			sendVersionRoute, router.OutgoingRoute())
-		defer m.context.RemoveFromPeers(peer)
 		if err != nil {
 			// non-blocking read from channel
 			select {
@@ -120,6 +119,7 @@ func (m *Manager) routerInitializer(router *routerpkg.Router, netConnection *net
 			}
 			return
 		}
+		defer m.context.RemoveFromPeers(peer)
 
 		var flows []*common.Flow
 		log.Infof("Registering p2p flows for peer %s for protocol version %d", peer, peer.ProtocolVersion())
@@ -167,7 +167,7 @@ func (m *Manager) handleError(err error, netConnection *netadapter.NetConnection
 				panic(err)
 			}
 		}
-		log.Infof("Disconnecting from %s (reason: %s)", netConnection, protocolErr.Cause)
+		log.Debugf("Disconnecting from %s (reason: %s)", netConnection, protocolErr.Cause)
 		netConnection.Disconnect()
 		return
 	}
