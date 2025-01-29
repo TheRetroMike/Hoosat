@@ -122,9 +122,7 @@ func (f *FlowContext) AddBlock(block *externalapi.DomainBlock) error {
 	if err != nil {
 		return err
 	}
-	if block.PoWHash != "" {
-		return f.Broadcast(appmessage.NewMsgInvBlock(consensushashing.BlockHash(block)))
-	}
+	return f.Broadcast(appmessage.NewMsgInvBlock(consensushashing.BlockHash(block)))
 	return nil
 }
 
