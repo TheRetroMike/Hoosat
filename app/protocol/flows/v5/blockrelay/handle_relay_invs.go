@@ -254,11 +254,13 @@ func (flow *handleRelayInvsFlow) start() error {
 			if !found {
 				return protocolerrors.Errorf(false, "Virtual parent %s not found", parent)
 			}
-			blockHash := consensushashing.BlockHash(block)
-			log.Debugf("Relaying block %s", blockHash)
-			err = flow.relayBlock(block)
-			if err != nil {
-				return err
+			if block.PoWHash != "" {
+				blockHash := consensushashing.BlockHash(block)
+				log.Debugf("Relaying block %s", blockHash)
+				err = flow.relayBlock(block)
+				if err != nil {
+					return err
+				}
 			}
 		}
 
