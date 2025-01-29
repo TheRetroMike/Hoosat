@@ -81,7 +81,7 @@ func (m *Manager) routerInitializer(router *routerpkg.Router, netConnection *net
 		}
 
 		if isLocalAddress(netConnection.Address()) {
-			log.Infof("Peer %s is self. Disconnecting...", netConnection)
+			log.Debugf("Peer %s is self. Disconnecting...", netConnection)
 			netConnection.Disconnect()
 			return
 		}
