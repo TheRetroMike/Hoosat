@@ -80,12 +80,6 @@ func (m *Manager) routerInitializer(router *routerpkg.Router, netConnection *net
 			panic(errors.Errorf("tried to initialize router when the protocol manager is closed"))
 		}
 
-		if isLocalAddress(netConnection.Address()) {
-			log.Debugf("Peer %s is self. Disconnecting...", netConnection)
-			netConnection.Disconnect()
-			return
-		}
-
 		isBanned, err := m.context.ConnectionManager().IsBanned(netConnection)
 		if err != nil && !errors.Is(err, addressmanager.ErrAddressNotFound) {
 			panic(err)
