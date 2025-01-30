@@ -4,6 +4,7 @@ import (
 	"github.com/Hoosat-Oy/HTND/domain/consensus/model/externalapi"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/ruleerrors"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/consensushashing"
+	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/constants"
 	"github.com/Hoosat-Oy/HTND/domain/consensus/utils/hashset"
 	"github.com/Hoosat-Oy/HTND/infrastructure/logger"
 	"github.com/pkg/errors"
@@ -140,8 +141,11 @@ func (f *FlowContext) unorphanBlock(orphanHash externalapi.DomainHash) (bool, er
 		return false, errors.Errorf("attempted to unorphan a non-orphan block %s", orphanHash)
 	}
 	delete(f.orphans, orphanHash)
-
-	err := f.domain.Consensus().ValidateAndInsertBlock(orphanBlock, true, false)
+	var powSkip = true
+	if orphanBlock.Header.Version() >= constants.PoWIntegrityMinVersion {
+		powSkip = false
+	}
+	err := f.domain.Consensus().ValidateAndInsertBlock(orphanBlock, true, powSkip)
 	if err != nil {
 		if errors.As(err, &ruleerrors.RuleError{}) {
 			log.Warnf("Validation failed for orphan block %s: %s", orphanHash, err)
@@ -151,7 +155,9 @@ func (f *FlowContext) unorphanBlock(orphanHash externalapi.DomainHash) (bool, er
 	}
 
 	log.Infof("Unorphaned block %s", orphanHash)
-	log.Infof("Unorphaned pow hash %s", orphanBlock.PoWHash)
+	if !powSkip {
+		log.Infof("Unorphaned pow hash %s", orphanBlock.PoWHash)
+	}
 	return true, nil
 }
 
