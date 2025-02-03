@@ -134,7 +134,7 @@ func (state *State) CalculateProofOfWorkValue() (*big.Int, *externalapi.DomainHa
 		return state.CalculateProofOfWorkValuePyrinhash()
 	} else if state.blockVersion == 2 {
 		return state.CalculateProofOfWorkValueHoohashV1()
-	} else if state.blockVersion == 3 {
+	} else if state.blockVersion >= 3 {
 		return state.CalculateProofOfWorkValueHoohashV101()
 	} else {
 		return state.CalculateProofOfWorkValuePyrinhash() // default to the oldest version.
@@ -233,12 +233,9 @@ func (state *State) IncrementNonce() {
 func (state *State) CheckProofOfWork(powString string) bool {
 	// The block pow must be less than the claimed target
 	powNum, _ := state.CalculateProofOfWorkValue()
-	if state.blockVersion <= 2 {
+	if state.blockVersion <= 3 {
 		return powNum.Cmp(&state.Target) <= 0
-	} else if state.blockVersion >= 3 {
-		if powString == "SKIP_POW" {
-			return powNum.Cmp(&state.Target) <= 0
-		}
+	} else if state.blockVersion > 3 {
 		powHash, err := externalapi.NewDomainHashFromString(powString)
 		if err != nil {
 			return false

@@ -6,9 +6,10 @@ var (
 	// BlockVersion represents the current block
 	// 1 Pyrinhash
 	// 2 HoohashV1
-	// 3 HoohashV2
+	// 3 HoohashV1.0.1
+	// 4 HoohashV1.0.1 + Pow hash validation
 	BlockVersion           uint16 = 1
-	PoWIntegrityMinVersion uint16 = 3
+	PoWIntegrityMinVersion uint16 = 4
 )
 
 const (
