@@ -1,4 +1,4 @@
-HTND v1.2.0 - 2024-08-17
+HTND v1.2.0 - 2025-02-03
 ===========================
 * Securing Proof of Work Integrity solution implemented network wide. 
 * Cli wallet send will automatically try 3 times to resend transaction if fails.
