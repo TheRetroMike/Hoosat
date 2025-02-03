@@ -1,3 +1,8 @@
+HTND v1.2.0 - 2024-08-17
+===========================
+* Securing Proof of Work Integrity solution implemented network wide. 
+* Movement to Block Version 4 in DAA Score 29,335,426.
+
 HTND v1.1.0 - 2024-08-17
 ===========================
 * Real Proof of Work hash validation in block version 3.
