@@ -162,6 +162,7 @@ func (flow *handleRelayInvsFlow) start() error {
 			constants.BlockVersion = version
 			if block.Header.Version() != constants.BlockVersion {
 				log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
+				log.Infof("Unprocessable block relayed by %s", flow.netConnecion.NetAddress().String())
 				continue
 			}
 		}

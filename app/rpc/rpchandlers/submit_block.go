@@ -40,7 +40,7 @@ func HandleSubmitBlock(context *rpccontext.Context, _ *router.Router, request ap
 		if err != nil {
 			submitBlockRequestJSON, _ := json.MarshalIndent(submitBlockRequest.Block, "", "    ")
 			return &appmessage.SubmitBlockResponseMessage{
-				Error:        appmessage.RPCErrorf(fmt.Sprintf("lock not submitted, proof of work is not valid data! %s", string(submitBlockRequestJSON))),
+				Error:        appmessage.RPCErrorf(fmt.Sprintf("Block not submitted, proof of work is not valid data! %s", string(submitBlockRequestJSON))),
 				RejectReason: appmessage.RejectReasonBlockInvalid,
 			}, nil
 		}
