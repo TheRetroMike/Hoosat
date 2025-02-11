@@ -230,7 +230,7 @@ func (flow *handleRelayInvsFlow) start() error {
 			return err
 		}
 		if len(missingParents) > 0 {
-			log.Infof("Block %s is orphan and has missing parents: %s", inv.Hash, missingParents)
+			log.Infof("Block %s  %s is orphan and has missing parents: %s", inv.Hash, block.Header.Version(), missingParents)
 			err := flow.processOrphan(block)
 			if err != nil {
 				return err
@@ -406,17 +406,17 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 
 	// Return if the block has been orphaned from elsewhere already
 	if flow.IsOrphan(blockHash) {
-		log.Debugf("Skipping orphan processing for block %s because it is already an orphan", blockHash)
+		log.Infof("Skipping orphan processing for block %s because it is already an orphan", blockHash)
 		return nil
 	}
 
 	if block.Header.Version() != constants.BlockVersion {
-		log.Debugf("Skipping orphan processing for block %s because it is wrong block version", blockHash)
+		log.Infof("Skipping orphan processing for block %s because it is wrong block version", blockHash)
 		return nil
 	}
 
 	if block.Header.Version() >= constants.PoWIntegrityMinVersion && block.PoWHash != "" {
-		log.Debugf("Skipping orphan processing for block %s because it is missing pow hash", blockHash)
+		log.Infof("Skipping orphan processing for block %s because it is missing pow hash", blockHash)
 		return nil
 	}
 
