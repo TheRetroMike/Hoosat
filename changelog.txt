@@ -1,3 +1,8 @@
+HTND v1.2.1 - 2025-02-11
+===========================
+* Remove processOrphanBlock call from processBlock, because it shouldn't be there.
+* Add automatic banning for wrong block version miners. 
+
 HTND v1.2.0 - 2025-02-03
 ===========================
 * Securing Proof of Work Integrity solution implemented network wide. 
