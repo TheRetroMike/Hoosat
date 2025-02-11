@@ -415,7 +415,7 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 		return nil
 	}
 
-	if block.Header.Version() >= constants.PoWIntegrityMinVersion && block.PoWHash != "" {
+	if block.Header.Version() >= constants.PoWIntegrityMinVersion && block.PoWHash == "" {
 		log.Infof("Skipping orphan processing for block %s because it is missing pow hash", blockHash)
 		return nil
 	}
