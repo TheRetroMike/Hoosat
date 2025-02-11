@@ -230,7 +230,7 @@ func (flow *handleRelayInvsFlow) start() error {
 			return err
 		}
 		if len(missingParents) > 0 {
-			log.Infof("Block %s %d is orphan and has missing parents: %s", inv.Hash, block.Header.Version(), missingParents)
+			log.Debugf("Block %s %d is orphan and has missing parents: %s", inv.Hash, block.Header.Version(), missingParents)
 			err := flow.processOrphan(block)
 			if err != nil {
 				return err
@@ -438,8 +438,8 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 				return nil
 			}
 		}
-		log.Infof("Block %s is within orphan resolution range with right block version. "+
-			"Adding it to the orphan set", blockHash)
+		log.Infof("Block %s is within orphan resolution range with right block version %d. "+
+			"Adding it to the orphan set", block.Header.Version(), blockHash)
 		flow.AddOrphan(block)
 		log.Infof("Requesting block %s missing ancestors", blockHash)
 		return flow.AddOrphanRootsToQueue(blockHash)
@@ -518,7 +518,7 @@ func (flow *handleRelayInvsFlow) AddOrphanRootsToQueue(orphan *externalapi.Domai
 
 	invMessages := make([]invRelayBlock, len(orphanRoots))
 	for i, root := range orphanRoots {
-		log.Debugf("Adding block %s missing ancestor %s to the invs queue", orphan, root)
+		log.Infof("Adding block %s missing ancestor %s to the invs queue", orphan, root)
 		invMessages[i] = invRelayBlock{Hash: root, IsOrphanRoot: true}
 	}
 
