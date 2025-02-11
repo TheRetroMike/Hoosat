@@ -236,7 +236,7 @@ func (flow *handleRelayInvsFlow) start() error {
 			return err
 		}
 		if len(missingParents) > 0 {
-			log.Debugf("Block %s %d is orphan and has missing parents: %s", inv.Hash, block.Header.Version(), missingParents)
+			log.Infof("Received a block with missing parents from %s, adding to orphan pool: %s", flow.netConnection.NetAddress().String(), inv.Hash)
 			err := flow.processOrphan(block)
 			if err != nil {
 				return err

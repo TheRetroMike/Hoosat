@@ -29,8 +29,7 @@ func (f *FlowContext) AddOrphan(orphanBlock *externalapi.DomainBlock) {
 		f.evictRandomOrphan()
 	}
 
-	log.Infof("Received a block with missing parents, adding to orphan pool: %s", orphanHash)
-
+	//log.Infof("Received a block with missing parents, adding to orphan pool: %s", orphanHash)
 }
 
 func (f *FlowContext) evictRandomOrphan() {
