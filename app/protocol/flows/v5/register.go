@@ -54,7 +54,7 @@ func registerAddressFlows(m protocolManager, router *routerpkg.Router, isStoppin
 	}
 }
 
-func registerBlockRelayFlows(m protocolManager, netConnecion *netadapter.NetConnection, router *routerpkg.Router, isStopping *uint32, errChan chan error) []*common.Flow {
+func registerBlockRelayFlows(m protocolManager, netConnection *netadapter.NetConnection, router *routerpkg.Router, isStopping *uint32, errChan chan error) []*common.Flow {
 	outgoingRoute := router.OutgoingRoute()
 
 	return []*common.Flow{
@@ -67,7 +67,7 @@ func registerBlockRelayFlows(m protocolManager, netConnecion *netadapter.NetConn
 			appmessage.CmdInvRelayBlock, appmessage.CmdBlock, appmessage.CmdBlockLocator,
 		},
 			isStopping, errChan, func(incomingRoute *routerpkg.Route, peer *peerpkg.Peer) error {
-				return blockrelay.HandleRelayInvs(m.Context(), m.Context().ConnectionManager(), netConnecion, incomingRoute,
+				return blockrelay.HandleRelayInvs(m.Context(), m.Context().ConnectionManager(), netConnection, incomingRoute,
 					outgoingRoute, peer)
 			},
 		),

@@ -54,13 +54,13 @@ type handleRelayInvsFlow struct {
 	incomingRoute, outgoingRoute *router.Route
 	peer                         *peerpkg.Peer
 	connectionManager            *connmanager.ConnectionManager
-	netConnecion                 *netadapter.NetConnection
+	netConnection                *netadapter.NetConnection
 	invsQueue                    []invRelayBlock
 }
 
 // HandleRelayInvs listens to appmessage.MsgInvRelayBlock messages, requests their corresponding blocks if they
 // are missing, adds them to the DAG and propagates them to the rest of the network.
-func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.ConnectionManager, netConnecion *netadapter.NetConnection, incomingRoute *router.Route, outgoingRoute *router.Route,
+func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.ConnectionManager, netConnection *netadapter.NetConnection, incomingRoute *router.Route, outgoingRoute *router.Route,
 	peer *peerpkg.Peer) error {
 
 	flow := &handleRelayInvsFlow{
@@ -69,7 +69,7 @@ func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.Co
 		outgoingRoute:     outgoingRoute,
 		peer:              peer,
 		connectionManager: connectionManager,
-		netConnecion:      netConnecion,
+		netConnection:     netConnection,
 		invsQueue:         make([]invRelayBlock, 0),
 	}
 	err := flow.start()
@@ -79,9 +79,14 @@ func HandleRelayInvs(context RelayInvsContext, connectionManager *connmanager.Co
 }
 
 func (flow *handleRelayInvsFlow) banConnection() {
-	if flow.netConnecion.ShouldWeBan(5) {
-
-		fmt.Printf("You should be banning connection: %s", flow.netConnecion.NetAddress().String())
+	address := flow.netConnection.Address()
+	log.Infof("We are banning connection: %s", address)
+	flow.connectionManager.Ban(flow.netConnection)
+	isBanned, _ := flow.connectionManager.IsBanned(flow.netConnection)
+	if isBanned {
+		log.Infof("Peer %s is banned. Disconnecting...", flow.netConnection.NetAddress().IP)
+		flow.netConnection.Disconnect()
+		return
 	}
 }
 
@@ -162,7 +167,8 @@ func (flow *handleRelayInvsFlow) start() error {
 			constants.BlockVersion = version
 			if block.Header.Version() != constants.BlockVersion {
 				log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
-				log.Infof("Unprocessable block relayed by %s", flow.netConnecion.NetAddress().String())
+				log.Infof("Unprocessable block relayed by %s", flow.netConnection.NetAddress().String())
+				flow.banConnection()
 				continue
 			}
 		}
@@ -221,9 +227,9 @@ func (flow *handleRelayInvsFlow) start() error {
 			}
 			if errors.Is(err, ruleerrors.ErrInvalidPoW) {
 				if block.PoWHash != "" {
-					log.Infof(fmt.Sprintf("Ignoring invalid PoW %s, consider banning: %s", block.PoWHash, flow.netConnecion.NetAddress().String()))
+					log.Infof(fmt.Sprintf("Ignoring invalid PoW %s, consider banning: %s", block.PoWHash, flow.netConnection.NetAddress().String()))
 				} else {
-					log.Infof(fmt.Sprintf("Ignoring invalid empty PoW, consider banning: %s", flow.netConnecion.NetAddress().String()))
+					log.Infof(fmt.Sprintf("Ignoring invalid empty PoW, consider banning: %s", flow.netConnection.NetAddress().String()))
 				}
 				continue
 			}
@@ -279,7 +285,7 @@ func (flow *handleRelayInvsFlow) start() error {
 				return err
 			}
 		}
-		log.Infof("Accepted relayed block from node %s", flow.netConnecion.Address())
+		log.Infof("Accepted relayed block from node %s", flow.netConnection.Address())
 		log.Infof("Accepted block %s via relay", inv.Hash)
 		log.Infof("Accepted PoW hash %s", block.PoWHash)
 		err = flow.OnNewBlock(block)
@@ -446,7 +452,7 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 	}
 
 	// Start IBD unless we already are in IBD
-	log.Debugf("Block %s is out of orphan resolution range. "+
+	log.Infof("Block %s is out of orphan resolution range. "+
 		"Attempting to start IBD against it.", blockHash)
 
 	// Send the block to IBD flow via the IBDRequestChannel.
