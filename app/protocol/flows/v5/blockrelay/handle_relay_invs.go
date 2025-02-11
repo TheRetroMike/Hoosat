@@ -379,23 +379,16 @@ func (flow *handleRelayInvsFlow) processBlock(block *externalapi.DomainBlock, po
 	err := flow.Domain().Consensus().ValidateAndInsertBlock(block, true, powSkip)
 	if err != nil {
 		if !errors.As(err, &ruleerrors.RuleError{}) {
-			err = flow.processOrphan(block)
-			if err == nil {
-				return nil, nil
-			}
 			return nil, errors.Wrapf(err, "failed to process block %s", blockHash)
 		}
+
 		missingParentsError := &ruleerrors.ErrMissingParents{}
 		if errors.As(err, missingParentsError) {
 			return missingParentsError.MissingParentHashes, nil
 		}
 		// A duplicate block should not appear to the user as a warning and is already reported in the calling function
 		if !errors.Is(err, ruleerrors.ErrDuplicateBlock) {
-			if block.PoWHash == "" {
-				log.Warnf("Rejected block %s with Pow Hash Empty from %s: %s", blockHash, flow.peer, err)
-			} else {
-				log.Warnf("Rejected block %s with Pow Hash %s from %s: %s", blockHash, block.PoWHash, flow.peer, err)
-			}
+			log.Warnf("Rejected block %s from %s: %s", blockHash, flow.peer, err)
 		}
 		return nil, protocolerrors.Wrapf(true, err, "got invalid block %s from relay", blockHash)
 	}
