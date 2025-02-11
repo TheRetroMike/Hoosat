@@ -230,7 +230,7 @@ func (flow *handleRelayInvsFlow) start() error {
 			return err
 		}
 		if len(missingParents) > 0 {
-			log.Debugf("Block %s is orphan and has missing parents: %s", inv.Hash, missingParents)
+			log.Infof("Block %s is orphan and has missing parents: %s", inv.Hash, missingParents)
 			err := flow.processOrphan(block)
 			if err != nil {
 				return err
@@ -410,6 +410,16 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 		return nil
 	}
 
+	if block.Header.Version() != constants.BlockVersion {
+		log.Debugf("Skipping orphan processing for block %s because it is wrong block version", blockHash)
+		return nil
+	}
+
+	if block.Header.Version() >= constants.PoWIntegrityMinVersion && block.PoWHash != "" {
+		log.Debugf("Skipping orphan processing for block %s because it is missing pow hash", blockHash)
+		return nil
+	}
+
 	// Add the block to the orphan set if it's within orphan resolution range
 	isBlockInOrphanResolutionRange, err := flow.isBlockInOrphanResolutionRange(blockHash)
 	if err != nil {
@@ -428,11 +438,10 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 				return nil
 			}
 		}
-
-		log.Debugf("Block %s is within orphan resolution range. "+
+		log.Infof("Block %s is within orphan resolution range with right block version. "+
 			"Adding it to the orphan set", blockHash)
 		flow.AddOrphan(block)
-		log.Debugf("Requesting block %s missing ancestors", blockHash)
+		log.Infof("Requesting block %s missing ancestors", blockHash)
 		return flow.AddOrphanRootsToQueue(blockHash)
 	}
 
