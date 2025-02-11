@@ -93,6 +93,22 @@ func (flow *handleRelayInvsFlow) start() error {
 			return err
 		}
 
+		log.Debugf("Got relay inv for block %s", inv.Hash)
+
+		blockInfo, err := flow.Domain().Consensus().GetBlockInfo(inv.Hash)
+
+		if err != nil {
+			return err
+		}
+		if blockInfo.Exists && blockInfo.BlockStatus != externalapi.StatusHeaderOnly {
+			if blockInfo.BlockStatus == externalapi.StatusInvalid {
+				return protocolerrors.Errorf(true, "sent inv of an invalid block %s",
+					inv.Hash)
+			}
+			log.Debugf("Block %s already exists. continuing...", inv.Hash)
+			continue
+		}
+
 		blockHeader, err := flow.Domain().Consensus().GetBlockHeader(inv.Hash)
 		if err != nil {
 			log.Infof("Failed to retrieve header for %s", inv.Hash)
@@ -112,22 +128,6 @@ func (flow *handleRelayInvsFlow) start() error {
 				log.Infof("Unprocessable block relayed by %s", flow.netConnecion.NetAddress().String())
 				continue
 			}
-		}
-
-		log.Debugf("Got relay inv for block %s", inv.Hash)
-
-		blockInfo, err := flow.Domain().Consensus().GetBlockInfo(inv.Hash)
-
-		if err != nil {
-			return err
-		}
-		if blockInfo.Exists && blockInfo.BlockStatus != externalapi.StatusHeaderOnly {
-			if blockInfo.BlockStatus == externalapi.StatusInvalid {
-				return protocolerrors.Errorf(true, "sent inv of an invalid block %s",
-					inv.Hash)
-			}
-			log.Debugf("Block %s already exists. continuing...", inv.Hash)
-			continue
 		}
 
 		isGenesisVirtualSelectedParent, err := flow.isGenesisVirtualSelectedParent()
