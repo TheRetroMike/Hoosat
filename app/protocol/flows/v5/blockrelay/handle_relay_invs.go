@@ -439,7 +439,7 @@ func (flow *handleRelayInvsFlow) processOrphan(block *externalapi.DomainBlock) e
 			}
 		}
 		log.Infof("Block %s is within orphan resolution range with right block version %d. "+
-			"Adding it to the orphan set", block.Header.Version(), blockHash)
+			"Adding it to the orphan set", blockHash, block.Header.Version())
 		flow.AddOrphan(block)
 		log.Infof("Requesting block %s missing ancestors", blockHash)
 		return flow.AddOrphanRootsToQueue(blockHash)
