@@ -109,27 +109,6 @@ func (flow *handleRelayInvsFlow) start() error {
 			continue
 		}
 
-		blockHeader, err := flow.Domain().Consensus().GetBlockHeader(inv.Hash)
-		if err != nil {
-			log.Infof("Failed to retrieve header for %s", inv.Hash)
-			continue
-		}
-		if !flow.IsIBDRunning() {
-			daaScore := blockHeader.DAAScore()
-			var version uint16 = 1
-			for _, powScore := range flow.Config().ActiveNetParams.POWScores {
-				if daaScore >= powScore {
-					version = version + 1
-				}
-			}
-			constants.BlockVersion = version
-			if blockHeader.Version() != constants.BlockVersion {
-				log.Infof("Cannot process %s, Wrong block version %d, it should be %d", inv.Hash, blockHeader.Version(), constants.BlockVersion)
-				log.Infof("Unprocessable block relayed by %s", flow.netConnecion.NetAddress().String())
-				continue
-			}
-		}
-
 		isGenesisVirtualSelectedParent, err := flow.isGenesisVirtualSelectedParent()
 		if err != nil {
 			return err
@@ -170,6 +149,22 @@ func (flow *handleRelayInvsFlow) start() error {
 		if exists {
 			log.Debugf("Aborting requesting block %s because it already exists", inv.Hash)
 			continue
+		}
+
+		if !flow.IsIBDRunning() {
+			daaScore := block.Header.DAAScore()
+			var version uint16 = 1
+			for _, powScore := range flow.Config().ActiveNetParams.POWScores {
+				if daaScore >= powScore {
+					version = version + 1
+				}
+			}
+			constants.BlockVersion = version
+			if block.Header.Version() != constants.BlockVersion {
+				log.Infof("Cannot process %s, Wrong block version %d, it should be %d", consensushashing.BlockHash(block), block.Header.Version(), constants.BlockVersion)
+				log.Infof("Unprocessable block relayed by %s", flow.netConnecion.NetAddress().String())
+				continue
+			}
 		}
 
 		err = flow.banIfBlockIsHeaderOnly(block)
