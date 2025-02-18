@@ -28,5 +28,4 @@ RUN mkdir -p /.htnd && chown nobody:nobody /.htnd && chmod 700 /.htnd
 COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/HTND /app/
 COPY --from=build /go/src/github.com/Hoosat-Oy/HTND/infrastructure/config/sample-htnd.conf /app/
 
-USER nobody
-ENTRYPOINT [ "/sbin/tini", "--" ]
+ENTRYPOINT [ "/app/HTND", "--utxoindex" ]
